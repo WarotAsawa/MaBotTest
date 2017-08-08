@@ -7,8 +7,22 @@ $userid = 'Ua9222d61b45ff88cc7315440f4f285f3';
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channel_secret]);
 
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
-$response = $bot->replyMessage('<reply token>', $textMessageBuilder);
+try {
+	$events = $bot->parseEventRequest($req->getBody(), $signature[0]);
+} 
+foreach ($events as $event) {
+	if (!($event instanceof MessageEvent)) {
+	    $logger->info('Non message event has come');
+	    continue;
+	}
+	if (!($event instanceof TextMessage)) {
+	    $logger->info('Non text message has come');
+	    continue;
+	}
+	$replyText = $event->getText();
+	$logger->info('Reply text: ' . $replyText);
+	$resp = $bot->replyText($event->getReplyToken(), $replyText);
+	$logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
+}	
 
-echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
