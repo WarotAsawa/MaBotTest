@@ -1,4 +1,7 @@
 <?php
+
+require_once '../vendor/autoload.php';
+
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\Event\MessageEvent;
