@@ -16,6 +16,14 @@ $signature = $_SERVER['HTTP_' . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATUR
 
 try {
     $events = $bot->parseEventRequest($req->getBody(), $signature[0]);
+} catch(\LINE\LINEBot\Exception\InvalidSignatureException $e) {
+  echo 'parseEventRequest failed. InvalidSignatureException';
+} catch(\LINE\LINEBot\Exception\UnknownEventTypeException $e) {
+  echo 'parseEventRequest failed. UnknownEventTypeException';
+} catch(\LINE\LINEBot\Exception\UnknownMessageTypeException $e) {
+  echo 'parseEventRequest failed. UnknownMessageTypeException' ;
+} catch(\LINE\LINEBot\Exception\InvalidEventRequestException $e) {
+  echo 'parseEventRequest failed. InvalidEventRequestException';
 }
 foreach ($events as $event) {
   // Postback Event
