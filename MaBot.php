@@ -32,7 +32,7 @@ foreach ($events as $event) {
     continue;
   }
   // Location Event
-  if  ($event instanceof LINE\LINEBot\Event\MessageEvent\LocationMessage) {
+  if  ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {
     //$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
     $outputText = $outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("How dare you sent me your location");
     $response = $bot->replyText($event->getReplyToken(), $outputText);
