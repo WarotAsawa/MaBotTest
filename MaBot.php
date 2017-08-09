@@ -15,7 +15,7 @@ $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channel_secret]);
 $signature = $_SERVER['HTTP_' . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 
 try {
-  $events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
+    $events = $bot->parseEventRequest($req->getBody(), $signature[0]);
 }
 foreach ($events as $event) {
   // Postback Event
@@ -24,7 +24,9 @@ foreach ($events as $event) {
   }
   // Location Event
   if  ($event instanceof LINE\LINEBot\Event\MessageEvent\LocationMessage) {
-    $outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
+    //$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
+    $outputText = $outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("How dare you sent me your location");
+    $response = $bot->replyText($event->getReplyToken(), $outputText);
     continue;
   }
   
@@ -49,6 +51,6 @@ foreach ($events as $event) {
 			break;
 		}
 
-		$response = $bot->replyMessage($event->getReplyToken(), $outputText);
+		$response = $bot->replyText($event->getReplyToken(), $outputText);
 	}
 }  
