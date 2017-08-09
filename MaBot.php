@@ -10,7 +10,7 @@ $access_token = 'tYLkTfUwWhH5WVunO5G0QhjUYgiAH4Bd0Bb+oFw0pfis0E0cibf6U73f7gdZid4
 $channel_id = '1529179895';
 $channel_secret = '29834a3e45690862a8876a576bac2172';
 $userid = 'Ua9222d61b45ff88cc7315440f4f285f3';
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
+$httpClient = new LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channel_secret]);
 
 $signature = $_SERVER['HTTP_' . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
