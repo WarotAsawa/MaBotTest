@@ -1,5 +1,5 @@
 <?php
-use LINE\LINEBot\HTTPClient\CurlHTTPClient
+use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\Event\MessageEvent;
 use LINE\LINEBot\Event\MessageEvent\*;
