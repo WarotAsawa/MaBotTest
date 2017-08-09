@@ -1,6 +1,6 @@
 <?php
 
-require_once '../vendor/autoload.php';
+require_once './vendor/autoload.php';
 
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot\Constant\HTTPHeader;
@@ -9,6 +9,11 @@ use LINE\LINEBot\Event\MessageEvent\TextMessage;
 use LINE\LINEBot\Exception\InvalidEventRequestException;
 use LINE\LINEBot\Exception\InvalidSignatureException;
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Handler\FirePHPHandler;
+$logger = new Logger('LineBot');
+$logger->pushHandler(new StreamHandler('php://stderr', Logger::DEBUG));
 $access_token = 'tYLkTfUwWhH5WVunO5G0QhjUYgiAH4Bd0Bb+oFw0pfis0E0cibf6U73f7gdZid4cUcAURkLMr3D3qW3CfRbuFw3XubbKtHHY14ncqIhRpOwaB5c0BFol/ca78jdM5uCj+bDPDMfEA8bOT/cC0AAV8gdB04t89/1O/w1cDnyilFU=';
 $channel_id = '1529179895';
 $channel_secret = '29834a3e45690862a8876a576bac2172';
@@ -18,33 +23,38 @@ $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channel_secret]);
 
 $signature = $_SERVER['HTTP_' . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 
+$logger = new Logger('LineBot');
+$logger->pushHandler(new StreamHandler('php://stderr', Logger::DEBUG));
+
 try {
     $events = $bot->parseEventRequest($req->getBody(), $signature[0]);
 } catch(\LINE\LINEBot\Exception\InvalidSignatureException $e) {
-  echo 'parseEventRequest failed. InvalidSignatureException';
+	error_log('parseEventRequest failed. InvalidSignatureException => '.var_export($e, true));
 } catch(\LINE\LINEBot\Exception\UnknownEventTypeException $e) {
-  echo 'parseEventRequest failed. UnknownEventTypeException';
+	error_log('parseEventRequest failed. UnknownEventTypeException => '.var_export($e, true));
 } catch(\LINE\LINEBot\Exception\UnknownMessageTypeException $e) {
-  echo 'parseEventRequest failed. UnknownMessageTypeException' ;
+	error_log('parseEventRequest failed. UnknownMessageTypeException => '.var_export($e, true));
 } catch(\LINE\LINEBot\Exception\InvalidEventRequestException $e) {
-  echo 'parseEventRequest failed. InvalidEventRequestException';
+	error_log('parseEventRequest failed. InvalidEventRequestException => '.var_export($e, true));
 }
 foreach ($events as $event) {
   // Postback Event
-  if (($event instanceof \LINE\LINEBot\Event\PostbackEvent)) {
-    continue;
-  }
-  // Location Event
-  if  ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {
-    //$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
-    $outputText = $outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("How dare you sent me your location");
-    $response = $bot->replyText($event->getReplyToken(), $outputText);
-    continue;
-  }
-  
+  	if (($event instanceof \LINE\LINEBot\Event\PostbackEvent)) {
+		$logger->info('Postback message has come');
+		continue;
+	}
+	// Location Event
+	if  ($event instanceof LINE\LINEBot\Event\MessageEvent\LocationMessage) {
+		//$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
+   		$outputText = $outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("How dare you sent me your location");
+    	$response = $bot->replyText($event->getReplyToken(), $outputText);
+		$logger->info("location -> ".$event->getLatitude().",".$event->getLongitude());
+		continue;
+	}
+    
   // Message Event = TextMessage
   
-  if (($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
+  	if (($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
 		$messageText=strtolower(trim($event->getText()));
 		switch ($messageText) {
 		case "text" : 
