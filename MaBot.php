@@ -46,7 +46,7 @@ foreach ($events as $event) {
 	// Location Event
 	if  ($event instanceof LINE\LINEBot\Event\MessageEvent\LocationMessage) {
 		//$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
-   		$outputText = $outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("How dare you sent me your location");
+   		$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("How dare you sent me your location");
     	$response = $bot->replyText($event->getReplyToken(), $outputText);
 		$logger->info("location -> ".$event->getLatitude().",".$event->getLongitude());
 		continue;
@@ -54,9 +54,9 @@ foreach ($events as $event) {
 
     if  ($event instanceof LINE\LINEBot\Event\MessageEvent\ImageMessage) {
 		//$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
-   		$outputText = $outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("How dare you sent me your image.");
+   		$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("How dare you sent me your image.");
     	$response = $bot->replyText($event->getReplyToken(), $outputText);
-    	$outputText = $outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("Here is an image of a random sloth");
+    	$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("Here is an image of a random sloth");
     	$response = $bot->replyText($event->getReplyToken(), $outputText);
 		$img_url = "https://media.treehugger.com/assets/images/2016/07/sloth-3.jpg.662x0_q70_crop-scale.jpg";
 		$outputText = new LINE\LINEBot\MessageBuilder\ImageMessageBuilder($img_url, $img_url);
@@ -68,6 +68,7 @@ foreach ($events as $event) {
   	if (($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
 		$messageText=strtolower(trim($event->getText())); 
 		$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($messageText);
+		$response = $bot->replyText($event->getReplyToken(), $outputText);
 		if ($messageText== "text") {
 			$messageText=strtolower(trim($event->getText()));
 			$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("Na na na na na na Batman !!!!");
