@@ -74,7 +74,7 @@ foreach ($events as $event) {
 		}
 		else if ($messageText== "location") {
 			$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Eiffel Tower", "Champ de Mars, 5 Avenue Anatole France, 75007 Paris, France", 48.858328, 2.294750);
-		} else if ($messageText=="image")
+		} else if ($messageText=="image") {
 			$img_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpF37MicznKpvrBvb0syRnKTnb1iEmhUOiEiSQHqHoUCayICQ9frR9Xg";
 			$outputText = new LINE\LINEBot\MessageBuilder\ImageMessageBuilder($img_url, $img_url);
 		} else {
