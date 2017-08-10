@@ -6,6 +6,10 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\Event\MessageEvent;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
+use LINE\LINEBot\Event\MessageEvent\TextMessageBuilder;
+use LINE\LINEBot\Event\MessageEvent\LocationMessage;
+use LINE\LINEBot\Event\MessageEvent\ImageMessage;
+new LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
 use LINE\LINEBot\Exception\InvalidEventRequestException;
 use LINE\LINEBot\Exception\InvalidSignatureException;
 
@@ -67,7 +71,11 @@ foreach ($events as $event) {
   
   	if (($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
 		$messageText=strtolower(trim($event->getText())); 
+		$outputText = $messageText;
+		$response = $bot->replyText($event->getReplyToken(), $outputText);
 		$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($messageText);
+		$response = $bot->replyText($event->getReplyToken(), $outputText);
+		$outputText = 'helo helo';
 		$response = $bot->replyText($event->getReplyToken(), $outputText);
 		/*
 		if ($messageText== "text") {
