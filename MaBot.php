@@ -56,7 +56,8 @@ foreach ($events as $event) {
   
   	if (($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
 		$messageText=strtolower(trim($event->getText()));
-		switch ($messageText) {
+		$outputText =trim($event->getText());
+		/*switch ($messageText) {
 		case "text" : 
 			$messageText=strtolower(trim($event->getText()));
 			$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("Na na na na na na Batman !!!!");
@@ -70,7 +71,7 @@ foreach ($events as $event) {
 			break;	
 		default :
 			$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("demo command: text, location, button, confirm to test message template");	
-			break;
+			break;*/
 		}
 
 		$response = $bot->replyText($event->getReplyToken(), $outputText);
