@@ -69,6 +69,7 @@ foreach ($events as $event) {
 		$messageText=strtolower(trim($event->getText())); 
 		$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($messageText);
 		$response = $bot->replyText($event->getReplyToken(), $outputText);
+		/*
 		if ($messageText== "text") {
 			$messageText=strtolower(trim($event->getText()));
 			$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("Na na na na na na Batman !!!!");
@@ -83,5 +84,6 @@ foreach ($events as $event) {
 		}
 
 		$response = $bot->replyText($event->getReplyToken(), $outputText);
+		*/
 	}
 }  
