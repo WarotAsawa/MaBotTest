@@ -51,28 +51,35 @@ foreach ($events as $event) {
 		$logger->info("location -> ".$event->getLatitude().",".$event->getLongitude());
 		continue;
 	}
-    
+
+    if  ($event instanceof LINE\LINEBot\Event\MessageEvent\ImageMessage) {
+		//$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
+   		$outputText = $outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("How dare you sent me your image.");
+    	$response = $bot->replyText($event->getReplyToken(), $outputText);
+    	$outputText = $outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("Here is an image of a random sloth");
+    	$response = $bot->replyText($event->getReplyToken(), $outputText);
+		$img_url = "https://media.treehugger.com/assets/images/2016/07/sloth-3.jpg.662x0_q70_crop-scale.jpg";
+		$outputText = new LINE\LINEBot\MessageBuilder\ImageMessageBuilder($img_url, $img_url);
+    	$response = $bot->replyText($event->getReplyToken(), $outputText);
+		continue;
+	}
   // Message Event = TextMessage
   
   	if (($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
-		$messageText=strtolower(trim($event->getText()));
-		$outputText =trim($event->getText());
-		/*switch ($messageText) {
-		case "text" : 
+		$messageText=strtolower(trim($event->getText())); 
+		$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($messageText);
+		if ($messageText== "text") {
 			$messageText=strtolower(trim($event->getText()));
 			$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("Na na na na na na Batman !!!!");
-			break;
-		case "location" :
+		}
+		else if ($messageText== "location") {
 			$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Eiffel Tower", "Champ de Mars, 5 Avenue Anatole France, 75007 Paris, France", 48.858328, 2.294750);
-			break;
-		case "image" :
+		} else if ($messageText=="image")
 			$img_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpF37MicznKpvrBvb0syRnKTnb1iEmhUOiEiSQHqHoUCayICQ9frR9Xg";
 			$outputText = new LINE\LINEBot\MessageBuilder\ImageMessageBuilder($img_url, $img_url);
-			break;	
-		default :
+		} else {
 			$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("demo command: text, location, button, confirm to test message template");	
-			break;
-		}*/
+		}
 
 		$response = $bot->replyText($event->getReplyToken(), $outputText);
 	}
