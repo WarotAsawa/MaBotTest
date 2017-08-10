@@ -68,7 +68,7 @@ foreach ($events as $event) {
   	if (($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
 		$messageText=strtolower(trim($event->getText())); 
 		$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('Hello World');
-		$response = $bot->replyText($event->getReplyToken(), $outputText);
+		$bot->replyText($event->getReplyToken(), $outputText);
 		/*
 		if ($messageText== "text") {
 			$messageText=strtolower(trim($event->getText()));
