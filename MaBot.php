@@ -111,7 +111,7 @@ function replyImage($tempBot, $event, $logger) {
    		$multipleMessageBuilder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
 		$multipleMessageBuilder->add(new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($firstText, $secondText));
 		$multipleMessageBuilder->add(new \LINE\LINEBot\MessageBuilder\ImageMessageBuilder($randomSloth,$randomSloth));
-    	$response = $bot->replyText($event->getReplyToken(), $multipleMessageBuilder);
+    	$tempBot->replyText($event->getReplyToken(), $multipleMessageBuilder);
     	
 		return true;
 	}
@@ -119,5 +119,5 @@ function replyImage($tempBot, $event, $logger) {
 }
 function replyRandomQuotes($tempBot, $event, $logger) {
 	$outputText = 'MamaMia' . 0x10008A;
-	$response = $bot->replyText($event->getReplyToken(), $outputText);
+	$tempBot->replyText($event->getReplyToken(), $outputText);
 }
