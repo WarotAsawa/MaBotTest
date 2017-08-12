@@ -50,18 +50,9 @@ foreach ($events as $event) {
   	if (postBackLog($bot, $event, $logger)) continue;
 	// Location Event
 	if (replyLocation($bot, $event, $logger)) continue;
+	// Image Event
+	if (replyImage($bot, $event, $logger)) continue;
 
-    if  ($event instanceof LINE\LINEBot\Event\MessageEvent\ImageMessage) {
-		//$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
-   		$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("How dare you sent me your image.");
-    	$response = $bot->replyText($event->getReplyToken(), $outputText);
-    	$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("Here is an image of a random sloth");
-    	$response = $bot->replyText($event->getReplyToken(), $outputText);
-		$img_url = "https://media.treehugger.com/assets/images/2016/07/sloth-3.jpg.662x0_q70_crop-scale.jpg";
-		$outputText = new LINE\LINEBot\MessageBuilder\ImageMessageBuilder($img_url, $img_url);
-    	$response = $bot->replyText($event->getReplyToken(), $outputText);
-		continue;
-	}
   // Message Event = TextMessage
   
   	if (($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
@@ -108,6 +99,25 @@ function replyLocation($tempBot, $event, $logger) {
 		$outputText = $firstText . "\n" . $secondText;
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		$isReplied = true;
+	}
+	return false;
+}
+function replyImage($tempBot, $event, $logger) {
+	if  ($event instanceof LINE\LINEBot\Event\MessageEvent\ImageMessage) {
+		//$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
+   		$firstText = getRandomText('What a nice picture.', 'What a lovely image.');
+   		$secondText = 'Here is a random picture of a random sloth';
+   		$randomSloth = getRandomText('http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/photoak-threetoedsloth.ngsversion.1465391618565.png','http://www.theslothinstitutecostarica.org/wp-content/uploads/2014/08/Jon-Snow.jpg', 'https://i.giphy.com/media/rdbyJJX8NbSBW/200_s.gif');
+   		$multipleMessageBuilder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
+		$multipleMessageBuilder->add(new TextMessageBuilder($firstText, $secondText));
+		$multipleMessageBuilder->add(new ImageMessageBuilder($randomSloth,$randomSloth));
+    	$response = $bot->replyText($event->getReplyToken(), $outputText);
+    	$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("Here is an image of a random sloth");
+    	$response = $bot->replyText($event->getReplyToken(), $outputText);
+		$img_url = "https://media.treehugger.com/assets/images/2016/07/sloth-3.jpg.662x0_q70_crop-scale.jpg";
+		$outputText = new LINE\LINEBot\MessageBuilder\ImageMessageBuilder($img_url, $img_url);
+    	$response = $bot->replyText($event->getReplyToken(), $outputText);
+		return true;
 	}
 	return false;
 }
