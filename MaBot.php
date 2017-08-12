@@ -118,7 +118,7 @@ function replyGreets($tempBot, $event, $logger) {
 			'Greetings,',
 			'How can I help you,'
 		);
-		$outputText = $secondPersonName . $greetText
+		$outputText = $secondPersonName . $greetText;
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
@@ -129,7 +129,7 @@ function replyGreets($tempBot, $event, $logger) {
 			'Mornin,',
 			'Good days,'
 		);
-		$outputText = $secondPersonName . $greetText
+		$outputText = $secondPersonName . $greetText;
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
@@ -138,7 +138,7 @@ function replyGreets($tempBot, $event, $logger) {
 			'Good afternoon,',
 			'Konnichiwa,'
 		);
-		$outputText = $secondPersonName . $greetText
+		$outputText = $secondPersonName . $greetText;
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
@@ -149,7 +149,7 @@ function replyGreets($tempBot, $event, $logger) {
 			'It is geeting dark,',
 			'Today is a good day,'
 		);
-		$outputText = $secondPersonName . $greetText
+		$outputText = $secondPersonName . $greetText;
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
@@ -160,7 +160,7 @@ function replyGreets($tempBot, $event, $logger) {
 			'Sweet dream,',
 			'Dream on,'
 		);
-		$outputText = $secondPersonName . $greetText
+		$outputText = $secondPersonName . $greetText;
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
@@ -173,7 +173,7 @@ function replyGreets($tempBot, $event, $logger) {
 			'Sayonara,',
 			'Life is too short to say goodbye,'
 		);
-		$outputText = $secondPersonName . $greetText
+		$outputText = $secondPersonName . $greetText;
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
