@@ -297,7 +297,7 @@ function replyQuestion($tempBot, $event, $logger) {
 	if (isStartWithText($messageText,'why')) {
 		if (isContain($messageText,'you','stupid')) {
 			$answerText = getRandomText(
-				'I think I am quite smarter than you.',
+				'I think I am quite smarter than you.'
 			);
 			$outputText = $answerText;
 			$tempBot->replyText($event->getReplyToken(), $outputText);
