@@ -110,7 +110,7 @@ function replyImage($tempBot, $event, $logger) {
 }
 function replyGreets($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
-	$secondPersonName = getRandomText(' my fellow machine.', ' my master.',' a random homosapien creature.', ' fellas.', ' ma friend.',' my fellow mutant.');
+	$secondPersonName = getRandomText(' my fellow machine.', ' my master.', ' fellas.', ' ma friend.',' my fellow mutant.');
 	if (isContain($messageText,'hello') || isContain($messageText,'greeting') || isContain($messageText,"What's up")) {
 		$greetText = getRandomText(
 			'Hello there,',
