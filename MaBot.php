@@ -18,7 +18,6 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 
 //Check if bot has already reply or not
-$alreadyReplied = false;
 
 $logger = new Logger('LineBot');
 $logger->pushHandler(new StreamHandler('php://stderr', Logger::DEBUG));
@@ -53,7 +52,7 @@ foreach ($events as $event) {
 		continue;
 	}
 	// Location Event
-	replyLocation($bot);
+	$alreadyReplied = replyLocation($bot, $alreadyReplied);
 
     if  ($event instanceof LINE\LINEBot\Event\MessageEvent\ImageMessage) {
 		//$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
@@ -81,22 +80,6 @@ foreach ($events as $event) {
 		$response = $bot->replyText($event->getReplyToken(), $outputText);
 		$outputText = 'helo helo';
 		$response = $bot->replyText($event->getReplyToken(), $outputText);
-		/*
-		if ($messageText== "text") {
-			$messageText=strtolower(trim($event->getText()));
-			$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("Na na na na na na Batman !!!!");
-		}
-		else if ($messageText== "location") {
-			$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Eiffel Tower", "Champ de Mars, 5 Avenue Anatole France, 75007 Paris, France", 48.858328, 2.294750);
-		} else if ($messageText=="image") {
-			$img_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpF37MicznKpvrBvb0syRnKTnb1iEmhUOiEiSQHqHoUCayICQ9frR9Xg";
-			$outputText = new LINE\LINEBot\MessageBuilder\ImageMessageBuilder($img_url, $img_url);
-		} else {
-			$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("demo command: text, location, button, confirm to test message template");	
-		}
-
-		$response = $bot->replyText($event->getReplyToken(), $outputText);
-		*/
 	}
 }  
 
@@ -114,14 +97,13 @@ function getRandomText() {
 	return func_get_arg($index);
 }
 
-function replyLocation($tempBot) {
-	global $alreadyReplied;
+function replyLocation($tempBot, $alreadyReplied) {
 	$tempBot->replyText($event->getReplyToken(), $alreadyReplied);
-	if ($alreadyReplied) {return;}
+	if ($alreadyReplied) {$alreadyReplied = true;}
 	if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {
 		$outputText = 'Thank for sent me your location.\n I will find you and I will hunt you down.';
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		$alreadyReplied = true;
 	}
-
+	return $alreadyReplied;
 }
