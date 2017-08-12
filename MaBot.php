@@ -111,12 +111,8 @@ function replyImage($tempBot, $event, $logger) {
    		$multipleMessageBuilder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
 		$multipleMessageBuilder->add(new TextMessageBuilder($firstText, $secondText));
 		$multipleMessageBuilder->add(new ImageMessageBuilder($randomSloth,$randomSloth));
-    	$response = $bot->replyText($event->getReplyToken(), $outputText);
-    	$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("Here is an image of a random sloth");
-    	$response = $bot->replyText($event->getReplyToken(), $outputText);
-		$img_url = "https://media.treehugger.com/assets/images/2016/07/sloth-3.jpg.662x0_q70_crop-scale.jpg";
-		$outputText = new LINE\LINEBot\MessageBuilder\ImageMessageBuilder($img_url, $img_url);
-    	$response = $bot->replyText($event->getReplyToken(), $outputText);
+    	$response = $bot->replyText($event->getReplyToken(), $multipleMessageBuilder);
+    	
 		return true;
 	}
 	return false;
