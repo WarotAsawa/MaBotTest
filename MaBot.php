@@ -68,9 +68,11 @@ function isContain($input) {
     }
     return true;
 }
+
 function isStartWithText($input, $query) {
 	return substr($input, 0, strlen($query)) === $query;
 }
+
 function getRandomText() {
 	$index = rand(0, func_num_args()-1);
 	return func_get_arg($index);
@@ -120,7 +122,7 @@ function replyGreets($tempBot, $event, $logger) {
 		|| isStartWithText($messageText, 'hey')) {
 		$greetText = getRandomText(
 			'Hello there,',
-			'Whats up,',
+			'What\'s up,',
 			'Hi,',
 			'May I help you,',
 			'Greetings,',
