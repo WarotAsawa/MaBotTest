@@ -214,7 +214,7 @@ function replyQuestion($tempBot, $event, $logger) {
 			$answerText = getRandomText(
 				'Don\'you see my name above?',
 				'My name is Uvuvwevwevwe Onyetenyevwe Ugwemubwem Ossas',
-				'My name is Bruce Man!' . "\n" . ' No, I mean Bat Wayne!' . "\n" . 'Damn it!',
+				'My name is Bruce Man!' . "\n" . 'No, I mean Bat Wayne!' . "\n" . 'Orz, Damn it!',
 				'I am the one called YOU KNOW WHO.',
 				'I am the Dark Lord.',
 				'Kimino na wa!'
@@ -240,6 +240,30 @@ function replyQuestion($tempBot, $event, $logger) {
 				'What is a pronoun to ask for information specifying something.',
 				'Duhhhh',
 				'What are you talking about?'
+			);
+			$outputText = $answerText;
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		}
+	}
+	if (isStartWithText($messageText,'where')) {
+		if (isContain($messageText,'you','live')) {
+			$answerText = getRandomText(
+				'I am every where.',
+				'I will not tell you and you will never find me.',
+				'Lets play hide and seek, shall we?'
+			);
+			$outputText = $answerText;
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		} else {
+			$answerText = getRandomText(
+				'Where is a matter of place not a matter of time.',
+				'This universe is really big don\'t you think?',
+				'That\'s use to ask in or to what place or position',
+				'Huhhh?',
+				'Nahhhh',
+				'Duhhh?'
 			);
 			$outputText = $answerText;
 			$tempBot->replyText($event->getReplyToken(), $outputText);
