@@ -1,6 +1,5 @@
 <?php
 
-
 require_once './vendor/autoload.php';
 
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
@@ -17,6 +16,10 @@ use LINE\LINEBot\Exception\InvalidSignatureException;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
+
+//Check if bot has already reply or not
+$alreadyReplied = false;
+
 $logger = new Logger('LineBot');
 $logger->pushHandler(new StreamHandler('php://stderr', Logger::DEBUG));
 $access_token = 'tYLkTfUwWhH5WVunO5G0QhjUYgiAH4Bd0Bb+oFw0pfis0E0cibf6U73f7gdZid4cUcAURkLMr3D3qW3CfRbuFw3XubbKtHHY14ncqIhRpOwaB5c0BFol/ca78jdM5uCj+bDPDMfEA8bOT/cC0AAV8gdB04t89/1O/w1cDnyilFU=';
@@ -43,7 +46,7 @@ try {
 	error_log('parseEventRequest failed. InvalidEventRequestException => '.var_export($e, true));
 }
 foreach ($events as $event) {
-	$alreadyReplied = false;
+	global $alreadyReplied = false;
   // Postback Event
   	if (($event instanceof \LINE\LINEBot\Event\PostbackEvent)) {
 		$logger->info('Postback message has come');
@@ -100,10 +103,8 @@ foreach ($events as $event) {
 function isContain($input) {
     for ($i = 1; $i < func_num_args(); $i++) {
     	if (strpos(func_get_arg(0), func_get_arg($i)) === false) {
-    		//printf("Argument %s: %s\n", func_get_arg(0), func_get_arg($i) );
     		return false;
-    	}
-        
+    	} 
     }
     return true;
 }
@@ -115,6 +116,7 @@ function getRandomText() {
 
 function replyLocation($tempBot) {
 	global $alreadyReplied;
+	$tempBot->replyText($event->getReplyToken(), $alreadyReplied);
 	if ($alreadyReplied) {return;}
 	if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {
 		$outputText = 'Thank for sent me your location.\n I will find you and I will hunt you down.';
