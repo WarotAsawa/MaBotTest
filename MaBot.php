@@ -104,7 +104,7 @@ function postBackLog($tempBot, $event, $logger) {
 function replyLocation($tempBot, $event, $logger) {
 	if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {
 		$outputText = 'Thank for sent me your location.\n I will find you and I will hunt you down.';
-		$tempBot->replyText($event->getReplyToken(), $outputText);
+		$tempBot->replyText($event->getReplyToken(), array('Thank for sent me your location.','I will find you and I will hunt you down.'));
 		$isReplied = true;
 	}
 	return false;
