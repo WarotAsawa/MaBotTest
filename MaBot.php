@@ -106,18 +106,20 @@ function replyImage($tempBot, $event, $logger) {
 	if  ($event instanceof LINE\LINEBot\Event\MessageEvent\ImageMessage) {
 		//$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
    		$firstText = getRandomText('What a nice picture.', 'What a lovely image. ');
+   		$tempBot->replyText($event->getReplyToken(), $firstText);
+   		/*
    		$secondText = 'Here is a random picture of a random sloth';
    		$randomSloth = getRandomText('http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/photoak-threetoedsloth.ngsversion.1465391618565.png','http://www.theslothinstitutecostarica.org/wp-content/uploads/2014/08/Jon-Snow.jpg', 'https://i.giphy.com/media/rdbyJJX8NbSBW/200_s.gif');
    		$multipleMessageBuilder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
 		$multipleMessageBuilder->add(new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($firstText, $secondText));
 		$multipleMessageBuilder->add(new \LINE\LINEBot\MessageBuilder\ImageMessageBuilder($randomSloth,$randomSloth));
     	$tempBot->replyMessage($event->getReplyToken(), $multipleMessageBuilder);
-    	
+    	*/
 		return true;
 	}
 	return false;
 }
 function replyRandomQuotes($tempBot, $event, $logger) {
 	$outputText = 'MamaMia' . 0x10008A;
-	$response = $tempBot->replyText($event->getReplyToken(), $outputText);
+	$tempBot->replyText($event->getReplyToken(), $outputText);
 }
