@@ -45,10 +45,11 @@ try {
 	error_log('parseEventRequest failed. InvalidEventRequestException => '.var_export($e, true));
 }
 foreach ($events as $event) {
+	$alreadyReplied = false;
   	// Postback Event
-  	//postBackLog();
+  	postBackLog();
 	// Location Event
-	if(replyLocation($bot)) continue; 
+	alreadyReplied = replyLocation($bot, $alreadyReplied);
 
     if  ($event instanceof LINE\LINEBot\Event\MessageEvent\ImageMessage) {
 		//$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
@@ -99,11 +100,12 @@ function postBackLog() {
 		continue;
 	}
 }
-function replyLocation($tempBot) {
+function replyLocation($tempBot, $isReplied) {
+	if ($isReplied) return $isReplied;
 	if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {
 		$outputText = 'Thank for sent me your location.\n I will find you and I will hunt you down.';
 		$tempBot->replyText($event->getReplyToken(), $outputText);
-		return true;
+		$isReplied true;
 	}
-	return false;
+	return $isReplied;
 }
