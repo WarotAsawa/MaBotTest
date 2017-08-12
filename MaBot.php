@@ -179,7 +179,7 @@ function replyGreets($tempBot, $event, $logger) {
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
-	if (isContain($messageText,'thankyou') || isContain($messageText,'thank you') || isContain($messageText,'thanks') {
+	if (isContain($messageText,'thankyou') || isContain($messageText,'thank you') || isContain($messageText,'thanks')) {
 		$greetText = getRandomText(
 			'You are always welcome.',
 			'With pleasure.',
