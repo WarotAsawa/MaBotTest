@@ -214,7 +214,7 @@ function replyQuestion($tempBot, $event, $logger) {
 			$answerText = getRandomText(
 				'Don\'you see my name above?',
 				'My name is Uvuvwevwevwe Onyetenyevwe Ugwemubwem Ossas',
-				'My name is Bruce Man \n No, I mean Bat Wayne. \n Damn it!',
+				'My name is Bruce Man!' . "\n" . ' No, I mean Bat Wayne!' . "\n" . 'Damn it!',
 				'I am the one called YOU KNOW WHO.',
 				'I am the Dark Lord.',
 				'Kimino na wa!'
