@@ -106,6 +106,79 @@ function replyImage($tempBot, $event, $logger) {
 	}
 	return false;
 }
+function replyGreets($tempBot, $event, $logger) {
+	$messageText=strtolower(trim($event->getText()));
+	$secondPersonName = getRandomText(' my fellow machine.', ' my master.',' a random homosapien creature.', ' fellas.', ' ma friend.',' my fellow mutant.');
+	if (isContain($messageText,'hello') || isContain($messageText,'greeting') || isContain($messageText,"What's up")) {
+		$greetText = getRandomText(
+			'Hello there,',
+			'Whats up,',
+			'Hi,',
+			'May I help you,',
+			'Greetings,',
+			'How can I help you,'
+		);
+		$outputText = $secondPersonName . $greetText
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
+	}
+	if (isContain($messageText,'good mornin') || isContain($messageText,'goodmornin')) {
+		$greetText = getRandomText(
+			'Good morning,',
+			'Ohayogozaimasu,',
+			'Mornin,',
+			'Good days,'
+		);
+		$outputText = $secondPersonName . $greetText
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
+	}
+	if (isContain($messageText,'good afternoon') || isContain($messageText,'goodafternoon')) {
+		$greetText = getRandomText(
+			'Good afternoon,',
+			'Konnichiwa,'
+		);
+		$outputText = $secondPersonName . $greetText
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
+	}
+	if (isContain($messageText,'good evenin') || isContain($messageText,'goodevenin')) {
+		$greetText = getRandomText(
+			'Good evening,',
+			'Konbanwa,',
+			'It is geeting dark,',
+			'Today is a good day,'
+		);
+		$outputText = $secondPersonName . $greetText
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
+	}
+	if (isContain($messageText,'good night') || isContain($messageText,'goodnight')) {
+		$greetText = getRandomText(
+			'Good night,',
+			'Oyasumi,',
+			'Sweet dream,',
+			'Dream on,'
+		);
+		$outputText = $secondPersonName . $greetText
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
+	}
+	if (isContain($messageText,'bye') || isContain($messageText,'see you') || isContain($messageText,'see ya') || isContain($messageText,'farewell')) {
+		$greetText = getRandomText(
+			'Good bye,',
+			'Bye bye,',
+			'So longgg,',
+			'See ya,',
+			'Sayonara,',
+			'Life is too short to say goodbye,'
+		);
+		$outputText = $secondPersonName . $greetText
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
+	}
+	return false;
+}
 function replyJokes($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
 	if (isContain($messageText,'tell','me','joke')) {
