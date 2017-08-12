@@ -109,9 +109,7 @@ function replyImage($tempBot, $event, $logger) {
    		$secondText = 'Here is a random picture of a random sloth';
    		$randomSloth = getRandomText('http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/photoak-threetoedsloth.ngsversion.1465391618565.png','http://www.theslothinstitutecostarica.org/wp-content/uploads/2014/08/Jon-Snow.jpg', 'https://i.giphy.com/media/rdbyJJX8NbSBW/200_s.gif');
  
-    	$tempBot->replyMessage(array(
-    		'replyToken' => $event->getReplyToken(),
-    		'message' => array(
+    	$tempBot->replyMessage($event->getReplyToken(), array(
     		array(
     			'type' => 'text',
     			'text' => $firstText
@@ -124,7 +122,7 @@ function replyImage($tempBot, $event, $logger) {
     			'type' => 'image',
     			'originalContentUrl' => $randomSloth,
     			'previewImageUrl' => $randomSloth
-    		))));
+    		)));
     	
 		return true;
 	}
