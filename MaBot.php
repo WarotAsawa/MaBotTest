@@ -68,7 +68,9 @@ function isContain($input) {
     }
     return true;
 }
-
+function isStartWithText($input, $query) {
+	return substr($input, 0, strlen($query)) === $query;
+}
 function getRandomText() {
 	$index = rand(0, func_num_args()-1);
 	return func_get_arg($index);
@@ -111,7 +113,11 @@ function replyImage($tempBot, $event, $logger) {
 function replyGreets($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
 	$secondPersonName = getRandomText(' my fellow machine.', ' my master.', ' fellas.', ' ma friend.',' my fellow mutant.');
-	if (isContain($messageText,'hello') || isContain($messageText,'greeting') || isContain($messageText,"What's up")) {
+	if (isContain($messageText,'hello') 
+		|| isContain($messageText,'greeting') 
+		|| isContain($messageText,'What\'s up') 
+		|| isStartWithText($messageText, 'hi') 
+		|| isStartWithText($messageText, 'hey')) {
 		$greetText = getRandomText(
 			'Hello there,',
 			'Whats up,',
@@ -124,7 +130,8 @@ function replyGreets($tempBot, $event, $logger) {
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
-	if (isContain($messageText,'good mornin') || isContain($messageText,'goodmornin')) {
+	if (isContain($messageText,'good mornin') 
+		|| isContain($messageText,'goodmornin')) {
 		$greetText = getRandomText(
 			'Good morning,',
 			'Ohayogozaimasu,',
@@ -135,7 +142,8 @@ function replyGreets($tempBot, $event, $logger) {
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
-	if (isContain($messageText,'good afternoon') || isContain($messageText,'goodafternoon')) {
+	if (isContain($messageText,'good afternoon') 
+		|| isContain($messageText,'goodafternoon')) {
 		$greetText = getRandomText(
 			'Good afternoon,',
 			'Konnichiwa,'
@@ -144,7 +152,8 @@ function replyGreets($tempBot, $event, $logger) {
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
-	if (isContain($messageText,'good evenin') || isContain($messageText,'goodevenin')) {
+	if (isContain($messageText,'good evenin') 
+		|| isContain($messageText,'goodevenin')) {
 		$greetText = getRandomText(
 			'Good evening,',
 			'Konbanwa,',
@@ -155,7 +164,8 @@ function replyGreets($tempBot, $event, $logger) {
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
-	if (isContain($messageText,'good night') || isContain($messageText,'goodnight')) {
+	if (isContain($messageText,'good night') 
+		|| isContain($messageText,'goodnight')) {
 		$greetText = getRandomText(
 			'Good night,',
 			'Oyasumi,',
