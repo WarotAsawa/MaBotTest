@@ -108,10 +108,23 @@ function replyImage($tempBot, $event, $logger) {
    		$firstText = getRandomText('What a nice picture.', 'What a lovely image.');
    		$secondText = 'Here is a random picture of a random sloth';
    		$randomSloth = getRandomText('http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/photoak-threetoedsloth.ngsversion.1465391618565.png','http://www.theslothinstitutecostarica.org/wp-content/uploads/2014/08/Jon-Snow.jpg', 'https://i.giphy.com/media/rdbyJJX8NbSBW/200_s.gif');
-   		$multipleMessageBuilder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
-		$multipleMessageBuilder->add(new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($firstText, $secondText));
-		$multipleMessageBuilder->add(new \LINE\LINEBot\MessageBuilder\ImageMessageBuilder($randomSloth,$randomSloth));
-    	$tempBot->replyMessage($event->getReplyToken(), $multipleMessageBuilder);
+ 
+    	$tempBot->replyMessage(array(
+    		'replyToken' => $event->getReplyToken(),
+    		'message' => array(
+    		array(
+    			'type' => 'text',
+    			'text' => $firstText
+    		),
+    		array(
+    			'type' => 'text',
+    			'text' => $secondText
+    		),
+    		array(
+    			'type' => 'image',
+    			'originalContentUrl' => $randomSloth,
+    			'previewImageUrl' => $randomSloth
+    		))));
     	
 		return true;
 	}
