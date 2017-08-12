@@ -55,7 +55,7 @@ foreach ($events as $event) {
 	// Jokes Event
   	if (replyJokes($bot, $event, $logger)) continue;
   	// Random Reply
-  	if (replyJokes($bot, $event, $logger)) continue;
+  	if (replyRandomQuotes($bot, $event, $logger)) continue;
 }  
 
 function isContain($input) {
