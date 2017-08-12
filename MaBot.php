@@ -49,7 +49,7 @@ foreach ($events as $event) {
   	// Postback Event
   	postBackLog();
 	// Location Event
-	alreadyReplied = replyLocation($bot, $alreadyReplied);
+	$alreadyReplied = replyLocation($bot, $alreadyReplied);
 
     if  ($event instanceof LINE\LINEBot\Event\MessageEvent\ImageMessage) {
 		//$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
