@@ -210,7 +210,7 @@ function replyGreets($tempBot, $event, $logger) {
 function replyQuestion($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
 	$secondPersonName = getRandomText(' my fellow machine.', ' my master.', ' fellas.', ' ma friend.',' my fellow mutant.');
-	if (isStartWithText($messageText,'What') {
+	if (isStartWithText($messageText,'What')) {
 		if (isContain($messageText,'your','name')) {
 			$answerText = getRandomText(
 				'Don\'you see my name above?',
