@@ -109,8 +109,8 @@ function replyImage($tempBot, $event, $logger) {
    		$secondText = 'Here is a random picture of a random sloth';
    		$randomSloth = getRandomText('http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/photoak-threetoedsloth.ngsversion.1465391618565.png','http://www.theslothinstitutecostarica.org/wp-content/uploads/2014/08/Jon-Snow.jpg', 'https://i.giphy.com/media/rdbyJJX8NbSBW/200_s.gif');
    		$multipleMessageBuilder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
-		$multipleMessageBuilder->add(new TextMessageBuilder($firstText, $secondText));
-		$multipleMessageBuilder->add(new ImageMessageBuilder($randomSloth,$randomSloth));
+		$multipleMessageBuilder->add(new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($firstText, $secondText));
+		$multipleMessageBuilder->add(new \LINE\LINEBot\MessageBuilder\ImageMessageBuilder($randomSloth,$randomSloth));
     	$response = $bot->replyText($event->getReplyToken(), $multipleMessageBuilder);
     	
 		return true;
