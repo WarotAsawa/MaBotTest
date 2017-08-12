@@ -209,7 +209,7 @@ function replyGreets($tempBot, $event, $logger) {
 }
 function replyQuestion($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
-	if (isStartWithText($messageText,'what')) {
+	if (isStartWithText($messageText,'what') || isStartWithText($messageText,'wat')) {
 		if (isContain($messageText,'your','name')) {
 			$answerText = getRandomText(
 				'Don\'you see my name above?',
@@ -236,6 +236,7 @@ function replyQuestion($tempBot, $event, $logger) {
 		} else {
 			$answerText = getRandomText(
 				'What !??',
+				'Wattttt?',
 				'What is what ?',
 				'What is a pronoun to ask for information specifying something.',
 				'Duhhhh',
@@ -264,6 +265,49 @@ function replyQuestion($tempBot, $event, $logger) {
 				'Huhhh?',
 				'Nahhhh',
 				'Duhhh?'
+			);
+			$outputText = $answerText;
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		}
+	}
+	if (isStartWithText($messageText,'when')) {
+		if (isContain($messageText,'you','die')) {
+			$answerText = getRandomText(
+				'I am immortal. I cannot die.',
+				'If I die, I will become more powerful than you can possibly imagine.',
+			);
+			$outputText = $answerText;
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		} else {
+			$answerText = getRandomText(
+				'When is a matter of time not a matter of place.',
+				'This universe heat death is very long.',
+				'At any moment now.',
+				'Huhhh?',
+				'Nahhhh',
+				'Duhhh?'
+			);
+			$outputText = $answerText;
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		}
+	}
+	if (isStartWithText($messageText,'why')) {
+		if (isContain($messageText,'you','stupid')) {
+			$answerText = getRandomText(
+				'I think I am quite smarter than you.',
+			);
+			$outputText = $answerText;
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		} else {
+			$answerText = getRandomText(
+				'Because it is my demand.',
+				'Because it is an order from god. And I am a god now.',
+				'Do not seek for a reason.',
+				'Why should I know?'
 			);
 			$outputText = $answerText;
 			$tempBot->replyText($event->getReplyToken(), $outputText);
