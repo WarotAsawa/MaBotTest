@@ -209,7 +209,7 @@ function replyGreets($tempBot, $event, $logger) {
 }
 function replyQuestion($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
-	if (isStartWithText($messageText,'What')) {
+	if (isStartWithText($messageText,'what')) {
 		if (isContain($messageText,'your','name')) {
 			$answerText = getRandomText(
 				'Don\'you see my name above?',
