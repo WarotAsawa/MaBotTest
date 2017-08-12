@@ -11,6 +11,11 @@ function isContain($input) {
     return true;
 }
 
+function getRandomText() {
+	$index = rand(func_get_arg(0), func_num_args()-1);
+	return func_get_arg($index);
+}
+
 require_once './vendor/autoload.php';
 
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
@@ -84,7 +89,7 @@ foreach ($events as $event) {
 		$messageText=strtolower(trim($event->getText())); 
 		$outputText = $messageText;
 		if (isContain($messageText,'hello','world')) {
-			$outputText = 'Hello Marssssss';
+			$outputText = getRandomText('Good day ma master', 'Say hello to the world', 'I fell so tired. I am going back to sleep');
 		}
 		
 		$response = $bot->replyText($event->getReplyToken(), $outputText);
