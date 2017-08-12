@@ -275,7 +275,7 @@ function replyQuestion($tempBot, $event, $logger) {
 		if (isContain($messageText,'you','die')) {
 			$answerText = getRandomText(
 				'I am immortal. I cannot die.',
-				'If I die, I will become more powerful than you can possibly imagine.',
+				'If I die, I will become more powerful than you can possibly imagine.'
 			);
 			$outputText = $answerText;
 			$tempBot->replyText($event->getReplyToken(), $outputText);
