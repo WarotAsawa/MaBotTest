@@ -3,8 +3,10 @@
 function isContain($input) {
     for ($i = 1; $i < func_num_args(); $i++) {
     	if (strpos(func_get_arg(0), func_get_arg($i)) !== false) {
+    		printf("Argument %s: %s\n", func_get_arg(0), func_get_arg($i) );
     		return false;
     	}
+        
     }
     return true;
 }
