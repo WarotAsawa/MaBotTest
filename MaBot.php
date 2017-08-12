@@ -103,7 +103,10 @@ function postBackLog($tempBot, $event, $logger) {
 }
 function replyLocation($tempBot, $event, $logger) {
 	if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {
-		$tempBot->replyMessage(array($event->getReplyToken(), array(array('type'=>'text','text'=>'Thank for sent me your location.'),array('type'=>'text','text'=>'I will find you and I will hunt you down.'))));
+		$firstText = getRandomText('Thank for sent me your location.', 'I know where you are now.','Target accuried!','So that is where you are.','Target spotted!','Hey there!');
+		$secondText = getRandomText('I will find you and I will hunt you down.', 'Let me ask god to flood that whole area.','Please wait a minute. I will send some nukes there.','I will send some body the kidnapp you.');
+		$outputText = $firstText . "\n" $secondText;
+		$tempBot->replyText($event->getReplyToken(), $outputText);
 		$isReplied = true;
 	}
 	return false;
