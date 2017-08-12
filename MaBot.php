@@ -47,10 +47,9 @@ try {
 foreach ($events as $event) {
 	$alreadyReplied = false;
   	// Postback Event
-  	postBackLog();
+  	if (postBackLog($bot, $event, $logger)) continue;
 	// Location Event
-	$alreadyReplied = replyLocation($bot, $alreadyReplied);
-	if ($alreadyReplied) continue;
+	if (replyLocation($bot, $event, $logger)) continue;
 
     if  ($event instanceof LINE\LINEBot\Event\MessageEvent\ImageMessage) {
 		//$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
@@ -95,17 +94,18 @@ function getRandomText() {
 	return func_get_arg($index);
 }
 
-function postBackLog() {
+function postBackLog($tempBot, $event, $logger) {
 	if ($event instanceof \LINE\LINEBot\Event\PostbackEvent) {
 		$logger->info('Postback message has come');
+		return true;
 	}
+	return false;
 }
-function replyLocation($tempBot, $isReplied) {
-	if ($isReplied) return $isReplied;
+function replyLocation($tempBot, $event, $logger) {
 	if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {
 		$outputText = 'Thank for sent me your location.\n I will find you and I will hunt you down.';
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		$isReplied = true;
 	}
-	return $isReplied;
+	return false;
 }
