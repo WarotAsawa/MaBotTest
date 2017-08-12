@@ -70,12 +70,12 @@ foreach ($events as $event) {
 		if (isContain($messageText,'hello','world')) {
 			$outputText = getRandomText('Good day ma master', 'Say hello to the world', 'I fell so tired. I am going back to sleep');
 		}
-		
+		$outputText = 'MamaMia ' . 0x10008A;
 		$response = $bot->replyText($event->getReplyToken(), $outputText);
 
 		$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($messageText);
 		$response = $bot->replyText($event->getReplyToken(), $outputText);
-		$outputText = 'helo helo';
+		
 		$response = $bot->replyText($event->getReplyToken(), $outputText);
 	}
 }  
@@ -110,4 +110,8 @@ function replyLocation($tempBot, $event, $logger) {
 		$isReplied = true;
 	}
 	return false;
+}
+function replyRandomQuotes($tempBot, $event, $logger) {
+	$outputText = 'MamaMia' . 0x10008A;
+	$response = $bot->replyText($event->getReplyToken(), $outputText);
 }
