@@ -111,7 +111,7 @@ function replyImage($tempBot, $event, $logger) {
    		$multipleMessageBuilder = new \LINE\LINEBot\MessageBuilder\MultiMessageBuilder();
 		$multipleMessageBuilder->add(new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($firstText, $secondText));
 		$multipleMessageBuilder->add(new \LINE\LINEBot\MessageBuilder\ImageMessageBuilder($randomSloth,$randomSloth));
-    	$tempBot->replyText($event->getReplyToken(), $multipleMessageBuilder);
+    	$tempBot->replyMessage($event->getReplyToken(), $multipleMessageBuilder);
     	
 		return true;
 	}
