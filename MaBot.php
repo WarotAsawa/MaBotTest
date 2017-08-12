@@ -52,6 +52,8 @@ foreach ($events as $event) {
 	if (replyLocation($bot, $event, $logger)) continue;
 	// Image Event
 	if (replyImage($bot, $event, $logger)) continue;
+	// Greeting Reply
+	if (replyGreets($bot, $event, $logger)) continue;
 	// Jokes Event
   	if (replyJokes($bot, $event, $logger)) continue;
   	// Random Reply
