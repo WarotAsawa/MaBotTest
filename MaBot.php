@@ -1,20 +1,5 @@
 <?php
 
-function isContain($input) {
-    for ($i = 1; $i < func_num_args(); $i++) {
-    	if (strpos(func_get_arg(0), func_get_arg($i)) === false) {
-    		//printf("Argument %s: %s\n", func_get_arg(0), func_get_arg($i) );
-    		return false;
-    	}
-        
-    }
-    return true;
-}
-
-function getRandomText() {
-	$index = rand(0, func_num_args()-1);
-	return func_get_arg($index);
-}
 
 require_once './vendor/autoload.php';
 
@@ -58,19 +43,14 @@ try {
 	error_log('parseEventRequest failed. InvalidEventRequestException => '.var_export($e, true));
 }
 foreach ($events as $event) {
+	$alreadyReplied = false;
   // Postback Event
   	if (($event instanceof \LINE\LINEBot\Event\PostbackEvent)) {
 		$logger->info('Postback message has come');
 		continue;
 	}
 	// Location Event
-	if  ($event instanceof LINE\LINEBot\Event\MessageEvent\LocationMessage) {
-		//$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
-   		$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("How dare you sent me your location");
-    	$response = $bot->replyText($event->getReplyToken(), $outputText);
-		$logger->info("location -> ".$event->getLatitude().",".$event->getLongitude());
-		continue;
-	}
+	replyLocation($bot);
 
     if  ($event instanceof LINE\LINEBot\Event\MessageEvent\ImageMessage) {
 		//$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
@@ -116,3 +96,30 @@ foreach ($events as $event) {
 		*/
 	}
 }  
+
+function isContain($input) {
+    for ($i = 1; $i < func_num_args(); $i++) {
+    	if (strpos(func_get_arg(0), func_get_arg($i)) === false) {
+    		//printf("Argument %s: %s\n", func_get_arg(0), func_get_arg($i) );
+    		return false;
+    	}
+        
+    }
+    return true;
+}
+
+function getRandomText() {
+	$index = rand(0, func_num_args()-1);
+	return func_get_arg($index);
+}
+
+function replyLocation($tempBot) {
+	global $alreadyReplied;
+	if ($alreadyReplied) {return;}
+	if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {
+		$outputText = 'Thank for sent me your location.\n I will find you and I will hunt you down.';
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		$alreadyReplied = true;
+	}
+
+}
