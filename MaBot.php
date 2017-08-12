@@ -5,7 +5,6 @@ function isContain($input) {
     	if (strpos(func_get_arg(0), func_get_arg($i)) !== false) {
     		return false;
     	}
-        printf("Argument %d: %s\n", $i, );
     }
     return true;
 }
