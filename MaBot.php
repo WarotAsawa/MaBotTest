@@ -105,7 +105,7 @@ function replyLocation($tempBot, $isReplied) {
 	if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {
 		$outputText = 'Thank for sent me your location.\n I will find you and I will hunt you down.';
 		$tempBot->replyText($event->getReplyToken(), $outputText);
-		$isReplied true;
+		$isReplied = true;
 	}
 	return $isReplied;
 }
