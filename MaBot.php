@@ -54,6 +54,8 @@ foreach ($events as $event) {
 	if (replyImage($bot, $event, $logger)) continue;
 	// Greeting Reply
 	if (replyGreets($bot, $event, $logger)) continue;
+	// Question Reply
+  	if (replyQuestion($bot, $event, $logger)) continue;
 	// Jokes Event
   	if (replyJokes($bot, $event, $logger)) continue;
   	// Random Reply
@@ -205,6 +207,46 @@ function replyGreets($tempBot, $event, $logger) {
 	}
 	return false;
 }
+function replyQuestion($tempBot, $event, $logger) {
+	$messageText=strtolower(trim($event->getText()));
+	$secondPersonName = getRandomText(' my fellow machine.', ' my master.', ' fellas.', ' ma friend.',' my fellow mutant.');
+	if (isStartWithText($messageText,'What') 
+		if (isContain($messageText,'your','name') {
+			$answerText = getRandomText(
+				'Don\'you see my name above?',
+				'My name is Uvuvwevwevwe Onyetenyevwe Ugwemubwem Ossas',
+				'My name is Bruce Man \n No, I mean Bat Wayne. \n Damn it!',
+				'I am the one called YOU KNOW WHO.',
+				'I am the Dark Lord.',
+				'Kimino na wa!'
+			);
+			$outputText = $answerText;
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		} else if (isContain($messageText,'you','doing') {
+			$answerText = getRandomText(
+				'I am chatting with you, obviously.',
+				'Texting texting texting texting texting texting texting',
+				'Calcutalting PI right now!',
+				'I am talking with an idiot.',
+				'I have no idea what I am doing right now.',
+			);
+			$outputText = $answerText;
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		} else {
+			$answerText = getRandomText(
+				'What !??',
+				'What is what ?',
+				'What is a pronoun to ask for information specifying something.',
+				'Duhhhh',
+				'What are you talking about?',
+			);
+			$outputText = $answerText;
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		}
+	}
 function replyJokes($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
 	if (isContain($messageText,'tell','me','joke')) {
