@@ -52,23 +52,10 @@ foreach ($events as $event) {
 	if (replyLocation($bot, $event, $logger)) continue;
 	// Image Event
 	if (replyImage($bot, $event, $logger)) continue;
-
-  // Message Event = TextMessage
-  
-  	if (($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
-		$messageText=strtolower(trim($event->getText())); 
-		$outputText = $messageText;
-		if (isContain($messageText,'hello','world')) {
-			$outputText = getRandomText('Good day ma master', 'Say hello to the world', 'I fell so tired. I am going back to sleep');
-		}
-		$outputText = 'MamaMia ' . 0x10008A;
-		$response = $bot->replyText($event->getReplyToken(), $outputText);
-
-		$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($messageText);
-		$response = $bot->replyText($event->getReplyToken(), $outputText);
-		
-		$response = $bot->replyText($event->getReplyToken(), $outputText);
-	}
+	// Jokes Event
+  	if (replyJokes($bot, $event, $logger)) continue;
+  	// Random Reply
+  	if (replyJokes($bot, $event, $logger)) continue;
 }  
 
 function isContain($input) {
@@ -119,7 +106,44 @@ function replyImage($tempBot, $event, $logger) {
 	}
 	return false;
 }
+function replyJokes($tempBot, $event, $logger) {
+	$messageText=strtolower(trim($event->getText()));
+	if (isContain($messageText,'tell','me','joke')) {
+		$outputText = getRandomText(
+			'I would tell you a chemistry joke but I know I wouldnt get a reaction.',
+			'Why dont some couples go to the gym? Because some relationships dont work out.',
+			'I wondered why the baseball was getting bigger. Then it hit me.',
+			'Have you ever tried to eat a clock? It is very time consuming.',
+			'The experienced carpenter really nailed it, but the new guy screwed everything up.',
+			'Did you hear about the guy whose whole left side was cut off? He is all right now.',
+			'Yesterday I accidentally swallowed some food coloring. The doctor says I am OK, but I feel like I have dyed a little inside.',
+			'I wasnt originally going to get a brain transplant, but then I changed my mind.',
+			'A guy was admitted to hospital with 8 plastic horses in his stomach. His condition is now stable..',
+			' If a wild pig kills you, does it mean you’ve been boared to death?'
+		);
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
+	}
+	return false;
+}
 function replyRandomQuotes($tempBot, $event, $logger) {
-	$outputText = 'MamaMia' . 0x10008A;
+	$outputText = getRandomText(
+		'You cry, I cry, …you laugh, I laugh…you jump off a cliff I laugh even harder!!',
+		'Never steal. The government hates competition.',
+		'Doesn’t expecting the unexpected make the unexpected expected?',
+		'Practice makes perfect but then nobody is perfect so what’s the point of practicing?',
+		'Everybody wishes they could go to heaven but no one wants to die.',
+		'Why are they called apartments if they are all stuck together?',
+		'DON’T HIT KIDS!!! No, seriously, they have guns now.',
+		'Save paper, don’t do home work.',
+		'Do not drink and drive or you might spill the drink.',
+		'Life is Short – Talk Fast!',
+		'Why do stores that are open 24/7 have locks on their doors?',
+		'When nothing goes right, Go left.',
+		'Save water , do not shower.',
+		'A “Lion” would never cheat on his wife but a “Tiger Wood”.',
+		'Why do they put pizza in a square box?'
+	);
 	$tempBot->replyText($event->getReplyToken(), $outputText);
+	return true;
 }
