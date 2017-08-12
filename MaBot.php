@@ -45,14 +45,10 @@ try {
 	error_log('parseEventRequest failed. InvalidEventRequestException => '.var_export($e, true));
 }
 foreach ($events as $event) {
-	global $alreadyReplied = false;
-  // Postback Event
-  	if (($event instanceof \LINE\LINEBot\Event\PostbackEvent)) {
-		$logger->info('Postback message has come');
-		continue;
-	}
+  	// Postback Event
+  	postBackLog();
 	// Location Event
-	$alreadyReplied = replyLocation($bot, $alreadyReplied);
+	if(replyLocation($bot)) continue;
 
     if  ($event instanceof LINE\LINEBot\Event\MessageEvent\ImageMessage) {
 		//$outputText = new \LINE\LINEBot\MessageBuilder\LocationMessageBuilder("Why sent me your location. Huh!?", $event->getLatitude(), $event->getLongitude());
@@ -97,13 +93,17 @@ function getRandomText() {
 	return func_get_arg($index);
 }
 
-function replyLocation($tempBot, $alreadyReplied) {
-	$tempBot->replyText($event->getReplyToken(), $alreadyReplied);
-	if ($alreadyReplied) {$alreadyReplied = true;}
+function postBackLog() {
+	if ($event instanceof \LINE\LINEBot\Event\PostbackEvent) {
+		$logger->info('Postback message has come');
+		continue;
+	}
+}
+function replyLocation($tempBot) {
 	if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {
 		$outputText = 'Thank for sent me your location.\n I will find you and I will hunt you down.';
 		$tempBot->replyText($event->getReplyToken(), $outputText);
-		$alreadyReplied = true;
+		return true;
 	}
-	return $alreadyReplied;
+	return false;
 }
