@@ -228,7 +228,7 @@ function replyQuestion($tempBot, $event, $logger) {
 				'Texting texting texting texting texting texting texting',
 				'Calcutalting PI right now!',
 				'I am talking with an idiot.',
-				'I have no idea what I am doing right now.',
+				'I have no idea what I am doing right now.'
 			);
 			$outputText = $answerText;
 			$tempBot->replyText($event->getReplyToken(), $outputText);
@@ -239,7 +239,7 @@ function replyQuestion($tempBot, $event, $logger) {
 				'What is what ?',
 				'What is a pronoun to ask for information specifying something.',
 				'Duhhhh',
-				'What are you talking about?',
+				'What are you talking about?'
 			);
 			$outputText = $answerText;
 			$tempBot->replyText($event->getReplyToken(), $outputText);
