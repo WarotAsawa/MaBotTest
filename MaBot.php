@@ -1,5 +1,15 @@
 <?php
 
+function isContain($input) {
+    for ($i = 1; $i < func_num_args(); $i++) {
+    	if (strpos(func_get_arg(0), func_get_arg($i)) !== false) {
+    		return false;
+    	}
+        printf("Argument %d: %s\n", $i, );
+    }
+    return true;
+}
+
 require_once './vendor/autoload.php';
 
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
@@ -72,7 +82,12 @@ foreach ($events as $event) {
   	if (($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
 		$messageText=strtolower(trim($event->getText())); 
 		$outputText = $messageText;
+		if (isContain($messageText,'hello','world')) {
+			$outputText = 'Hello Marssssss';
+		}
+		
 		$response = $bot->replyText($event->getReplyToken(), $outputText);
+
 		$outputText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($messageText);
 		$response = $bot->replyText($event->getReplyToken(), $outputText);
 		$outputText = 'helo helo';
