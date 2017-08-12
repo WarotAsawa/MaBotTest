@@ -179,6 +179,18 @@ function replyGreets($tempBot, $event, $logger) {
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
+	if (isContain($messageText,'thank')) {
+		$greetText = getRandomText(
+			'You are always welcome.',
+			'With pleasure.',
+			'I am glad to be your service.',
+			'My pleasure.',
+			'You can ask me for help anytime.'
+		);
+		$outputText = $greetText;
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
+	}
 	return false;
 }
 function replyJokes($tempBot, $event, $logger) {
