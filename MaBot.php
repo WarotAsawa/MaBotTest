@@ -211,7 +211,7 @@ function replyQuestion($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
 	$secondPersonName = getRandomText(' my fellow machine.', ' my master.', ' fellas.', ' ma friend.',' my fellow mutant.');
 	if (isStartWithText($messageText,'What') {
-		if (isContain($messageText,'your','name') {
+		if (isContain($messageText,'your','name')) {
 			$answerText = getRandomText(
 				'Don\'you see my name above?',
 				'My name is Uvuvwevwevwe Onyetenyevwe Ugwemubwem Ossas',
@@ -223,7 +223,7 @@ function replyQuestion($tempBot, $event, $logger) {
 			$outputText = $answerText;
 			$tempBot->replyText($event->getReplyToken(), $outputText);
 			return true;
-		} else if (isContain($messageText,'you','doing') {
+		} else if (isContain($messageText,'you','doing')) {
 			$answerText = getRandomText(
 				'I am chatting with you, obviously.',
 				'Texting texting texting texting texting texting texting',
