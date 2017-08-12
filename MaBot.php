@@ -3,7 +3,7 @@
 function isContain($input) {
     for ($i = 1; $i < func_num_args(); $i++) {
     	if (strpos(func_get_arg(0), func_get_arg($i)) === false) {
-    		printf("Argument %s: %s\n", func_get_arg(0), func_get_arg($i) );
+    		//printf("Argument %s: %s\n", func_get_arg(0), func_get_arg($i) );
     		return false;
     	}
         
@@ -12,7 +12,7 @@ function isContain($input) {
 }
 
 function getRandomText() {
-	$index = rand(func_get_arg(0), func_num_args()-1);
+	$index = rand(0, func_num_args()-1);
 	return func_get_arg($index);
 }
 
