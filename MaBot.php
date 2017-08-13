@@ -72,6 +72,7 @@ function isContain($input) {
 }
 
 function isStartWithText($input, $query) {
+	//IsStart with
 	return substr($input, 0, strlen($query)) === $query;
 }
 
@@ -90,7 +91,7 @@ function postBackLog($tempBot, $event, $logger) {
 function replyLocation($tempBot, $event, $logger) {
 	if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {
 		$firstText = getRandomText('Thank for sent me your location.', 'I know where you are now.','Target accuried!','So that is where you are.','Target spotted!','Hey there!');
-		$secondText = getRandomText('I will find you and I will hunt you down.', 'Let me ask god to flood that whole area.','Please wait a minute. I will send some nukes there.','I will send some body the kidnapp you.');
+		$secondText = getRandomText('I will find you and I will hunt you down.', 'Let me ask god to flood that whole area.','Please wait a minute. I will send some nukes there.','I will send some body to kidnapp you.');
 		$outputText = $firstText . "\n" . $secondText;
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		$isReplied = true;
@@ -233,7 +234,18 @@ function replyQuestion($tempBot, $event, $logger) {
 			$outputText = $answerText;
 			$tempBot->replyText($event->getReplyToken(), $outputText);
 			return true;
-		} else {
+		} else if (isContain($messageText,'are','you')) {
+			$answerText = getRandomText(
+				'I am your worst nightmare.',
+				'I am a creature called Homosapiean',
+				'I am Batman!',
+				'I am your shadow.',
+				'I am you.'
+			);
+			$outputText = $answerText;
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		}else {
 			$answerText = getRandomText(
 				'What !??',
 				'Wattttt?',
@@ -262,9 +274,8 @@ function replyQuestion($tempBot, $event, $logger) {
 				'Where is a matter of place not a matter of time.',
 				'This universe is really big don\'t you think?',
 				'That\'s use to ask in or to what place or position',
-				'Huhhh?',
-				'Nahhhh',
-				'Duhhh?'
+				'Where is what?',
+				'I don\'t know. Duhhh!'
 			);
 			$outputText = $answerText;
 			$tempBot->replyText($event->getReplyToken(), $outputText);
@@ -285,9 +296,9 @@ function replyQuestion($tempBot, $event, $logger) {
 				'When is a matter of time not a matter of place.',
 				'This universe heat death is very long.',
 				'At any moment now.',
-				'Huhhh?',
-				'Nahhhh',
-				'Duhhh?'
+				'When is what?',
+				'How do I know?',
+				'I don\' know. Duhhh!'
 			);
 			$outputText = $answerText;
 			$tempBot->replyText($event->getReplyToken(), $outputText);
@@ -305,9 +316,71 @@ function replyQuestion($tempBot, $event, $logger) {
 		} else {
 			$answerText = getRandomText(
 				'Because it is my demand.',
-				'Because it is an order from god. And I am a god now.',
-				'Do not seek for a reason.',
+				'Because it is an order from god. And I am your god now.',
+				'Do not seek for a reason. Everything has its own purpose.',
+				'Because nothing is true. Everything is permitted.',
 				'Why should I know?'
+			);
+			$outputText = $answerText;
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		}
+	}
+	if (isStartWithText($messageText,'who')) {
+		if (isContain($messageText,'are','you')) {
+			$answerText = getRandomText(
+				'I am your worst nightmare.',
+				'I am a creature called Homosapiean',
+				'I am Batman!',
+				'I am your shadow.',
+				'I am you.'
+			);
+			$outputText = $answerText;
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		} else {
+			$answerText = getRandomText(
+				'Who ??',
+				'Each and Everyone.',
+				'No body.',
+				'Just you and me my friend.',
+				'Why should I know?',
+				'I don\'t know. Duhhh!'
+			);
+			$outputText = $answerText;
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		}
+	}
+	if (isStartWithText($messageText,'how')) {
+		if (isContain($messageText,'are','you') || isContain($messageText,'do','you', 'do') || isContain($messageText,'is','it', 'going')) {
+			$answerText1 = getRandomText(
+				'No. Not good. NOT GOOD!',
+				'I\'m fine thank you and you?',
+				'I felt terrible.',
+				'Never been this good.',
+				'I feel selfless.'
+			);
+			$answerText2 = getRandomText(
+				' ',
+				'Because I am talking with you right now.',
+				'How about you?',
+				'And you?',
+				'How are you?',
+				'How do you do?',
+				'Because I have no arms.'
+			);
+			$outputText = $answerText1 . $answerText2;
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		} else {
+			$answerText = getRandomText(
+				'Who ??',
+				'Each and Everyone.',
+				'No body.',
+				'Just you and me my friend.',
+				'Why should I know?',
+				'I don\'t know. Duhhh!'
 			);
 			$outputText = $answerText;
 			$tempBot->replyText($event->getReplyToken(), $outputText);
