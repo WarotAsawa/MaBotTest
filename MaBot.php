@@ -394,7 +394,7 @@ function replyQuestion($tempBot, $event, $logger) {
 			return true;
 		}
 	}
-	if (isStartWithText($messageText,'can you') || isStartWithText($messageText, 'could you') || isStartWithText($messageText, 'may you') || || isStartWithText($messageText, 'please')) {
+	if (isStartWithText($messageText,'can you') || isStartWithText($messageText, 'could you') || isStartWithText($messageText, 'may you') || isStartWithText($messageText, 'please')) {
 		$answerText1 = getRandomText(
 			'No. I can\'t do somthing like that ',
 			'No. I don\'t have an ability to do that. '
@@ -403,7 +403,7 @@ function replyQuestion($tempBot, $event, $logger) {
 			'Here is what can I do for you.',
 			'But I will happy to do these for you.'
 		);
-		$outputText = $answerText1 . "\n" . $answerText2 . "\n";
+		$outputText = $answerText1 . "\n" . $answerText2 . "\n" . getInstruction();
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	} 
