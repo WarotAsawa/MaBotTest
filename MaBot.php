@@ -355,11 +355,11 @@ function replyQuestion($tempBot, $event, $logger) {
 	if (isStartWithText($messageText,'how')) {
 		if (isContain($messageText,'are','you') || isContain($messageText,'do','you', 'do') || isContain($messageText,'is','it', 'going')) {
 			$answerText1 = getRandomText(
-				'No. Not good. NOT GOOD!',
-				'I\'m fine thank you and you?',
-				'I felt terrible.',
-				'Never been this good.',
-				'I feel selfless.'
+				'No. Not good. NOT GOOD! ',
+				'I\'m fine thank you and you? ',
+				'I felt terrible. ',
+				'Never been this good. ',
+				'I feel selfless. '
 			);
 			$answerText2 = getRandomText(
 				' ',
@@ -386,6 +386,13 @@ function replyQuestion($tempBot, $event, $logger) {
 			$tempBot->replyText($event->getReplyToken(), $outputText);
 			return true;
 		}
+	}
+	//Get instructions
+	if (isContain($messageText,'can you','do') || isContain($messageText,'can you', 'help')) {
+		$answerText = getInstruction();
+		$outputText = $answerText;
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
 	}
 }
 function replyJokes($tempBot, $event, $logger) {
@@ -428,4 +435,7 @@ function replyRandomQuotes($tempBot, $event, $logger) {
 	);
 	$tempBot->replyText($event->getReplyToken(), $outputText);
 	return true;
+}
+function getInstruction() {
+	return 'Instructions';
 }
