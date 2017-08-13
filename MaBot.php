@@ -210,6 +210,13 @@ function replyGreets($tempBot, $event, $logger) {
 }
 function replyQuestion($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
+	//Get instructions
+	if (isStartWithText($messageText,'help') ||isContain($messageText,'can you','do') || isContain($messageText,'can you', 'help')) {
+		$answerText = getInstruction();
+		$outputText = $answerText;
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
+	}
 	if (isStartWithText($messageText,'what') || isStartWithText($messageText,'wat')) {
 		if (isContain($messageText,'your','name')) {
 			$answerText = getRandomText(
@@ -387,13 +394,19 @@ function replyQuestion($tempBot, $event, $logger) {
 			return true;
 		}
 	}
-	//Get instructions
-	if (isContain($messageText,'can you','do') || isContain($messageText,'can you', 'help')) {
-		$answerText = getInstruction();
-		$outputText = $answerText;
+	if (isStartWithText($messageText,'can you') || isStartWithText($messageText, 'could you') || isStartWithText($messageText, 'may you') || || isStartWithText($messageText, 'please')) {
+		$answerText1 = getRandomText(
+			'No. I can\'t do somthing like that ',
+			'No. I don\'t have an ability to do that. '
+		);
+		$answerText2 = getRandomText(
+			'Here is what can I do for you.',
+			'But I will happy to do these for you.'
+		);
+		$outputText = $answerText1 . "\n" . $answerText2 . "\n";
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
-	}
+	} 
 }
 function replyJokes($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
