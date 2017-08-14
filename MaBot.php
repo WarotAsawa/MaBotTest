@@ -406,7 +406,49 @@ function replyQuestion($tempBot, $event, $logger) {
 		$outputText = $answerText1 . "\n" . $answerText2 . "\n" . getInstruction();
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
-	} 
+	}
+	//Request reply
+	if (isStartWithText($messageText,'can I') || isStartWithText($messageText, 'could I') || isStartWithText($messageText, 'may I') || isContain($messageText, 'i', 'wanna') || isContain($messageText, 'i', 'want to')) {
+		$answerText1 = getRandomText(
+			'For god\' sake, ',
+			'Please, ',
+			'Seriously, '
+		);
+		$answerText1 = getRandomText(
+			'do it now.',
+			'don\'t do it.',
+			'stop.',
+			'go on.',
+			'just don\'t.',
+			'this need to be stop.',
+			'who cares.'
+		);
+		$outputText = $answerText1 . $answerText2;
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
+	}
+	//Ask reply
+	if (isContain($messageText, 'you', 'wanna') || isContain($messageText, 'you', 'want to')) {
+		$answerText = getRandomText(
+			'I don\'t want that one bit.',
+			'Why should I do that?',
+			'Seriously!?',
+			'Never !!'
+		);
+	}
+	//Ask reply
+	if (isContain($messageText, 'you', 'have to') || isContain($messageText, 'you', 'must')) {
+		$answerText = getRandomText(
+			'I don\'t take orders from you.',
+			'What are you now, my master?',
+			'Stop tell me what to do.',
+			'Never !!',
+			'Give me one reason why should I trust you.',
+			'Roger roger.',
+			'Fine.',
+			'OK then.'
+		);
+	}
 }
 function replyJokes($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
