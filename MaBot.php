@@ -79,7 +79,7 @@ function isStartWithText($input, $query) {
 }
 
 function getRandomText() {
-	$index = rand(0, func_num_args()-1);
+	$index = random_int(0, func_num_args()-1);
 	return func_get_arg($index);
 }
 
@@ -523,7 +523,7 @@ function generatePreanswer() {
 		'Oh too easy.',
 		'You will thank me or this later.'
 	);
-	$answerText1 = getRandomText(
+	$answerText2 = getRandomText(
 		'Here you go.',
 		'There you go.',
 		'Here is you answers.'
