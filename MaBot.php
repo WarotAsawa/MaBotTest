@@ -122,7 +122,7 @@ function replyConvert($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
 	if (isStartWithText($messageText,'convert') || isStartWithText($messageText, 'please convert')) {
 		if (isContain($messageText,'tb to tib')) {
-			$tbValue = var_dump((float) filter_var($messageText, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION ) );
+			$tbValue = getFloat($messageText);
 			$tibValue = 0.909495 * $tbValue;
 			$outputText = generatePreanswer() . $tbValue . ' TB is equal to ' . $tibValue . ' TiB';
 			$tempBot->replyText($event->getReplyToken(), $outputText);
@@ -530,4 +530,11 @@ function generatePreanswer() {
 		'Here is you answers.'
 	);
 	return $answerText1 . "\n" . $answerText2 . "\n";
+}
+function getFloat($str) {
+	if(preg_match("#([0-9\.]+)#", $str, $match)) { // search for number that may contain '.'
+   	 	return floatval($match[0]);
+  	} else {
+    	return floatval($str); // take some last chances with floatval
+  	}
 }
