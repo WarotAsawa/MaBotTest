@@ -118,6 +118,7 @@ function replyImage($tempBot, $event, $logger) {
 	return false;
 }
 function replyConvert($tempBot, $event, $logger) {
+	$messageText=strtolower(trim($event->getText()));
 	if (isStartWithText($messageText,'convert') || isStartWithText($messageText, 'please convert')) {
 		if (isContain($messageText,'tb to tib')) {
 			$tbValue = var_dump((float) filter_var($messageText, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION ) );
