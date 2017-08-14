@@ -80,7 +80,7 @@ function isStartWithText($input, $query) {
 
 function getRandomText() {
 	$index = random_int(0, 10000000);
-	$index = $index % func_num_args()-1;
+	$index = $index % func_num_args();
 	return func_get_arg($index);
 }
 
