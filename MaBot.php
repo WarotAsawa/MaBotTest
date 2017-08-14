@@ -128,6 +128,13 @@ function replyConvert($tempBot, $event, $logger) {
 			$tempBot->replyText($event->getReplyToken(), $outputText);
 			return true;
 		}
+		if (isContain($messageText,'tib to tb')) {
+			$tibValue = getFloat($messageText);
+			$tbValue = $tibValue/0.909495;
+			$outputText = generatePreanswer() . $tibValue . ' TiB is equal to ' . $tbValue . ' TB';
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		}
 	}
 	return false;
 }
