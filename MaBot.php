@@ -52,6 +52,7 @@ foreach ($events as $event) {
 	if (replyLocation($bot, $event, $logger)) continue;
 	// Image Event
 	if (replyImage($bot, $event, $logger)) continue;
+	// Conversion Reply
 	// Greeting Reply
 	if (replyGreets($bot, $event, $logger)) continue;
 	// Question Reply
@@ -112,6 +113,18 @@ function replyImage($tempBot, $event, $logger) {
     	$tempBot->replyMessage($event->getReplyToken(), $multipleMessageBuilder);
     	*/
 		return true;
+	}
+	return false;
+}
+function replyConvert($tempBot, $event, $logger) {
+	if (isStartWithText($messageText,'convert') || isStartWithText($messageText, 'please convert')) {
+		if (isContain($messageText,'tb to tib')) {
+			$tbValue = var_dump((float) filter_var($messageText, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION ) );
+			$tibValue = 0.909495 * $tbValue;
+			$outputText = generatePreanswer() . $tbValue . ' TB is equal to ' . $tibValue . ' TiB';
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		}
 	}
 	return false;
 }
@@ -410,7 +423,7 @@ function replyQuestion($tempBot, $event, $logger) {
 	//Request reply
 	if (isStartWithText($messageText,'can i') || isStartWithText($messageText, 'could i') || isStartWithText($messageText, 'may i') || isContain($messageText, 'i', 'wanna') || isContain($messageText, 'i', 'want to')) {
 		$answerText1 = getRandomText(
-			'For god\' sake, ',
+			'For god\'s sake, ',
 			'Please, ',
 			'Seriously, '
 		);
@@ -499,4 +512,19 @@ function replyRandomQuotes($tempBot, $event, $logger) {
 }
 function getInstruction() {
 	return 'Instructions';
+}
+function generatePreanswer() {
+	$answerText1 = getRandomText(
+		'That will cost you 10 bucks. Just kidding you can ask me for free anyway.',
+		'This looks hardish, but I am smart enought to do this.',
+		'Piece of cake!.',
+		'Oh too easy.',
+		'You will thank me or this later.'
+	);
+	$answerText1 = getRandomText(
+		'Here you go.',
+		'There you go.',
+		'Here is you answers.'
+	);
+	return $answerText1 . "\n" . $answerText2 . "\n";
 }
