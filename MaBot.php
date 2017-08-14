@@ -423,26 +423,6 @@ function replyQuestion($tempBot, $event, $logger) {
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
-	//Request reply
-	if (isStartWithText($messageText,'can i') || isStartWithText($messageText, 'could i') || isStartWithText($messageText, 'may i') || isContain($messageText, 'i', 'wanna') || isContain($messageText, 'i', 'want to')) {
-		$answerText1 = getRandomText(
-			'For god\'s sake, ',
-			'Please, ',
-			'Seriously, '
-		);
-		$answerText2 = getRandomText(
-			'do it now.',
-			'don\'t do it.',
-			'stop.',
-			'go on.',
-			'just don\'t.',
-			'this need to be stop.',
-			'who cares.'
-		);
-		$outputText = $answerText1 . $answerText2;
-		$tempBot->replyText($event->getReplyToken(), $outputText);
-		return true;
-	}
 	//Ask reply
 	if (isContain($messageText, 'you', 'wanna') || isContain($messageText, 'you', 'want to')) {
 		$answerText3 = getRandomText(
@@ -468,6 +448,26 @@ function replyQuestion($tempBot, $event, $logger) {
 			'OK then.'
 		);
 		$outputText = $answerText;
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
+	}
+	//Request reply
+	if (isStartWithText($messageText,'can i') || isStartWithText($messageText, 'could i') || isStartWithText($messageText, 'may i') || isContain($messageText, 'i', 'wanna') || isContain($messageText, 'i', 'want to')) {
+		$answerText1 = getRandomText(
+			'For god\'s sake, ',
+			'Please, ',
+			'Seriously, '
+		);
+		$answerText2 = getRandomText(
+			'do it now.',
+			'don\'t do it.',
+			'stop.',
+			'go on.',
+			'just don\'t.',
+			'this need to be stop.',
+			'who cares.'
+		);
+		$outputText = $answerText1 . $answerText2;
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
