@@ -53,6 +53,7 @@ foreach ($events as $event) {
 	// Image Event
 	if (replyImage($bot, $event, $logger)) continue;
 	// Conversion Reply
+	if (replyConvert($bot, $event, $logger)) continue;
 	// Greeting Reply
 	if (replyGreets($bot, $event, $logger)) continue;
 	// Question Reply
