@@ -445,14 +445,14 @@ function replyQuestion($tempBot, $event, $logger) {
 	}
 	//Ask reply
 	if (isContain($messageText, 'you', 'wanna') || isContain($messageText, 'you', 'want to')) {
-		$answerText = getRandomText(
+		$answerText3 = getRandomText(
 			'I don\'t want that one bit.',
 			'Why should I do that?',
 			'Seriously!?',
 			'Never !!'
 		);
 		$outputText = $answerText;
-		$tempBot->replyText($event->getReplyToken(), $outputText);
+		$tempBot->replyText($event->getReplyToken(), $answerText3);
 		return true;
 	}
 	//Ask reply
