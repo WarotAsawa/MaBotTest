@@ -408,13 +408,13 @@ function replyQuestion($tempBot, $event, $logger) {
 		return true;
 	}
 	//Request reply
-	if (isStartWithText($messageText,'can I') || isStartWithText($messageText, 'could I') || isStartWithText($messageText, 'may I') || isContain($messageText, 'i', 'wanna') || isContain($messageText, 'i', 'want to')) {
+	if (isStartWithText($messageText,'can i') || isStartWithText($messageText, 'could i') || isStartWithText($messageText, 'may i') || isContain($messageText, 'i', 'wanna') || isContain($messageText, 'i', 'want to')) {
 		$answerText1 = getRandomText(
 			'For god\' sake, ',
 			'Please, ',
 			'Seriously, '
 		);
-		$answerText1 = getRandomText(
+		$answerText2 = getRandomText(
 			'do it now.',
 			'don\'t do it.',
 			'stop.',
@@ -435,6 +435,9 @@ function replyQuestion($tempBot, $event, $logger) {
 			'Seriously!?',
 			'Never !!'
 		);
+		$outputText = $answerText;
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
 	}
 	//Ask reply
 	if (isContain($messageText, 'you', 'have to') || isContain($messageText, 'you', 'must')) {
@@ -448,6 +451,9 @@ function replyQuestion($tempBot, $event, $logger) {
 			'Fine.',
 			'OK then.'
 		);
+		$outputText = $answerText;
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
 	}
 }
 function replyJokes($tempBot, $event, $logger) {
