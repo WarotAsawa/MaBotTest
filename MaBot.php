@@ -135,6 +135,19 @@ function replyConvert($tempBot, $event, $logger) {
 			$tempBot->replyText($event->getReplyToken(), $outputText);
 			return true;
 		}
+		if (isContain($messageText,'tib to storeonce')) {
+			$tbValue = getFloat($messageText);
+			$outputText = convertToStoreOnce($tbValue);
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		}
+		if (isContain($messageText,'tib to storeonce')) {
+			$tibValue = getFloat($messageText);
+			$tbValue = $tibValue/0.909495;
+			$outputText = convertToStoreOnce($tbValue);
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		}
 	}
 	return false;
 }
@@ -521,11 +534,12 @@ function replyRandomQuotes($tempBot, $event, $logger) {
 	return true;
 }
 function getInstruction() {
+	//Get instructions
 	return 'Instructions';
 }
 function generatePreanswer() {
 	$answerText1 = getRandomText(
-		'That will cost you 10 bucks. Just kidding you can ask me for free anyway.',
+		'Ok Ok Ok.',
 		'This looks hardish, but I am smart enought to do this.',
 		'Piece of cake!.',
 		'Oh too easy.',
@@ -544,4 +558,109 @@ function getFloat($str) {
   	} else {
     	return floatval($str); // take some last chances with floatval
   	}
+}
+function convertToStoreOnce($tbValue) {
+	if ($tbValue <= 0 || $tbValue > 1382) {
+		return getErrorWords() . ' Your number is less than zero or too big.';
+	}
+	$result = $tbValue . ' is equal to these following models :' . "\n";
+	$totalCapacity = 0;
+	//Check 3100
+	if ($tbValue <= 4.45) {
+		$result = $result . "\n" . 'Storeonce 3100';
+		$totalCapacity = 4.45;
+		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+	}
+	//Check 3520
+	if ($tbValue <= 6) {
+		$result = $result . "\n" . 'Storeonce 3520';
+		$totalCapacity = 6;
+		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+	} 
+	if ($tbValue <= 12.4 && &tbValue > 6) {
+		$result = $result . "\n" . 'Storeonce 3520 with upgraded capacity.';
+		$totalCapacity = 12.4;
+		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+	} 
+	//Check 3540
+	if ($tbValue <= 12.4 && &tbValue > 6) {
+		$result = $result . "\n" . 'Storeonce 3540';
+		$totalCapacity = 12.4;
+		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+	}
+	if ($tbValue <= 25.2 && $tbValue > 12.4) {
+		$result =  $result . "\n" .'Storeonce 3540 with upgraded capacity.';
+		$totalCapacity = 25.2;
+		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+	}
+	//Check 5100
+	if ($tbValue <= 172  && $tbValue > 12.4) {
+		$upgrade5100 = ceil($tbValue/28.8);
+		$result = $result . "\n" . 'Storeonce 5100 ';
+		if ($upgrade5100 > 1) {
+			  $result = $result . 'with ' . $upgrade5100-1 . ' capacity upgrade enclosure.';
+		} 
+		$totalCapacity = 28.8 * $upgrade5100;
+		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+	}
+	//Check 5500
+	if ($tbValue <= 691 && $tbValue > 28.8) {
+		$upgrade5500 = ceil($tbValue/28.8);
+		if ($upgrade5500 > 1) {
+			$drawer = ceil($upgrade5500/6.0);
+			  $result = $result . "\n" . 'with ' .  $drawer . ' total disk drawer'  . "\n" . 'and ' . ($upgrade5500 - $drawer) . ' total disk capacity upgrade.';
+		}
+		$totalCapacity = 28.8 * $upgrade5500;
+		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+	}
+	//Check 6600
+	if ($tbValue <= 1368 && $tbValue > 57) {
+		$upgrade6600 = ceil($tbValue/57.0);
+		if ($upgrade6600 > 1) {
+			$couplet = ceil($upgrade6600/6.0);
+			  $result = $result . "\n" . 'with ' .  $couplet . ' Couplet'  . "\n" . 'and ' . ($upgrade6600 - $couplet) . ' total disk capacity upgrade.';
+		}
+		$totalCapacity = 57 * $upgrade6600;
+		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+	}
+	return $result;
+}
+function convertBroadwellToSkyLake($cpuNo) {
+	$row = 1;
+	$result = '';
+	$targetNumber = 'e0';
+	$targetVersion = 'v0';
+	if (($handle = fopen("./kb/broadwell.csv", "r")) !== FALSE) {
+	    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+	    	//Check first match
+	    	if ($targetNumber == 'e0') {
+	       		if (isContain($cpuNo, $data[0], $data[1])) {
+					$targetNumber = $data[0];
+					$targetVersion = $data[1];
+					$result = 'CPU ' . $targetNumber . $targetVersion . ' ' . $data[2] . ' GHz ' . $data[3] . ' cores';
+	       			$result = $result . "\n" . 'CPU ' . $data[4] . ' ' . $data[5] . ' ' . $data[6] . ' GHz ' . $data[7] . ' cores';	
+	       		}
+	       	} else {
+	       		//If not equal anymore. Break the loop.
+	       		if (data[0] != $targetNumber || data[1] != $targetVersion) {
+	       			break;
+	       		}
+	       		$result = $result . "\n" . 'CPU ' . $data[4] . ' ' . $data[5] . ' ' . $data[6] . ' GHz ' . $data[7] . ' cores';	
+	       	}
+	    }
+	}
+	fclose($handle);
+	if ($targetNumber == 'e0' && $targetVersion == 'v0') {
+		$result = getRandomText('You mad? ', 'Please try again. ', 'What is this ? I don\'t get it. ');
+		$result = $result . 'Here is the correct example of input :' . "\n" . 'convert E5-2697v2 to Skylake' . "\n" . 'convert E5-2699A v4 to Skylake';
+	}
+	return result;
+}
+function getErrorWords() {
+	return getRandomText(
+		'Please give me a valide input.',
+		'No I am too dumb to do that.',
+		'Oh ma goshhh!',
+		'I do not get that.',
+		'You have to ask me again.');
 }
