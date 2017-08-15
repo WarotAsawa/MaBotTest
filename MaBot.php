@@ -615,7 +615,7 @@ function convertToStoreOnce($tbValue) {
 		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
 	}
 	//Check 6600
-	if ($tbValue <= 1368 && $tbValue > 57) {
+	if ($tbValue <= 1368 && $tbValue > 172) {
 		$upgrade6600 = ceil($tbValue/57.0);
 		if ($upgrade6600 > 1) {
 			$couplet = ceil($upgrade6600/6.0);
