@@ -671,12 +671,12 @@ function getInstruction() {
 	//Get instructions
 	return 
 	"Greetings: \n
-	You can say hello, good moring or any kind of greeting to me.\n\n
-	Jokes:\n
-	You can ask me to tell me your jokes or if you say something non sense. I will said something random back to you.\n\n
-	Location and image:\n
-	I can interact when you send your location or image to me as well.\n\n
-	Basic conversion:\n
-	You can ask me to convert something for you for example\n  convert 20TB TO TiB\n  convert 100TiB TO TB\n  convert 120TB TO STOREONCE\n  convert 100TiB to Storeonce\n\n
-	Many more feature will come soon so keep in touch with me.";
+You can say hello, good moring, bye or any kind of greeting to me.\n\n
+Jokes:\n
+You can ask me to tell me your jokes or if you say something non sense. I will said something random back to you.\n\n
+Location and image:\n
+I can interact when you send your location or image to me as well.\n\n
+Basic conversion:\n
+You can ask me to convert something for you for example\n  convert 20TB TO TiB\n  convert 100TiB TO TB\n  convert 120TB TO STOREONCE\n  convert 100TiB to Storeonce\n\n
+Many more feature will come soon so keep in touch with me.";
 }
