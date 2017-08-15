@@ -596,10 +596,10 @@ function convertToStoreOnce($tbValue) {
 	}
 	//Check 5100
 	if ($tbValue <= 172  && $tbValue > 12.4) {
-		$upgrade5100 = ceil($tbValue/28.8);
+		$upgrade5100 = ceil($tbValue/28.8) - 1;
 		$result = $result . "\n" . 'Storeonce 5100 ';
-		if ($upgrade5100 > 1) {
-			  $result = $result . 'with ' . $upgrade5100-1 . ' capacity upgrade enclosure.';
+		if ($upgrade5100 > 0) {
+			  $result = $result . 'with ' . $upgrade5100 . ' capacity upgrade enclosure.';
 		} 
 		$totalCapacity = 28.8 * $upgrade5100;
 		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
