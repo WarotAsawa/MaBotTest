@@ -442,7 +442,7 @@ function replyQuestion($tempBot, $event, $logger) {
 			'Here is what can I do for you.',
 			'But I will happy to do these for you.'
 		);
-		$outputText = $answerText1 . "\n" . $answerText2 . "\n" . getInstruction();
+		$outputText = $answerText1 . "\n" . $answerText2 . "\n" . ' Ask me for help for more info.';
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
