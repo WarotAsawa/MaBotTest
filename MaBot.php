@@ -135,7 +135,7 @@ function replyConvert($tempBot, $event, $logger) {
 			$tempBot->replyText($event->getReplyToken(), $outputText);
 			return true;
 		}
-		if (isContain($messageText,'tib to storeonce')) {
+		if (isContain($messageText,'tb to storeonce')) {
 			$tbValue = getFloat($messageText);
 			$outputText = convertToStoreOnce($tbValue);
 			$tempBot->replyText($event->getReplyToken(), $outputText);
@@ -659,8 +659,8 @@ function convertBroadwellToSkyLake($cpuNo) {
 }
 function getErrorWords() {
 	return getRandomText(
-		'Please give me a valide input.',
-		'No I am too dumb to do that.',
+		'Please give me a valid input.',
+		'No, I am too dumb to do that.',
 		'Oh ma goshhh!',
 		'I do not get that.',
 		'You have to ask me again.');
