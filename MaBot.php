@@ -578,13 +578,13 @@ function convertToStoreOnce($tbValue) {
 		$totalCapacity = 6;
 		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
 	} 
-	if ($tbValue <= 12.4 && &tbValue > 6) {
+	if ($tbValue <= 12.4 && $tbValue > 6) {
 		$result = $result . "\n" . 'Storeonce 3520 with upgraded capacity.';
 		$totalCapacity = 12.4;
 		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
 	} 
 	//Check 3540
-	if ($tbValue <= 12.4 && &tbValue > 6) {
+	if ($tbValue <= 12.4 && $tbValue > 6) {
 		$result = $result . "\n" . 'Storeonce 3540';
 		$totalCapacity = 12.4;
 		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
