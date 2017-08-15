@@ -564,7 +564,7 @@ function convertToStoreOnce($tbValue) {
 	if ($tbValue <= 0 || $tbValue > 1382) {
 		return getErrorWords() . ' Your number is less than zero or too big.';
 	}
-	$result = $tbValue . ' is equal to these following models :' . "\n";
+	$result = $tbValue . ' TB is equal to these following models :' . "\n";
 	$totalCapacity = 0;
 	//Check 3100
 	if ($tbValue <= 4.45) {
@@ -616,7 +616,7 @@ function convertToStoreOnce($tbValue) {
 		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
 	}
 	//Check 6600
-	if ($tbValue <= 1368 && $tbValue > 172) {
+	if ($tbValue <= 1368 && $tbValue > 57) {
 		$upgrade6600 = ceil($tbValue/57.0);
 		$result = $result . "\n" . 'Storeonce 6600 ';
 		if ($upgrade6600 > 1) {
