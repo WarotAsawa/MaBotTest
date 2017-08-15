@@ -607,6 +607,7 @@ function convertToStoreOnce($tbValue) {
 	//Check 5500
 	if ($tbValue <= 691 && $tbValue > 28.8) {
 		$upgrade5500 = ceil($tbValue/28.8);
+		$result = $result . "\n" . 'Storeonce 5500 ';
 		if ($upgrade5500 > 1) {
 			$drawer = ceil($upgrade5500/6.0);
 			  $result = $result . "\n" . 'with ' .  $drawer . ' total disk drawer'  . "\n" . 'and ' . ($upgrade5500 - $drawer) . ' total disk capacity upgrade.';
@@ -617,6 +618,7 @@ function convertToStoreOnce($tbValue) {
 	//Check 6600
 	if ($tbValue <= 1368 && $tbValue > 172) {
 		$upgrade6600 = ceil($tbValue/57.0);
+		$result = $result . "\n" . 'Storeonce 6600 ';
 		if ($upgrade6600 > 1) {
 			$couplet = ceil($upgrade6600/6.0);
 			  $result = $result . "\n" . 'with ' .  $couplet . ' Couplet'  . "\n" . 'and ' . ($upgrade6600 - $couplet) . ' total disk capacity upgrade.';
