@@ -560,6 +560,7 @@ function getFloat($str) {
   	}
 }
 function convertToStoreOnce($tbValue) {
+	//Check if too large or too small
 	if ($tbValue <= 0 || $tbValue > 1382) {
 		return getErrorWords() . ' Your number is less than zero or too big.';
 	}
