@@ -148,12 +148,15 @@ function replyConvert($tempBot, $event, $logger) {
 			$tempBot->replyText($event->getReplyToken(), $outputText);
 			return true;
 		}
+		if (isContain($messageText, 'to skylake')) {
+
+		}
 	}
 	return false;
 }
 function replyGreets($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
-	$secondPersonName = getRandomText(' my fellow machine.', ' my master.', ' fellas.', ' ma friend.',' my fellow mutant.');
+	$secondPersonName = getRandomText(' baby.', ' my master.', ' fellas.', ' ma friend.');
 	if (isContain($messageText,'hello') 
 		|| isContain($messageText,'greeting') 
 		|| isContain($messageText,'What\'s up') 
@@ -219,10 +222,10 @@ function replyGreets($tempBot, $event, $logger) {
 	}
 	if (isContain($messageText,'bye') || isContain($messageText,'see you') || isContain($messageText,'see ya') || isContain($messageText,'farewell')) {
 		$greetText = getRandomText(
-			'Good bye,',
+			'I\'ll be back, ',
 			'Bye bye,',
 			'So longgg,',
-			'See ya,',
+			'Hasta la vista,',
 			'Sayonara,',
 			'Life is too short to say goodbye,'
 		);
@@ -533,10 +536,7 @@ function replyRandomQuotes($tempBot, $event, $logger) {
 	$tempBot->replyText($event->getReplyToken(), $outputText);
 	return true;
 }
-function getInstruction() {
-	//Get instructions
-	return 'Instructions';
-}
+
 function generatePreanswer() {
 	$answerText1 = getRandomText(
 		'Ok Ok Ok.',
@@ -666,4 +666,17 @@ function getErrorWords() {
 		'Oh ma goshhh!',
 		'I do not get that.',
 		'You have to ask me again.');
+}
+function getInstruction() {
+	//Get instructions
+	return 
+	"Greetings: \n
+	You can say hello, good moring or any kind of greeting to me.\n\n
+	Jokes:\n
+	You can ask me to tell me your jokes or if you say something non sense. I will said something random back to you.\n\n
+	Location and image:\n
+	I can interact when you send your location or image to me as well.\n\n
+	Basic conversion:\n
+	You can ask me to convert something for you for example\n  convert 20TB TO TiB\n  convert 100TiB TO TB\n  convert 120TB TO STOREONCE\n  convert 100TiB to Storeonce\n\n
+	Many more feature will come soon so keep in touch with me.";
 }
