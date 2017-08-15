@@ -601,7 +601,7 @@ function convertToStoreOnce($tbValue) {
 		if ($upgrade5100 > 0) {
 			  $result = $result . 'with ' . $upgrade5100 . ' capacity upgrade enclosure.';
 		} 
-		$totalCapacity = 28.8 * $upgrade5100;
+		$totalCapacity = 28.8 * ($upgrade5100 + 1);
 		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
 	}
 	//Check 5500
