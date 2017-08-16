@@ -735,6 +735,7 @@ function specLookUp($productLine, $model) {
 	    	//Get Spec
 	    	else if ($data[0] == $model) {
 	    		for($i = 0 ; $i < sizeof($header); $i++){
+	    			if ($data[i] == 'NA') continue;
 	    			$result = $result . $header[$i] . " : " . $data[$i] . " " . $unit[$i] . "\n"; 
 	    		}
 	    		return $result;
