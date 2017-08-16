@@ -1,4 +1,4 @@
-3PAR,Nodes,CPU,Total Cache,Max Flash Cache,Max OntoNode Cache,16Gbps FC Ports,10Gbps iSCSI Ports,1GbE ports,10GbE ports,Number of HDD,Number of SSD,Max Raw Capacity,Max SSD Raw Capacity,Max Usable File Capacity
+3PAR,Nodes,CPU,Total Cache,Max Flash Cache,Max On Node Cache,16Gbps FC Ports,10Gbps iSCSI Ports,1GbE ports,10GbE ports,Number of HDD,Number of SSD,Max Raw Capacity,Max SSD Raw Capacity,Max Usable File Capacity
  , , , , , , , , , , , , , , 
 8200,2,6 core 2.2 GHz,832 GiB,768 GiB,64 GiB,4 to 12 ports,0 to 4 ports,0 to 8 ports,0 to 4 ports,240,120,1000 TiB,838 TiB,128TiB
 8400,2 or 4, 6 core 2.2 GHz,1664 GiB,1536 GiB,128 GiB,4 to 24 ports,0 to 8 ports,0 to 16 ports,0 to 8 ports,576,240,2400 TiB,1676 TiB,256TiB
