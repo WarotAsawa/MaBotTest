@@ -717,9 +717,9 @@ function specLookUp($productLine, $model) {
 	if (($handle = fopen($fileDir, "r")) !== FALSE) {
 		while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 	    	//Get Head
-	    	if (count++ == 0) $header = $data;
+	    	if ($count == 0) $header = $data;
 	    	//Get unit
-	    	else if (count++ == 1) $unit = $data;
+	    	else if ($count == 1) $unit = $data;
 	    	//Get Spec
 	    	else if ($data[0] == $model) {
 	    		for($i = 0 ; $i < sizeof($header); i++){
