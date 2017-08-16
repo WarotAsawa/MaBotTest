@@ -194,7 +194,7 @@ function replyShowSpec($tempBot, $event, $logger) {
 			return true;
 		} else if (isContain($messageText, 'xeon') || isContain($messageText, 'broadwell')) {
 			$productLine = 'broadwell';
-			$cpuNog = getBroadwellCPUModel($messageText);
+			$cpuNo = getBroadwellCPUModel($messageText);
 			$outputText = specLookUp($productLine, $cpuNo);
 			$tempBot->replyText($event->getReplyToken(), $outputText);
 			return true;
@@ -739,10 +739,10 @@ function specLookUp($productLine, $model) {
 	    		}
 	    		return result;
 	    	}
-	    	if ($data[0] == 'DESC') return $data[1];
+	    	if ($data[0] == 'DESC') return getErrorWords() . "\n" . $data[1];
 	    }
 	}
-	return 'Please input valid product. Here is the list of valid product.'. "\n" . 'xeon' . "\n" . 'skylake' . "\n" . '3PAR'  . "\n" . 'Storeonce';
+	return getErrorWords() . "\n" . 'Please input valid product. Here is the list of valid product.'. "\n" . 'xeon' . "\n" . 'skylake' . "\n" . '3PAR'  . "\n" . 'Storeonce';
 }
 function getErrorWords() {
 	return getRandomText(
