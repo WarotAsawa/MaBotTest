@@ -54,6 +54,8 @@ foreach ($events as $event) {
 	if (replyImage($bot, $event, $logger)) continue;
 	// Conversion Reply
 	if (replyConvert($bot, $event, $logger)) continue;
+	// Spec lookup Reply
+	if (replyShowSpec($bot, $event, $logger)) continue;
 	// Greeting Reply
 	if (replyGreets($bot, $event, $logger)) continue;
 	// Question Reply
@@ -670,7 +672,7 @@ function convertBroadwellToSkyLake($cpuModel) {
 	       		if ($data[0] != $targetModel) {
 	       			break;
 	       		}
-	       		$result = $result . "\n" . 'CPU ' . $data[3] . ' ' . $data[4] . ' ' . $data[5] . ' GHz ' . $data[6] . ' cores';	
+	       		$result = $result . "\n" . 'Intel ' . $data[3] . ' ' . $data[4] . ' ' . $data[5] . ' GHz ' . $data[6] . ' cores';	
 	       	}
 	    }
 	}

@@ -1,4 +1,4 @@
-XEON model,Clock speed,Core per socket
+Intel XEON ,Clock speed,Core per socket
 ,GHz,cores
 e5-2603v2,1.8,4
 e5-2603v3,1.6,6
