@@ -152,6 +152,9 @@ function replyConvert($tempBot, $event, $logger) {
 			$cpuNo = 'ERROR';
 			$cpuVersion = 'ERROR';
 			getBroadwellCPUModel($messageText, $cpuNo, $cpuVersion);
+			$outputText = $cpuNo . $cpuVersion;
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
 			if ($cpuNo == 'ERROR' || $cpuVersion == 'ERROR') {
 				$outputText = getErrorWords() . 'Here is the correct example of input :' . "\n" . 'convert E5-2697v2 to Skylake' . "\n" . 'convert E5-2699A v4 to Skylake';
 			} else {
@@ -160,6 +163,9 @@ function replyConvert($tempBot, $event, $logger) {
 				return true;
 			}
 		}
+		$outputText = getErrorWords() . ' You can ask me to convert something for you for example\n  convert 20TB to TiB\n  convert 100TiB to TB\n  convert 120TB to Storeonce\n  convert 100TiB to Storeonce\n convert e5-2690v4 to skylake \n convert e5-2680 v3 to skylake\n';
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
 	}
 	return false;
 }
