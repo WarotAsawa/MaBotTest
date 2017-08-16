@@ -1,0 +1,12 @@
+3PAR Model,Number of Controller Nodes,HPE 3PAR Gen5 ASICs,Processors,Total Cache,Flash Cache (optional),Max On-Node Cache,Maximum Host Ports,16Gb/s Fiber Channel Host Ports,10Gb/s iSCSI Host Ports,1Gb/s Ethernet Adapter,10Gb/s Ethernet Adapter,Built-in 1GbE Ports,Built-in 10GbE Ports,Number of Hard Disk Drives,Number of Solid State Drives,Max Raw Capacity,Max Raw Capacity (SSD Only),Maximum Usable File Capacity
+ , , , , , , , , , , , , , , , , , , 
+8200,2,2,2 x 6-core 2.2 GHz,832 GiB,768 GiB,64 GiB,12 ports,4 - 12 ports,0 - 4 ports,0 - 8 ports,0 - 4 ports,2 ports,0 ports,6 - 240,6 - 120,1000 TiB,838 TiB,2 - 128TiB
+8400,2 or 4,2 or 4,2-4 x 6-core 2.2 GHz,1664 GiB,1536 GiB,128 GiB,24 ports,4 - 24 ports,0 - 8 ports,0 - 16 ports,0 - 8 ports,4 ports,0 ports,6 - 576,6 - 240,2400 TiB,1676 TiB,2 - 256TiB
+8440,2 or 4,2 or 4,2-4 x 10-core 2.4 GHz,8384 GiB,8000 GiB,384 GiB,24 ports,4 - 24 ports,0 - 8 ports,0 - 16 ports,0 - 8 ports,4 ports,0 ports,6 - 960,6 - 480,4000 TiB,3351 TiB,2 - 256TiB
+8450,2 or 4,2 or 4,2-4 x 10-core 2.4 GHz,384 GiB,Not Applicable,384 GiB,24 ports,4 - 24 ports,0 - 8 ports,0 - 16 ports,0 - 8 ports,4 ports,0 ports,Not Applicable,6 - 480,3351 TiB,3351 TiB,2 - 256TiB
+9450,2 or 4,4 or 8,4-8 x 10-core 2.4 GHz,896 GiB,Not Applicable,448 GiB,80 ports,0 - 80 ports,0 - 40 ports,0 ports,0 - 24 ports,0 ports,2 - 4 ports,6 - 576,6 - 576,6000 TiB,6000 TiB,2 - 512 TiB
+20450,2 to 4,4 to 8,4-8 x 8-Core 2.5 GHz,0.9 - 1.8 TiB,Not Applicable,896 - 1792 GiB,80 ports,0 - 80 ports,0 - 40 ports,0 ports,0 - 24 ports,0 ports,2 - 4 ports,Not Applicable,6 - 576,4021 TiB,4021 TiB,2 - 512 TiB
+20800,2 to 8,4 to 16,4-16 x 8-Core 2.5 GHz,0.6 - 34.5 TiB,0 - 32 TiB,640 - 2560 GiB,160 ports,0 - 160 ports,0 - 80 ports,0 ports,0 - 48 ports,0 ports,2 - 8 ports,6 - 2304 drives,6 - 1152,9600 TiB,"8043 TiB	",2 - 512 TiB
+20850,2 to 8,4 to 16,4-16 x 10-Core 2.5 GHz,0.9 - 3.6 TiB,Not Applicable,896 - 3584 GiB,160 ports,0 - 160 ports,0 - 80 ports,0 ports,0 - 48 ports,0 ports,2 - 8 ports,Not Applicable,6 - 1152,9600 TiB,"8043 TiB	",2 - 512 TiB
+20840,2 to 8,4 to 16,4-16 x 10-Core 2.5 GHz,0.9 - 51.6 TiB,0 - 48 TiB,896 - 3584 GiB,160 ports,0 - 160 ports,0 - 80 ports,0 ports,0 - 48 ports,0 ports,2 - 8 ports,6 - 2304 drives,6 - 1152,9600 TiB,"8043 TiB	",2 - 512 TiB
+DECS,Please input one of these following 3PAR model : 8200 8400 8440 8450 9450 20450 20800 20850 20840

@@ -149,8 +149,57 @@ function replyConvert($tempBot, $event, $logger) {
 			return true;
 		}
 		if (isContain($messageText, 'to skylake')) {
-
+			$cpuNo = 'ERROR';
+			$cpuVersion = 'ERROR';
+			getBroadwellCPUModel($messageText, $cpuNo, $cpuVersion);
+			if ($cpuNo == 'ERROR' || $cpuVersion == 'ERROR') {
+				$outputText = getErrorWords() . 'Here is the correct example of input :' . "\n" . 'convert E5-2697v2 to Skylake' . "\n" . 'convert E5-2699A v4 to Skylake';
+			} else {
+				$outputText = convertBroadwellToSkyLake($cpuNo, $cpuVersion);
+				$tempBot->replyText($event->getReplyToken(), $outputText);
+				return true;
+			}
 		}
+	}
+	return false;
+}
+function replyShowSpec($tempBot, $event, $logger) {
+	$messageText=strtolower(trim($event->getText()));
+	if (isContain($messageText,'tell me','spec') || isContain($messageText,'give me','spec') || isContain($messageText,'show me','spec') || isContain($messageText,'gimme','spec')) {
+		$outputText = 'Please input valid product. Here is the list of valid product.'. "\n" . 'xeon' . "\n" . 'skylake' . "\n" . '3PAR'  . "\n" . 'Storeonce';
+		if (isContain($messageText, '3par')) {
+			$modelList = array('8200', '8400', '8440', '8450', '9450','20450', '20800', '20850', '20840');
+			foreach ($modelList as $model) {
+				if (isContain($messageText,'3par',$model)) {
+					$outputText = specLookUp('3par',$model);
+				}
+			}
+			$outputText = 'Please input one of these following 3PAR model : 8200 8400 8440 8450 9450 20450 20800 20850 20840';
+			
+			return true;
+		} else if (isContain($messageText, 'storeonce')) {
+			$modelList = array('VSA','3100', '3520', '3540', '5100', '5500', '6600');
+			foreach ($modelList as $model) {
+				if (isContain($messageText,'storeonce',$model)) {
+					$outputText = specLookUp('storeonce',$model);
+				}
+			}
+			$outputText = 'Please input one of these following Storeonce model : VSA 3100 3520 3540 5100 5500 6600';
+		} else if (isContain($messageText, 'xeon') || isContain($messageText, 'broadwell')) {
+			$productLine = 'broadwell';
+			$cpuNo = '';
+			$cpuVersion = '';
+			getBroadwellCPUModel($messageText, $cpuNo, $cpuVersion);
+			$cpuNo = $cpuNo . $cpuVersion;
+			$outputText = specLookUp($productLine, $cpuNo);
+		} else if (isContain($messageText, 'skylake')) {
+			$productLine = 'skylake';
+			$cpuNo = '';
+			getSkylakeCPUModel($messageText, $cpuNo);
+			$outputText = specLookUp($productLine, $cpuNo);
+		} 
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
 	}
 	return false;
 }
@@ -442,7 +491,7 @@ function replyQuestion($tempBot, $event, $logger) {
 			'Here is what can I do for you.',
 			'But I will happy to do these for you.'
 		);
-		$outputText = $answerText1 . "\n" . $answerText2 . "\n" . ' Ask me for help for more info.';
+		$outputText = $answerText1 . "\n" . $answerText2 . "\n" . 'Ask me for help for more info.';
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
@@ -537,28 +586,7 @@ function replyRandomQuotes($tempBot, $event, $logger) {
 	return true;
 }
 
-function generatePreanswer() {
-	$answerText1 = getRandomText(
-		'Ok Ok Ok.',
-		'This looks hardish, but I am smart enought to do this.',
-		'Piece of cake!.',
-		'Oh too easy.',
-		'You will thank me or this later.'
-	);
-	$answerText2 = getRandomText(
-		'Here you go.',
-		'There you go.',
-		'Here is you answers.'
-	);
-	return $answerText1 . "\n" . $answerText2 . "\n";
-}
-function getFloat($str) {
-	if(preg_match("#([0-9\.]+)#", $str, $match)) { // search for number that may contain '.'
-   	 	return floatval($match[0]);
-  	} else {
-    	return floatval($str); // take some last chances with floatval
-  	}
-}
+
 function convertToStoreOnce($tbValue) {
 	//Check if too large or too small
 	if ($tbValue <= 0 || $tbValue > 1382) {
@@ -628,16 +656,16 @@ function convertToStoreOnce($tbValue) {
 	}
 	return $result;
 }
-function convertBroadwellToSkyLake($cpuNo) {
+function convertBroadwellToSkyLake($cpuNo, $cpuVersion) {
 	$row = 1;
 	$result = '';
 	$targetNumber = 'e0';
 	$targetVersion = 'v0';
-	if (($handle = fopen("./kb/broadwell.csv", "r")) !== FALSE) {
+	if (($handle = fopen("./kb/broadwellToSkylake.csv", "r")) !== FALSE) {
 	    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 	    	//Check first match
 	    	if ($targetNumber == 'e0') {
-	       		if (isContain($cpuNo, $data[0], $data[1])) {
+	       		if ($cpuNo ==  $data[0] && $cpuVersion == $data[1])) {
 					$targetNumber = $data[0];
 					$targetVersion = $data[1];
 					$result = 'CPU ' . $targetNumber . $targetVersion . ' ' . $data[2] . ' GHz ' . $data[3] . ' cores';
@@ -654,18 +682,86 @@ function convertBroadwellToSkyLake($cpuNo) {
 	}
 	fclose($handle);
 	if ($targetNumber == 'e0' && $targetVersion == 'v0') {
-		$result = getRandomText('You mad? ', 'Please try again. ', 'What is this ? I don\'t get it. ');
+		$result = getErrorWords();
 		$result = $result . 'Here is the correct example of input :' . "\n" . 'convert E5-2697v2 to Skylake' . "\n" . 'convert E5-2699A v4 to Skylake';
 	}
 	return result;
+}
+function getBroadwellCPUModel($inputString, &$cpuNo, &$cpuVersion) {
+	if(!preg_match("/[e][0-9]\-[0-9][0-9][0-9][0-9]/", $inputString, $cpuNo)) {
+		$cpuNo = 'ERROR';
+	}
+	if(!preg_match("/[v][2-4]/", $inputString, $cpuVersion)) {
+		$cpuVersion = 'ERROR';
+	}
+}
+function getSkylakeCPUModel($inputString, &$cpuNo) {
+	if(!preg_match("/[0-9][0-9][0-9][0-9]/", $inputString, $cpuNo)) {
+		$cpuNo = 'ERROR';
+	}
+}
+function specLookUp($productLine, $model) {
+	$result = '';
+	$count = 0;
+	$header;
+	$unit;
+	/*
+	if ($productLine == 'xeon' || $productLine == 'broadwell') {
+		$productLine = 'broadwell';
+		$temp = $model;
+		getBroadwellCPUModel($temp,$model,$version);
+		$model = $model . $version;
+	}
+	*/
+	$fileDir = "./kb/" . $productLine . ".csv";
+	if (($handle = fopen($fileDir, "r")) !== FALSE) {
+		while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+	    	//Get Head
+	    	if (count++ == 0) $header = $data;
+	    	//Get unit
+	    	else if (count++ == 1) $unit = $data;
+	    	//Get Spec
+	    	else if ($data[0] == $model) {
+	    		for($i = 0 ; $i < sizeof($header); i++){
+	    			$result = $result . $header[i] . " : " . $data[i] . " " . $unit[i] . "\n"; 
+	    		}
+	    		return result;
+	    	}
+	    	if ($data[0] == 'DESC') return $data[1];
+	    }
+	}
+	return 'Please input valid product. Here is the list of valid product.'. "\n" . 'xeon' . "\n" . 'skylake' . "\n" . '3PAR'  . "\n" . 'Storeonce';
 }
 function getErrorWords() {
 	return getRandomText(
 		'Please give me a valid input.',
 		'No, I am too dumb to do that.',
-		'Oh ma goshhh!',
+		'Please try again.',
 		'I do not get that.',
+		'You mad? ',
 		'You have to ask me again.');
+}
+function generatePreanswer() {
+	$answerText1 = getRandomText(
+		'Ok Ok Ok.',
+		'This looks hardish, but I am smart enought to do this.',
+		'Piece of cake!.',
+		'Oh too easy.',
+		'You will thank me or this later.'
+	);
+	$answerText2 = getRandomText(
+		'Here you go.',
+		'There you go.',
+		'Here is you answers.'
+	);
+	return $answerText1 . "\n" . $answerText2 . "\n";
+}
+function getFloat($str) {
+	if(preg_match("#([0-9\.]+)#", $str, $match)) { // search for number that may contain '.'
+   	 	return floatval($match[0]);
+  	} else {
+    	return floatval($str); // take some last chances with floatval
+  	}
 }
 function getInstruction() {
 	//Get instructions
@@ -677,6 +773,8 @@ You can ask me to tell me your jokes or if you say something non sense. I will s
 Location and image:\n
 I can interact when you send your location or image to me as well.\n
 Basic conversion:\n
-You can ask me to convert something for you for example\n  convert 20TB to TiB\n  convert 100TiB to TB\n  convert 120TB to Storeonce\n  convert 100TiB to Storeonce\n
+You can ask me to convert something for you for example\n  convert 20TB to TiB\n  convert 100TiB to TB\n  convert 120TB to Storeonce\n  convert 100TiB to Storeonce\n convert e5-2690v4 to skylake \n convert e5-2680 v3 to skylake\n
+Specification Lookup:\n
+You can ask me to check the specification for hardware for example 3PAR, Storeonce, Xeon CPU etc. For example:\n Show me 3par 8200 spec\n Give me specification of Storeonce 5100\n Tell me xeon e5-2690v4 spec\n Gimme spec of skylake 5122\n
 Many more feature will come soon so keep in touch with me.";
 }
