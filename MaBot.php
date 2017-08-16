@@ -665,7 +665,7 @@ function convertBroadwellToSkyLake($cpuNo, $cpuVersion) {
 	    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 	    	//Check first match
 	    	if ($targetNumber == 'e0') {
-	       		if ($cpuNo ==  $data[0] && $cpuVersion == $data[1])) {
+	       		if ($cpuNo ==  $data[0] && $cpuVersion == $data[1]) {
 					$targetNumber = $data[0];
 					$targetVersion = $data[1];
 					$result = 'CPU ' . $targetNumber . $targetVersion . ' ' . $data[2] . ' GHz ' . $data[3] . ' cores';

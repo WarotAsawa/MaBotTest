@@ -12,24 +12,7 @@ Ua9222d61b45ff88cc7315440f4f285f3
 warm-tundra-83481
 
 
-curl -X GET \
--H 'Authorization: Bearer tYLkTfUwWhH5WVunO5G0QhjUYgiAH4Bd0Bb+oFw0pfis0E0cibf6U73f7gdZid4cUcAURkLMr3D3qW3CfRbuFw3XubbKtHHY14ncqIhRpOwaB5c0BFol/ca78jdM5uCj+bDPDMfEA8bOT/cC0AAV8gdB04t89/1O/w1cDnyilFU=' \
-https://api.line.me/v1/oauth/verify
-
 
 heroku login
 
 heroku logs -a shrouded-plains-89594 -t
-
-
-
-
-
-
-2017-08-09T07:46:24.453801+00:00 app[web.1]: [09-Aug-2017 07:46:24 UTC] PHP Deprecated:  Automatically populating $HTTP_RAW_POST_DATA is deprecated and will be removed in a future version. To avoid this warning set 'always_populate_raw_post_data' to '-1' in php.ini and use the php://input stream instead. in Unknown on line 0
-2017-08-09T07:46:24.454310+00:00 app[web.1]: [09-Aug-2017 07:46:24 UTC] PHP Fatal error:  Class 'LINE\LINEBot\HTTPClient\CurlHTTPClient' not found in /app/MaBot.php on line 13
-2017-08-09T07:46:24.455042+00:00 app[web.1]: 10.31.48.247 - - [09/Aug/2017:07:46:24 +0000] "POST /MaBot.php HTTP/1.1" 500 - "-" "LineBotWebhook/1.0
-
-
-
-Backup via  LAN on Manage switc 
