@@ -153,13 +153,15 @@ function replyConvert($tempBot, $event, $logger) {
 			$cpuModel = getBroadwellCPUModel($messageText);
 			if ($cpuModel == 'ERROR') {
 				$outputText = getErrorWords() . 'Here is the correct example of input :' . "\n" . 'convert E5-2697v2 to Skylake' . "\n" . 'convert E5-2690 v4 to Skylake';
+				$tempBot->replyText($event->getReplyToken(), $outputText);
+				return true;
 			} else {
-				$outputText = convertBroadwellToSkyLake($cpuNo, $cpuVersion);
+				$outputText = convertBroadwellToSkyLake($cpuModel);
 				$tempBot->replyText($event->getReplyToken(), $outputText);
 				return true;
 			}
 		}
-		$outputText = getErrorWords() . ' You can ask me to convert something for you for example\n  convert 20TB to TiB\n  convert 100TiB to TB\n  convert 120TB to Storeonce\n  convert 100TiB to Storeonce\n convert e5-2690v4 to skylake \n convert e5-2680 v3 to skylake\n';
+		$outputText = getErrorWords() . " You can ask me to convert something for you for example\n  convert 20TB to TiB\n  convert 100TiB to TB\n  convert 120TB to Storeonce\n  convert 100TiB to Storeonce\n convert e5-2690v4 to skylake \n convert e5-2680 v3 to skylake\n";
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
@@ -692,12 +694,12 @@ function getBroadwellCPUModel($inputString) {
 	if(preg_match("/[e][0-9]\-[0-9][0-9][0-9][0-9]/", $inputString, $cpuNo)) {
 		$result = $cpuNo[0];
 	} else {
-		$result = 'ERROR';
+		return 'ERROR';
 	}
 	if(preg_match("/[v][2-4]/", $inputString, $cpuVersion)) {
 		$result = $result . $cpuVersion[0];
 	} else {
-		$result = 'ERROR';
+		return = 'ERROR';
 	}
 	return $result;
 }
