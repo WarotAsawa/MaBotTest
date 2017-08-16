@@ -151,8 +151,7 @@ function replyConvert($tempBot, $event, $logger) {
 		if (isContain($messageText, 'to skylake')) {
 			$cpuNo = 'ERROR';
 			$cpuVersion = 'ERROR';
-			getBroadwellCPUModel($messageText, $cpuNo, $cpuVersion);
-			$outputText = $cpuNo . $cpuVersion;
+			$outputText = getBroadwellCPUModel($messageText);
 			$tempBot->replyText($event->getReplyToken(), $outputText);
 			return true;
 			if ($cpuNo == 'ERROR' || $cpuVersion == 'ERROR') {
@@ -662,44 +661,48 @@ function convertToStoreOnce($tbValue) {
 	}
 	return $result;
 }
-function convertBroadwellToSkyLake($cpuNo, $cpuVersion) {
+function convertBroadwellToSkyLake($cpuModel) {
 	$row = 1;
 	$result = '';
-	$targetNumber = 'e0';
-	$targetVersion = 'v0';
+	$targetModel = 'e0';
 	if (($handle = fopen("./kb/broadwellToSkylake.csv", "r")) !== FALSE) {
 	    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 	    	//Check first match
-	    	if ($targetNumber == 'e0') {
-	       		if ($cpuNo ==  $data[0] && $cpuVersion == $data[1]) {
-					$targetNumber = $data[0];
-					$targetVersion = $data[1];
-					$result = 'CPU ' . $targetNumber . $targetVersion . ' ' . $data[2] . ' GHz ' . $data[3] . ' cores';
-	       			$result = $result . "\n" . 'CPU ' . $data[4] . ' ' . $data[5] . ' ' . $data[6] . ' GHz ' . $data[7] . ' cores';	
+	    	if ($targetModel == 'e0') {
+	       		if ($cpuModel ==  $data[0]) {
+					$targetModel = $data[0];
+					$result = 'CPU ' . $targetModel . ' ' . $data[1] . ' GHz ' . $data[2] . ' cores';
+	       			$result = $result . "\n" . 'CPU ' . $data[3] . ' ' . $data[4] . ' ' . $data[5] . ' GHz ' . $data[6] . ' cores';	
 	       		}
 	       	} else {
 	       		//If not equal anymore. Break the loop.
-	       		if (data[0] != $targetNumber || data[1] != $targetVersion) {
+	       		if (data[0] != $targetModel) {
 	       			break;
 	       		}
-	       		$result = $result . "\n" . 'CPU ' . $data[4] . ' ' . $data[5] . ' ' . $data[6] . ' GHz ' . $data[7] . ' cores';	
+	       		$result = $result . "\n" . 'CPU ' . $data[3] . ' ' . $data[4] . ' ' . $data[5] . ' GHz ' . $data[6] . ' cores';	
 	       	}
 	    }
 	}
 	fclose($handle);
-	if ($targetNumber == 'e0' && $targetVersion == 'v0') {
+	if ($targetModel == 'e0') {
 		$result = getErrorWords();
 		$result = $result . 'Here is the correct example of input :' . "\n" . 'convert E5-2697v2 to Skylake' . "\n" . 'convert E5-2699A v4 to Skylake';
 	}
 	return result;
 }
-function getBroadwellCPUModel($inputString, &$cpuNo, &$cpuVersion) {
-	if(!preg_match("/[e][0-9]\-[0-9][0-9][0-9][0-9]/", $inputString, $cpuNo)) {
-		$cpuNo = 'ERROR';
+function getBroadwellCPUModel($inputString) {
+	$result = 'ERROR';
+	if(preg_match("/[e][0-9]\-[0-9][0-9][0-9][0-9]/", $inputString, $cpuNo)) {
+		$result = $result .$cpuNo;
+	} else {
+		$result = 'ERROR';
 	}
 	if(!preg_match("/[v][2-4]/", $inputString, $cpuVersion)) {
-		$cpuVersion = 'ERROR';
+		$result = $result .$cpuNo;
+	} else {
+		$result = 'ERROR';
 	}
+	return $result;
 }
 function getSkylakeCPUModel($inputString, &$cpuNo) {
 	if(!preg_match("/[0-9][0-9][0-9][0-9]/", $inputString, $cpuNo)) {
