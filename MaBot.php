@@ -699,7 +699,7 @@ function getBroadwellCPUModel($inputString) {
 	if(preg_match("/[v][2-4]/", $inputString, $cpuVersion)) {
 		$result = $result . $cpuVersion[0];
 	} else {
-		return = 'ERROR';
+		return 'ERROR';
 	}
 	return $result;
 }
