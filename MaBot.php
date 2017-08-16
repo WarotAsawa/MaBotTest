@@ -693,12 +693,12 @@ function convertBroadwellToSkyLake($cpuModel) {
 function getBroadwellCPUModel($inputString) {
 	$result = 'ERROR';
 	if(preg_match("/[e][0-9]\-[0-9][0-9][0-9][0-9]/", $inputString, $cpuNo)) {
-		$result = $result .$cpuNo;
+		$result = $cpuNo[0];
 	} else {
 		$result = 'ERROR';
 	}
 	if(preg_match("/[v][2-4]/", $inputString, $cpuVersion)) {
-		$result = $result .$cpuVersion;
+		$result = $result . $cpuVersion[0];
 	} else {
 		$result = 'ERROR';
 	}
