@@ -737,7 +737,7 @@ function specLookUp($productLine, $model) {
 	    		for($i = 0 ; $i < sizeof($header); $i++){
 	    			$result = $result . $header[$i] . " : " . $data[$i] . " " . $unit[$i] . "\n"; 
 	    		}
-	    		return result;
+	    		return $result;
 	    	}
 	    	if ($data[0] == 'DESC') return getErrorWords() . "\n" . $data[1];
 	    	$count++;
