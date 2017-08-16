@@ -157,7 +157,7 @@ function replyConvert($tempBot, $event, $logger) {
 				return true;
 			}
 		}
-		$outputText = getErrorWords() . " You can ask me to convert something for you for example\n  convert 20TB to TiB\n  convert 100TiB to TB\n  convert 120TB to Storeonce\n  convert 100TiB to Storeonce\n convert e5-2690v4 to skylake \n convert e5-2680 v3 to skylake\n";
+		$outputText = getErrorWords() . " You can ask me to convert something for you for example\n convert 20TB to TiB\n convert 100TiB to TB\n convert 120TB to Storeonce\n convert 100TiB to Storeonce\n convert e5-2690v4 to skylake \n convert e5-2680 v3 to skylake\n";
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
@@ -662,8 +662,8 @@ function convertBroadwellToSkyLake($cpuModel) {
 	    	if ($targetModel == 'e0') {
 	       		if ($cpuModel ==  $data[0]) {
 					$targetModel = $data[0];
-					$result = 'CPU ' . $targetModel . ' ' . $data[1] . ' GHz ' . $data[2] . ' cores';
-	       			$result = $result . "\n" . 'CPU XEON' . $data[3] . ' ' . $data[4] . ' ' . $data[5] . ' GHz ' . $data[6] . ' cores' . "\nis equal to these following models:";	
+					$result = 'CPU XEON' . $targetModel . ' ' . $data[1] . ' GHz ' . $data[2] . ' cores'. "\nis equal to these following models:";
+	       			$result = $result . "\n" . 'CPU ' . $data[3] . ' ' . $data[4] . ' ' . $data[5] . ' GHz ' . $data[6] . ' cores'";	
 	       		}
 	       	} else {
 	       		//If not equal anymore. Break the loop.
