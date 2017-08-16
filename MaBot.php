@@ -734,6 +734,7 @@ function specLookUp($productLine, $model) {
 	    	else if ($count == 1) $unit = $data;
 	    	//Get Spec
 	    	else if ($data[0] == $model) {
+	    		return sizeof($header);
 	    		for($i = 0 ; $i < sizeof($header); $i++){
 	    			$result = $result . $header[$i] . " : " . $data[$i] . " " . $unit[$i] . "\n"; 
 	    		}
