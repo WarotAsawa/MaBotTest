@@ -144,21 +144,16 @@ function replyConvert($tempBot, $event, $logger) {
 		if (isContain($messageText,'tib to storeonce')) {
 			$tibValue = getFloat($messageText);
 			$tbValue = $tibValue/0.909495;
-			$outputText = convertToStoreOnce($tbValue);
-			$tempBot->replyText($event->getReplyToken(), $outputText);
-			return true;
 		}
 		if (isContain($messageText, 'to skylake')) {
 			$cpuModel = getBroadwellCPUModel($messageText);
-			$tempBot->replyText($event->getReplyToken(), $cpuModel);
-				return true;
 			if ($cpuModel == 'ERROR') {
 				$outputText = getErrorWords() . "\n" . 'Here is the correct example of input :' . "\n" . 'convert E5-2697v2 to Skylake' . "\n" . 'convert E5-2690 v4 to Skylake';
 				$tempBot->replyText($event->getReplyToken(), $outputText);
 				return true;
 			} else {
-				$outputText = convertBroadwellToSkyLake($cpuModel);
-				$tempBot->replyText($event->getReplyToken(), $outputText);
+				$cpuText = convertBroadwellToSkyLake($cpuModel);
+				$tempBot->replyText($event->getReplyToken(), $cpuText);
 				return true;
 			}
 		}
@@ -192,15 +187,11 @@ function replyShowSpec($tempBot, $event, $logger) {
 			$outputText = 'Please input one of these following Storeonce model : VSA 3100 3520 3540 5100 5500 6600';
 		} else if (isContain($messageText, 'xeon') || isContain($messageText, 'broadwell')) {
 			$productLine = 'broadwell';
-			$cpuNo = '';
-			$cpuVersion = '';
-			getBroadwellCPUModel($messageText, $cpuNo, $cpuVersion);
-			$cpuNo = $cpuNo . $cpuVersion;
+			$cpuNog = getBroadwellCPUModel($messageText);
 			$outputText = specLookUp($productLine, $cpuNo);
 		} else if (isContain($messageText, 'skylake')) {
 			$productLine = 'skylake';
-			$cpuNo = '';
-			getSkylakeCPUModel($messageText, $cpuNo);
+			$cpuNo = getSkylakeCPUModel($messageText);
 			$outputText = specLookUp($productLine, $cpuNo);
 		} 
 		$tempBot->replyText($event->getReplyToken(), $outputText);
@@ -685,8 +676,7 @@ function convertBroadwellToSkyLake($cpuModel) {
 	}
 	fclose($handle);
 	if ($targetModel == 'e0') {
-		$result = getErrorWords();
-		$result = $result . 'Here is the correct example of input :' . "\n" . 'convert E5-2697v2 to Skylake' . "\n" . 'convert E5-2699A v4 to Skylake';
+		$result = getErrorWords() . "\n" . 'We cannot found the conversion of this model. Here is the correct example of input :' . "\n" . 'convert E5-2697v2 to Skylake' . "\n" . 'convert E5-2699A v4 to Skylake';
 	}
 	return $result;
 }
@@ -704,10 +694,11 @@ function getBroadwellCPUModel($inputString) {
 	}
 	return $result;
 }
-function getSkylakeCPUModel($inputString, &$cpuNo) {
-	if(!preg_match("/[0-9][0-9][0-9][0-9]/", $inputString, $cpuNo)) {
-		$cpuNo = 'ERROR';
+function getSkylakeCPUModel($inputString) {
+	if(preg_match("/[0-9][0-9][0-9][0-9]/", $inputString, $cpuNo)) {
+		return $cpuNo[0];
 	}
+	return 'ERROR';
 }
 function specLookUp($productLine, $model) {
 	$result = '';
