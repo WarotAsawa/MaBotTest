@@ -181,7 +181,7 @@ function replyShowSpec($tempBot, $event, $logger) {
 			$tempBot->replyText($event->getReplyToken(), $outputText);
 			return true;
 		} else if (isContain($messageText, 'storeonce')) {
-			$modelList = array('VSA','3100', '3520', '3540', '5100', '5500', '6600');
+			$modelList = array('vsa','3100', '3520', '3540', '5100', '5500', '6600');
 			foreach ($modelList as $model) {
 				if (isContain($messageText,'storeonce',$model)) {
 					$outputText = specLookUp('storeonce',$model);
