@@ -6,7 +6,7 @@
 8450,2 or 4, 10 core 2.4 GHz,384 GiB,NA,384 GiB,4 to 24 ports,0 to 8 ports,0 to 16 ports,0 to 8 ports,NA,480,3351 TiB,3351 TiB, 256TiB
 9450,2 or 4, 10 core 2.4 GHz,896 GiB,NA,448 GiB,0 to 80 ports,0 to 40 ports,0 ports,0 to 24 ports,576,576,6000 TiB,6000 TiB, 512 TiB
 20450,2 to 4, 8 Core 2.5 GHz,1.8 TiB,NA,1792 GiB,0 to 80 ports,0 to 40 ports,0 ports,0 to 24 ports,NA,576,4021 TiB,4021 TiB, 512 TiB
-20800,2 to 8, 8 Core 2.5 GHz,34.5 TiB,32 TiB,2560 GiB,0 to 160 ports,0 to 80 ports,0 ports,0 to 48 ports,2304 drives,1152,9600 TiB,8043 TiB,512 TiB
+20800,2 to 8, 8 Core 2.5 GHz,34.5 TiB,32 TiB,2560 GiB,0 to 160 ports,0 to 80 ports,0 ports,0 to 48 ports,2304,1152,9600 TiB,8043 TiB,512 TiB
 20850,2 to 8, 10 Core 2.5 GHz,3.6 TiB,NA,3584 GiB,0 to 160 ports,0 to 80 ports,0 ports,0 to 48 ports,NA,1152,9600 TiB,8043 TiB, 512 TiB
-20840,2 to 8, 10 Core 2.5 GHz,51.6 TiB,48 TiB,3584 GiB,0 to 160 ports,0 to 80 ports,0 ports,0 to 48 ports,2304 drives,1152,9600 TiB,8043 TiB,512 TiB
+20840,2 to 8, 10 Core 2.5 GHz,51.6 TiB,48 TiB,3584 GiB,0 to 160 ports,0 to 80 ports,0 ports,0 to 48 ports,2304,1152,9600 TiB,8043 TiB,512 TiB
 DESC,Please input one of these following 3PAR model : 8200 8400 8440 8450 9450 20450 20800 20850 20840,,,,,,,,,,,,,
