@@ -168,34 +168,44 @@ function replyConvert($tempBot, $event, $logger) {
 function replyShowSpec($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
 	if (isContain($messageText,'tell me','spec') || isContain($messageText,'give me','spec') || isContain($messageText,'show me','spec') || isContain($messageText,'gimme','spec')) {
-		$outputText = 'Please input valid product. Here is the list of valid product.'. "\n" . 'xeon' . "\n" . 'skylake' . "\n" . '3PAR'  . "\n" . 'Storeonce';
 		if (isContain($messageText, '3par')) {
 			$modelList = array('8200', '8400', '8440', '8450', '9450','20450', '20800', '20850', '20840');
 			foreach ($modelList as $model) {
 				if (isContain($messageText,'3par',$model)) {
 					$outputText = specLookUp('3par',$model);
+					$tempBot->replyText($event->getReplyToken(), $outputText);
+					return true;
 				}
 			}
 			$outputText = 'Please input one of these following 3PAR model : 8200 8400 8440 8450 9450 20450 20800 20850 20840';
-			
+			$tempBot->replyText($event->getReplyToken(), $outputText);
 			return true;
 		} else if (isContain($messageText, 'storeonce')) {
 			$modelList = array('VSA','3100', '3520', '3540', '5100', '5500', '6600');
 			foreach ($modelList as $model) {
 				if (isContain($messageText,'storeonce',$model)) {
 					$outputText = specLookUp('storeonce',$model);
+					$tempBot->replyText($event->getReplyToken(), $outputText);
+					return true;
 				}
 			}
 			$outputText = 'Please input one of these following Storeonce model : VSA 3100 3520 3540 5100 5500 6600';
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
 		} else if (isContain($messageText, 'xeon') || isContain($messageText, 'broadwell')) {
 			$productLine = 'broadwell';
 			$cpuNog = getBroadwellCPUModel($messageText);
 			$outputText = specLookUp($productLine, $cpuNo);
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
 		} else if (isContain($messageText, 'skylake')) {
 			$productLine = 'skylake';
 			$cpuNo = getSkylakeCPUModel($messageText);
 			$outputText = specLookUp($productLine, $cpuNo);
-		} 
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		} 		
+		$outputText = 'Please input valid product. Here is the list of valid product.'. "\n" . 'xeon' . "\n" . 'skylake' . "\n" . '3PAR'  . "\n" . 'Storeonce';
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
@@ -678,7 +688,7 @@ function convertBroadwellToSkyLake($cpuModel) {
 	}
 	fclose($handle);
 	if ($targetModel == 'e0') {
-		$result = getErrorWords() . "\n" . 'We cannot found the conversion of this model. Here is the correct example of input :' . "\n" . 'convert E5-2697v2 to Skylake' . "\n" . 'convert E5-2699A v4 to Skylake';
+		$result = getErrorWords() . "\n" . 'We cannot found the conversion of this model.';
 	}
 	return $result;
 }
