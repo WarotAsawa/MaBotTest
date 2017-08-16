@@ -151,10 +151,8 @@ function replyConvert($tempBot, $event, $logger) {
 		if (isContain($messageText, 'to skylake')) {
 			$cpuModel = 'ERROR';
 			$cpuModel = getBroadwellCPUModel($messageText);
-			$tempBot->replyText($event->getReplyToken(), $outputText);
-			return true;
 			if ($cpuModel == 'ERROR') {
-				$outputText = getErrorWords() . 'Here is the correct example of input :' . "\n" . 'convert E5-2697v2 to Skylake' . "\n" . 'convert E5-2699A v4 to Skylake';
+				$outputText = getErrorWords() . 'Here is the correct example of input :' . "\n" . 'convert E5-2697v2 to Skylake' . "\n" . 'convert E5-2690 v4 to Skylake';
 			} else {
 				$outputText = convertBroadwellToSkyLake($cpuNo, $cpuVersion);
 				$tempBot->replyText($event->getReplyToken(), $outputText);
