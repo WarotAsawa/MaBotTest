@@ -150,8 +150,10 @@ function replyConvert($tempBot, $event, $logger) {
 		}
 		if (isContain($messageText, 'to skylake')) {
 			$cpuModel = getBroadwellCPUModel($messageText);
+			$tempBot->replyText($event->getReplyToken(), $cpuModel);
+				return true;
 			if ($cpuModel == 'ERROR') {
-				$outputText = getErrorWords() . ' Here is the correct example of input :' . "\n" . 'convert E5-2697v2 to Skylake' . "\n" . 'convert E5-2690 v4 to Skylake';
+				$outputText = getErrorWords() . "\n" . 'Here is the correct example of input :' . "\n" . 'convert E5-2697v2 to Skylake' . "\n" . 'convert E5-2690 v4 to Skylake';
 				$tempBot->replyText($event->getReplyToken(), $outputText);
 				return true;
 			} else {
