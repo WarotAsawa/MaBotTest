@@ -663,11 +663,11 @@ function convertBroadwellToSkyLake($cpuModel) {
 	       		if ($cpuModel ==  $data[0]) {
 					$targetModel = $data[0];
 					$result = 'CPU ' . $targetModel . ' ' . $data[1] . ' GHz ' . $data[2] . ' cores';
-	       			$result = $result . "\n" . 'CPU ' . $data[3] . ' ' . $data[4] . ' ' . $data[5] . ' GHz ' . $data[6] . ' cores';	
+	       			$result = $result . "\n" . 'CPU XEON' . $data[3] . ' ' . $data[4] . ' ' . $data[5] . ' GHz ' . $data[6] . ' cores' . "\nis equal to these following models:";	
 	       		}
 	       	} else {
 	       		//If not equal anymore. Break the loop.
-	       		if (data[0] != $targetModel) {
+	       		if ($data[0] != $targetModel) {
 	       			break;
 	       		}
 	       		$result = $result . "\n" . 'CPU ' . $data[3] . ' ' . $data[4] . ' ' . $data[5] . ' GHz ' . $data[6] . ' cores';	
