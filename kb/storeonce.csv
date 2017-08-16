@@ -7,4 +7,4 @@ VSA,Virtual appliance,4 or 10 or 20 or 32 or 50 TB,4 or 10 or 20 or 32 or 50 TBB
 5100,2 to 12U scalable rack,288 TB,216 TB,13.8 TB/hr,14.2 TB/hr,26.7 TB/hr,4 x 1 GbE and 4 I/O modules,4 TB SAS 7200rpm 3.5-inch,12 to 72 (max),Hardware RAID 6,32768
 5500,7 to 22U scalable rack,1120 TB,864 TB,20.4 TB/hr,14.8 TB/hr,37.7 TB/hr,4 x 1 GbE and 4 I/O modules,4 TB SAS 7200rpm 3.5-inch,15 (min) 280 (max),Hardware RAID 6,819200
 6600,Provided in 42U 1075mm rack,2240 TB,1728 TB,151.2 TB/hr,128.8 TB/hr,184 TB/hr,4 x 1 GbE and 4 I/O modules per couplet,4 TB SAS 7200rpm 3.5-inch,30 (min) 140 (max) Per Couplet,Hardware RAID 6,6553600
-DECS,Please input one of these following Storeonce model : VSA 3100 3520 3540 5100 5500 6600
+DESC,Please input one of these following Storeonce model : VSA 3100 3520 3540 5100 5500 6600

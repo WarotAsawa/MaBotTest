@@ -31,4 +31,4 @@ Intel ,Shelf,Clock speed,Core per socket
 8170,Platinum,2.1,26
 8176,Platinum,2.1,28
 8180,Platinum,2.5,28
-DECS,Please input correct Skylake model ex: 4112 or 6128
+DESC,Please input correct Skylake model ex: 4112 or 6128
