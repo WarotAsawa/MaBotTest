@@ -205,7 +205,7 @@ function replyShowSpec($tempBot, $event, $logger) {
 			$tempBot->replyText($event->getReplyToken(), $outputText);
 			return true;
 		} 		
-		$outputText = 'Please input valid product. Here is the list of valid product.'. "\n" . 'xeon' . "\n" . 'skylake' . "\n" . '3PAR'  . "\n" . 'Storeonce';
+		$outputText = 'Please input valid product. Here is the list of valid product.'. "\n" . 'Xeon' . "\n" . 'Skylake' . "\n" . '3PAR'  . "\n" . 'Storeonce';
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
@@ -740,9 +740,10 @@ function specLookUp($productLine, $model) {
 	    		return result;
 	    	}
 	    	if ($data[0] == 'DESC') return getErrorWords() . "\n" . $data[1];
+	    	$count++;
 	    }
 	}
-	return getErrorWords() . "\n" . 'Please input valid product. Here is the list of valid product.'. "\n" . 'xeon' . "\n" . 'skylake' . "\n" . '3PAR'  . "\n" . 'Storeonce';
+	return getErrorWords() . "\n" . 'Please input valid product. Here is the list of valid product.'. "\n" . 'Xeon' . "\n" . 'Skylake' . "\n" . '3PAR'  . "\n" . 'Storeonce';
 }
 function getErrorWords() {
 	return getRandomText(
