@@ -139,13 +139,30 @@ function replyConvert($tempBot, $event, $logger) {
 		}
 		if (isContain($messageText,'tb to storeonce')) {
 			$tbValue = getFloat($messageText);
-			$outputText = convertToStoreOnce($tbValue);
+			$soModel = 'ANY';
+			$modelList = array('3100', '3520', '3540', '5100', '5500', '6600');
+			foreach ($modelList as $model) {
+				if (isContain($messageText,$model)) {
+					$soModel = $model;
+				}
+			}
+			$outputText = convertToStoreOnce($tbValue, $soModel);
 			$tempBot->replyText($event->getReplyToken(), $outputText);
 			return true;
 		}
 		if (isContain($messageText,'tib to storeonce')) {
 			$tibValue = getFloat($messageText);
 			$tbValue = $tibValue/0.909495;
+			$soModel = 'ANY';
+			$modelList = array('3100', '3520', '3540', '5100', '5500', '6600');
+			foreach ($modelList as $model) {
+				if (isContain($messageText,$model)) {
+					$soModel = $model;
+				}
+			}
+			$outputText = convertToStoreOnce($tbValue, $soModel);
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
 		}
 		if (isContain($messageText, 'to skylake')) {
 			$cpuModel = getBroadwellCPUModel($messageText);
@@ -192,6 +209,30 @@ function replyShowSpec($tempBot, $event, $logger) {
 			$outputText = 'Please input one of these following Storeonce model : VSA 3100 3520 3540 5100 5500 6600';
 			$tempBot->replyText($event->getReplyToken(), $outputText);
 			return true;
+		} else if (isContain($messageText, 'nimble')) {
+			$modelList = array('cs1000H','cs1000','cs3000','cs5000','cs7000','af1000','af3000','af5000','af7000','af9000','sf100','sf300');
+			foreach ($modelList as $model) {
+				if (isContain($messageText,'nimble',$model)) {
+					$outputText = specLookUp('nimble',$model);
+					$tempBot->replyText($event->getReplyToken(), $outputText);
+					return true;
+				}
+			}
+			$outputText = 'Please input correct Nimble model :  CS1000H CS1000 CS3000 CS5000 CS7000 AF1000 AF3000 AF5000 AF7000 AF9000 SF100 SF300';
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		}  else if (isContain($messageText, 'edgeline')) {
+			$modelList = array('el10','el20');
+			foreach ($modelList as $model) {
+				if (isContain($messageText,'edgeline',$model)) {
+					$outputText = specLookUp('edgeline',$model);
+					$tempBot->replyText($event->getReplyToken(), $outputText);
+					return true;
+				}
+			}
+			$outputText = 'Please input correct Edgeline model EL10 EL20';
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
 		} else if (isContain($messageText, 'xeon') || isContain($messageText, 'broadwell')) {
 			$productLine = 'broadwell';
 			$cpuNo = getBroadwellCPUModel($messageText);
@@ -200,11 +241,11 @@ function replyShowSpec($tempBot, $event, $logger) {
 			return true;
 		} else if (isContain($messageText, 'skylake')) {
 			$productLine = 'skylake';
-			$cpuNo = getSkylakeCPUModel($messageText);
+			$cpuNo = getBroadwellCPUModel($messageText);
 			$outputText = specLookUp($productLine, $cpuNo);
 			$tempBot->replyText($event->getReplyToken(), $outputText);
 			return true;
-		} 		
+		} 	 	
 		$outputText = 'Please input valid product. Here is the list of valid product.'. "\n" . 'Xeon' . "\n" . 'Skylake' . "\n" . '3PAR'  . "\n" . 'Storeonce';
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
@@ -595,72 +636,94 @@ function replyRandomQuotes($tempBot, $event, $logger) {
 }
 
 
-function convertToStoreOnce($tbValue) {
+function convertToStoreOnce($tbValue,$model) {
 	//Check if too large or too small
-	if ($tbValue <= 0 || $tbValue > 1382) {
-		return getErrorWords() . ' Your number is less than zero or too big.';
-	}
 	$result = $tbValue . ' TB is equal to these following models :' . "\n";
 	$totalCapacity = 0;
+	$isFound = false;
 	//Check 3100
-	if ($tbValue <= 4.45) {
-		$result = $result . "\n" . 'Storeonce 3100';
-		$totalCapacity = 4.45;
-		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+	if ($model == '3100' || $model == 'ANY') {
+		if ($tbValue <= 4.45) {
+			$result = $result . "\n" . 'Storeonce 3100';
+			$totalCapacity = 4.45;
+			$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+			$isFound = true;
+		}
 	}
 	//Check 3520
-	if ($tbValue <= 6) {
-		$result = $result . "\n" . 'Storeonce 3520';
-		$totalCapacity = 6;
-		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
-	} 
-	if ($tbValue <= 12.4 && $tbValue > 6) {
-		$result = $result . "\n" . 'Storeonce 3520 with upgraded capacity.';
-		$totalCapacity = 12.4;
-		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+	if ($model == '3520' || $model == 'ANY') {
+		if ($tbValue <= 6) {
+			$result = $result . "\n" . 'Storeonce 3520';
+			$totalCapacity = 6;
+			$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+			$isFound = true;
+		} 
+
+		if ($tbValue <= 12.4 && $tbValue > 6) {
+			$result = $result . "\n" . 'Storeonce 3520 with upgraded capacity.';
+			$totalCapacity = 12.4;
+			$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+			$isFound = true;
+		}
 	} 
 	//Check 3540
-	if ($tbValue <= 12.4 && $tbValue > 6) {
-		$result = $result . "\n" . 'Storeonce 3540';
-		$totalCapacity = 12.4;
-		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
-	}
-	if ($tbValue <= 25.2 && $tbValue > 12.4) {
-		$result =  $result . "\n" .'Storeonce 3540 with upgraded capacity.';
-		$totalCapacity = 25.2;
-		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+	if ($model == '3540' || $model == 'ANY') {
+		if ($tbValue <= 12.4 && $tbValue > 6) {
+			$result = $result . "\n" . 'Storeonce 3540';
+			$totalCapacity = 12.4;
+			$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+			$isFound = true;
+		}
+		if ($tbValue <= 25.2 && $tbValue > 12.4) {
+			$result =  $result . "\n" .'Storeonce 3540 with upgraded capacity.';
+			$totalCapacity = 25.2;
+			$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+			$isFound = true;
+		}
 	}
 	//Check 5100
-	if ($tbValue <= 172  && $tbValue > 12.4) {
-		$upgrade5100 = ceil($tbValue/28.8) - 1;
-		$result = $result . "\n" . 'Storeonce 5100 ';
-		if ($upgrade5100 > 0) {
-			  $result = $result . 'with ' . $upgrade5100 . ' capacity upgrade enclosure.';
-		} 
-		$totalCapacity = 28.8 * ($upgrade5100 + 1);
-		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+	if ($model == '5100' || $model == 'ANY') {
+		if ($tbValue <= 172  && $tbValue > 12.4) {
+			$upgrade5100 = ceil($tbValue/28.8) - 1;
+			$result = $result . "\n" . 'Storeonce 5100 ';
+			if ($upgrade5100 > 0) {
+				  $result = $result . 'with ' . $upgrade5100 . ' capacity upgrade enclosure.';
+			} 
+			$totalCapacity = 28.8 * ($upgrade5100 + 1);
+			$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+			$isFound = true;
+		}
 	}
 	//Check 5500
-	if ($tbValue <= 691 && $tbValue > 28.8) {
-		$upgrade5500 = ceil($tbValue/28.8);
-		$result = $result . "\n" . 'Storeonce 5500 ';
-		if ($upgrade5500 > 1) {
-			$drawer = ceil($upgrade5500/6.0);
-			  $result = $result . "\n" . 'with ' .  $drawer . ' total disk drawer'  . "\n" . 'and ' . ($upgrade5500 - $drawer) . ' total disk capacity upgrade.';
+	if ($model == '5500' || $model == 'ANY') {
+		if ($tbValue <= 691 && $tbValue > 28.8) {
+			$upgrade5500 = ceil($tbValue/28.8);
+			$result = $result . "\n" . 'Storeonce 5500 ';
+			if ($upgrade5500 > 1) {
+				$drawer = ceil($upgrade5500/6.0);
+				  $result = $result . "\n" . 'with ' .  $drawer . ' total disk drawer'  . "\n" . 'and ' . ($upgrade5500 - $drawer) . ' total disk capacity upgrade.';
+			}
+			$totalCapacity = 28.8 * $upgrade5500;
+			$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+			$isFound = true;
 		}
-		$totalCapacity = 28.8 * $upgrade5500;
-		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
 	}
 	//Check 6600
-	if ($tbValue <= 1368 && $tbValue > 57) {
-		$upgrade6600 = ceil($tbValue/57.0);
-		$result = $result . "\n" . 'Storeonce 6600 ';
-		if ($upgrade6600 > 1) {
-			$couplet = ceil($upgrade6600/6.0);
-			  $result = $result . "\n" . 'with ' .  $couplet . ' Couplet'  . "\n" . 'and ' . ($upgrade6600 - $couplet) . ' total disk capacity upgrade.';
+	if ($model == '6600' || $model == 'ANY') {
+		if ($tbValue <= 1368 && $tbValue > 57) {
+			$upgrade6600 = ceil($tbValue/57.0);
+			$result = $result . "\n" . 'Storeonce 6600 ';
+			if ($upgrade6600 > 1) {
+				$couplet = ceil($upgrade6600/6.0);
+				  $result = $result . "\n" . 'with ' .  $couplet . ' Couplet'  . "\n" . 'and ' . ($upgrade6600 - $couplet) . ' total disk capacity upgrade.';
+			}
+			$totalCapacity = 57 * $upgrade6600;
+			$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+			$isFound = true;
 		}
-		$totalCapacity = 57 * $upgrade6600;
-		$result = $result . "\n" . 'With ' . $totalCapacity . ' TB of usable Capacity.';
+	}
+	if ($tbValue <= 0 || $tbValue > 1382 || $isFound == false) {
+		return getErrorWords() . ' Your number is less than zero or too big.';
 	}
 	return $result;
 }
