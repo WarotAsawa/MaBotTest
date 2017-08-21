@@ -201,6 +201,7 @@ function replyShowSpec($tempBot, $event, $logger) {
 					$isProductMatched = true;
 					//Check if Xeon then do xeon
 					if ($productLine == 'xeon' || $productLine == 'broadwell') {
+						$allModelLabel = " E7-8880v3 or E5-2697v4";
 						$model = getBroadwellCPUModel($messageText);
 						if ($model != 'ERROR') {
 							$isModelMatched = true;
@@ -209,6 +210,7 @@ function replyShowSpec($tempBot, $event, $logger) {
 					} else if ($productLine == 'skylake') {
 					//Check if Skylake then do xeon
 						$model = getSkylakeCPUModel($messageText);
+						$allModelLabel = " 4112 or 6128";
 						if ($model != 'ERROR') {
 							$isModelMatched = true;
 							$outputText = specLookUp($productLine,$model);
@@ -789,7 +791,7 @@ function specLookUp($productLine, $model) {
 	    		}
 	    		return $result;
 	    	}
-	    	if ($data[0] == 'DESC') return getErrorWords() . "\n" . $data[1];
+	    	if ($data[0] == 'DESC') return 'getErrorWords() . "\n" . $data[1]';
 	    	$count++;
 	    }
 	}
