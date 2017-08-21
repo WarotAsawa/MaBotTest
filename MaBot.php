@@ -193,22 +193,23 @@ function replyShowSpec($tempBot, $event, $logger) {
 	if (isContain($messageText,'spec')) {
 	
 		if (($handle = fopen($fileDir, "r")) !== FALSE) {
-		while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-			$productLine = $data[0];
-			$allProductLabel = $allProductLabel . "\n" . $productLine;
-			$modelList = $data;
-			if (isContain($messageText, $productLine)) {
-				$isProductMatched = true;
-				foreach ($modelList as $model) {
-					if ($model == NA) break;
-					if ($model == $productLine) continue;
-					$allModelLabel = $allModelLabel . "\n" . $model;
-					if (isContain($messageText,$model)) {
-						$isModelMatched = true;
-						$outputText = specLookUp($productLine,$model);
+			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+				$productLine = $data[0];
+				$allProductLabel = $allProductLabel . "\n" . $productLine;
+				$modelList = $data;
+				if (isContain($messageText, $productLine)) {
+					$isProductMatched = true;
+					foreach ($modelList as $model) {
+						if ($model == NA) break;
+						if ($model == $productLine) continue;
+						$allModelLabel = $allModelLabel . "\n" . $model;
+						if (isContain($messageText,$model)) {
+							$isModelMatched = true;
+							$outputText = specLookUp($productLine,$model);
+						}
 					}
+					if ($isModelMatched == false) $outputText = getErrorWords() . "\nPlease select one of these " . $productLine . " model:" . $allModelLabel;
 				}
-				if ($isModelMatched == false) $outputText = getErrorWords() . "\nPlease select one of these " . $productLine . " model:" . $allModelLabel;
 			}
 		}
 		if ($isProductMatched == false) $outputText = getErrorWords() . "\nPlease select one of these valid products:" . $allProductLabel;
