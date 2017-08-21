@@ -11,8 +11,6 @@ Ua9222d61b45ff88cc7315440f4f285f3
 
 warm-tundra-83481
 
-
-
 heroku login
 
 heroku logs -a shrouded-plains-89594 -t

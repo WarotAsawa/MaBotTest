@@ -2,6 +2,7 @@
 
 require_once './vendor/autoload.php';
 
+//Include library
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\Event\MessageEvent;
@@ -34,15 +35,15 @@ $logger = new Logger('LineBot');
 $logger->pushHandler(new StreamHandler('php://stderr', Logger::DEBUG));
 
 try {
-    $events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
+$events = $bot->parseEventRequest(file_get_contents('php://input'), $signature);
 } catch(\LINE\LINEBot\Exception\InvalidSignatureException $e) {
-	error_log('parseEventRequest failed. InvalidSignatureException => '.var_export($e, true));
+error_log('parseEventRequest failed. InvalidSignatureException => '.var_export($e, true));
 } catch(\LINE\LINEBot\Exception\UnknownEventTypeException $e) {
-	error_log('parseEventRequest failed. UnknownEventTypeException => '.var_export($e, true));
+error_log('parseEventRequest failed. UnknownEventTypeException => '.var_export($e, true));
 } catch(\LINE\LINEBot\Exception\UnknownMessageTypeException $e) {
-	error_log('parseEventRequest failed. UnknownMessageTypeException => '.var_export($e, true));
+error_log('parseEventRequest failed. UnknownMessageTypeException => '.var_export($e, true));
 } catch(\LINE\LINEBot\Exception\InvalidEventRequestException $e) {
-	error_log('parseEventRequest failed. InvalidEventRequestException => '.var_export($e, true));
+error_log('parseEventRequest failed. InvalidEventRequestException => '.var_export($e, true));
 }
 foreach ($events as $event) {
 	$alreadyReplied = false;
@@ -184,74 +185,37 @@ function replyConvert($tempBot, $event, $logger) {
 }
 function replyShowSpec($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
-	if (isContain($messageText,'tell me','spec') || isContain($messageText,'give me','spec') || isContain($messageText,'show me','spec') || isContain($messageText,'gimme','spec')) {
-		if (isContain($messageText, '3par')) {
-			$modelList = array('8200', '8400', '8440', '8450', '9450','20450', '20800', '20850', '20840');
+	$fileDir = "./kb/allProduct.csv";
+	$allProductLabel = "";
+	$allModelLabel = "";
+	$isProductMatched = false;
+	$isModelMatched = false;
+	if (isContain($messageText,'spec') == false) return false;
+	if (($handle = fopen($fileDir, "r")) !== FALSE) {
+	while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+		$productLine = $data[0];
+		$allProductLabel = $allProductLabel . "\n" . $productLine;
+		$modelList = $data;
+		if (isContain($messageText, $productLine)) {
+			$isProductMatched = true;
 			foreach ($modelList as $model) {
-				if (isContain($messageText,'3par',$model)) {
-					$outputText = specLookUp('3par',$model);
-					$tempBot->replyText($event->getReplyToken(), $outputText);
-					return true;
+				if ($model == $productLine) continue;
+				$allModelLabel = $allModelLabel . "\n" . $model;
+				if (isContain($messageText,$model)) {
+					$isModelMatched = true;
+					$outputText = specLookUp($productLine,$model);
 				}
 			}
-			$outputText = 'Please input one of these following 3PAR model : 8200 8400 8440 8450 9450 20450 20800 20850 20840';
-			$tempBot->replyText($event->getReplyToken(), $outputText);
-			return true;
-		} else if (isContain($messageText, 'storeonce')) {
-			$modelList = array('vsa','3100', '3520', '3540', '5100', '5500', '6600');
-			foreach ($modelList as $model) {
-				if (isContain($messageText,'storeonce',$model)) {
-					$outputText = specLookUp('storeonce',$model);
-					$tempBot->replyText($event->getReplyToken(), $outputText);
-					return true;
-				}
-			}
-			$outputText = 'Please input one of these following Storeonce model : VSA 3100 3520 3540 5100 5500 6600';
-			$tempBot->replyText($event->getReplyToken(), $outputText);
-			return true;
-		} else if (isContain($messageText, 'nimble')) {
-			$modelList = array('cs1000H','cs1000','cs3000','cs5000','cs7000','af1000','af3000','af5000','af7000','af9000','sf100','sf300');
-			foreach ($modelList as $model) {
-				if (isContain($messageText,'nimble',$model)) {
-					$outputText = specLookUp('nimble',$model);
-					$tempBot->replyText($event->getReplyToken(), $outputText);
-					return true;
-				}
-			}
-			$outputText = 'Please input correct Nimble model :  CS1000H CS1000 CS3000 CS5000 CS7000 AF1000 AF3000 AF5000 AF7000 AF9000 SF100 SF300';
-			$tempBot->replyText($event->getReplyToken(), $outputText);
-			return true;
-		}  else if (isContain($messageText, 'edgeline')) {
-			$modelList = array('el10','el20');
-			foreach ($modelList as $model) {
-				if (isContain($messageText,'edgeline',$model)) {
-					$outputText = specLookUp('edgeline',$model);
-					$tempBot->replyText($event->getReplyToken(), $outputText);
-					return true;
-				}
-			}
-			$outputText = 'Please input correct Edgeline model EL10 EL20';
-			$tempBot->replyText($event->getReplyToken(), $outputText);
-			return true;
-		} else if (isContain($messageText, 'xeon') || isContain($messageText, 'broadwell')) {
-			$productLine = 'broadwell';
-			$cpuNo = getBroadwellCPUModel($messageText);
-			$outputText = specLookUp($productLine, $cpuNo);
-			$tempBot->replyText($event->getReplyToken(), $outputText);
-			return true;
-		} else if (isContain($messageText, 'skylake')) {
-			$productLine = 'skylake';
-			$cpuNo = getBroadwellCPUModel($messageText);
-			$outputText = specLookUp($productLine, $cpuNo);
-			$tempBot->replyText($event->getReplyToken(), $outputText);
-			return true;
-		} 	 	
-		$outputText = 'Please input valid product. Here is the list of valid product.'. "\n" . 'Xeon' . "\n" . 'Skylake' . "\n" . '3PAR'  . "\n" . 'Storeonce';
-		$tempBot->replyText($event->getReplyToken(), $outputText);
-		return true;
+			if ($isModelMatched == false) $outputText = getErrorWords() . "\nPlease select one of these " . $productLine . " model:" . $allModelLabel;
+		}
 	}
-	return false;
+	if ($isProductMatched == false) $outputText = getErrorWords() . "\nPlease select one of these valid products:" . $allProductLabel;
+	
+	$outputText = specLookUp($productLine,$model);
+	$tempBot->replyText($event->getReplyToken(), $outputText);
+	return true;
 }
+
 function replyGreets($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
 	$secondPersonName = getRandomText(' baby.', ' my master.', ' fellas.', ' ma friend.');
@@ -807,7 +771,7 @@ function specLookUp($productLine, $model) {
 	    	$count++;
 	    }
 	}
-	return getErrorWords() . "\n" . 'Please input valid product. Here is the list of valid product.'. "\n" . 'Xeon' . "\n" . 'Skylake' . "\n" . '3PAR'  . "\n" . 'Storeonce';
+	return 'ERROR';
 }
 function getErrorWords() {
 	return getRandomText(
@@ -850,8 +814,21 @@ You can ask me to tell me your jokes or if you say something non sense. I will s
 Location and image:\n
 I can interact when you send your location or image to me as well.\n
 Basic conversion:\n
-You can ask me to convert something for you for example\n  convert 20TB to TiB\n  convert 100TiB to TB\n  convert 120TB to Storeonce\n  convert 100TiB to Storeonce\n convert e5-2690v4 to skylake \n convert e5-2680 v3 to skylake\n
+You can ask me to convert something for you just say\n convert (source) to (target)\nfor example\n
+- convert 20TB to TiB\n
+- convert 100TiB to TB\n
+- convert 120TB to Storeonce\n
+- convert 100TiB to Storeonce\n
+- convert e5-2690v4 to skylake\n
+- convert e5-2680 v3 to skylake\n
 Specification Lookup:\n
-You can ask me to check the specification for hardware for example 3PAR, Storeonce, Xeon CPU etc. For example:\n Show me 3par 8200 spec\n Give me specification of Storeonce 5100\n Tell me xeon e5-2690v4 spec\n Gimme spec of skylake 5122\n
+You can ask me to check the specification for hardware for example 3PAR, Storeonce, Xeon CPU etc. Just say\n
+- Show me (product) (model) spec\n
+- Spec (product) (model)\n
+For example:\n
+- Show me 3par 8200 spec\n
+- Give me Storeonce 5100 spec\n
+- Tell me xeon e5-2690v4 spec\n
+- Spec skylake 5122\n
 Many more feature will come soon so keep in touch with me.";
 }
