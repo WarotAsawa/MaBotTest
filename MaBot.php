@@ -199,6 +199,7 @@ function replyShowSpec($tempBot, $event, $logger) {
 		if (isContain($messageText, $productLine)) {
 			$isProductMatched = true;
 			foreach ($modelList as $model) {
+				if ($model == NA) break;
 				if ($model == $productLine) continue;
 				$allModelLabel = $allModelLabel . "\n" . $model;
 				if (isContain($messageText,$model)) {
