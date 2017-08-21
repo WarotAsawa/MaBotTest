@@ -190,31 +190,35 @@ function replyShowSpec($tempBot, $event, $logger) {
 	$allModelLabel = "";
 	$isProductMatched = false;
 	$isModelMatched = false;
-	if (isContain($messageText,'spec') == false) return false;
-	if (($handle = fopen($fileDir, "r")) !== FALSE) {
-	while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-		$productLine = $data[0];
-		$allProductLabel = $allProductLabel . "\n" . $productLine;
-		$modelList = $data;
-		if (isContain($messageText, $productLine)) {
-			$isProductMatched = true;
-			foreach ($modelList as $model) {
-				if ($model == NA) break;
-				if ($model == $productLine) continue;
-				$allModelLabel = $allModelLabel . "\n" . $model;
-				if (isContain($messageText,$model)) {
-					$isModelMatched = true;
-					$outputText = specLookUp($productLine,$model);
-				}
-			}
-			if ($isModelMatched == false) $outputText = getErrorWords() . "\nPlease select one of these " . $productLine . " model:" . $allModelLabel;
-		}
-	}
-	if ($isProductMatched == false) $outputText = getErrorWords() . "\nPlease select one of these valid products:" . $allProductLabel;
+	if (isContain($messageText,'spec')) {
 	
-	$outputText = specLookUp($productLine,$model);
-	$tempBot->replyText($event->getReplyToken(), $outputText);
-	return true;
+		if (($handle = fopen($fileDir, "r")) !== FALSE) {
+		while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+			$productLine = $data[0];
+			$allProductLabel = $allProductLabel . "\n" . $productLine;
+			$modelList = $data;
+			if (isContain($messageText, $productLine)) {
+				$isProductMatched = true;
+				foreach ($modelList as $model) {
+					if ($model == NA) break;
+					if ($model == $productLine) continue;
+					$allModelLabel = $allModelLabel . "\n" . $model;
+					if (isContain($messageText,$model)) {
+						$isModelMatched = true;
+						$outputText = specLookUp($productLine,$model);
+					}
+				}
+				if ($isModelMatched == false) $outputText = getErrorWords() . "\nPlease select one of these " . $productLine . " model:" . $allModelLabel;
+			}
+		}
+		if ($isProductMatched == false) $outputText = getErrorWords() . "\nPlease select one of these valid products:" . $allProductLabel;
+		
+		$outputText = specLookUp($productLine,$model);
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		return true;
+	} else {
+		return false;
+	}
 }
 
 function replyGreets($tempBot, $event, $logger) {
