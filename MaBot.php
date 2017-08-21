@@ -199,13 +199,30 @@ function replyShowSpec($tempBot, $event, $logger) {
 				$modelList = $data;
 				if (isContain($messageText, $productLine)) {
 					$isProductMatched = true;
-					foreach ($modelList as $model) {
-						if ($model == NA) break;
-						if ($model == $productLine) continue;
-						$allModelLabel = $allModelLabel . "\n" . $model;
-						if (isContain($messageText,$model)) {
+					//Check if Xeon then do xeon
+					if ($productLine == 'xeon' || $productLine == 'broadwell') {
+						$model = getBroadwellCPUModel($messageText);
+						if ($model != 'ERROR') {
+							$isModelMatched = true;
+							$outputText = specLookUp('broadwell',$model);
+						}
+					} else if ($productLine == 'skylake') {
+					//Check if Skylake then do xeon
+						$model = getSkylakeCPUModel($messageText);
+						if ($model != 'ERROR') {
 							$isModelMatched = true;
 							$outputText = specLookUp($productLine,$model);
+						}
+					} else {
+						//Other product other than xeon and skylake
+						foreach ($modelList as $model) {
+							if ($model == NA) break;
+							if ($model == $productLine) continue;
+							$allModelLabel = $allModelLabel . "\n" . $model;
+							if (isContain($messageText,$model)) {
+								$isModelMatched = true;
+								$outputText = specLookUp($productLine,$model);
+							}
 						}
 					}
 					if ($isModelMatched == false) $outputText = getErrorWords() . "\nPlease select one of these " . $productLine . " model:" . $allModelLabel;

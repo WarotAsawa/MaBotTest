@@ -1,6 +1,5 @@
 Nimble Array,Raw Capacity,Usable Capacity,Effective Capacity,Max number of Expansion Shelves (Hybrid/All Flash),Flash Capacity,RAID Level,Max IOPS (100% Read),Max IOPS (70% Read / 30% Write),Onboard iSCSI/Mgmt 1Gb/10Gb ,Optional iSCSI 1Gb/10Gb ,Optional FC 8Gb/16Gb ,Max Power Requirement,Thermal
 ,,,,,,,IOPs,IOPs,ports,ports,ports,,BTU
-cs1000h,11-1198 TB or 10-1090 TiB,7-952 TB or 6-866 TiB,13-1905 TB or 12-1733 TiB,6 Hybrid / 1 All Flash,0.5-28 TB or 0.4-25 TiB,Triple+ Parity,40000,35000,4,4,4 or 8,500W / 0.56kVA,1638
 cs1000,21-1218 TB or 19-1108 TiB,16-982 TB or 14-893 TiB,32-1964 TB or 29-1786 TiB,6 Hybrid / 1 All Flash,0.7-28 TB or 0.65-25 TiB,Triple+ Parity,40000,35000,4,4,4 or 8,600W / 0.67kVA,1965
 cs3000,21-1470 TB or 19-1337 TiB,16-1185 TB or 14-1078 TiB,32-2371 TB or 29-2156 TiB,6 Hybrid / 1 All Flash,0.7-36 TB or 0.65-33 TiB,Triple+ Parity,60000,50000,4,4 or 8,4 to 24,700W / 0.78kVA,2293
 cs5000,21-1470 TB or 19-1337 TiB,16-1185 TB or 14-1078 TiB,32-2371 TB or 29-2156 TiB,6 Hybrid / 1 All Flash,0.7-76 TB or 0.65-69 TiB,Triple+ Parity,140000,120000,4,4 to 12,4 to 24,800W / 0.89kVA,2620
@@ -14,4 +13,5 @@ af9000,23-553 TB or 20-503 TiB,17-409 TB or 15-372 TiB,85-2045 / 75-1860 TiB,2 A
 scale-out 4x af9000,2212 TB or 2012 TiB,1636 TB or 1488 TiB,8180 / 7440,8 All Flash,NA,Triple+ Parity,1400000,1200000,16,96,96,3600W / 4kVA,11792
 sf100,21 - 126 TB or 19 - 115 TiB,16 - 100 TB or 15 - 91 TiB,288 - 1800 TB or 270 - 1638 TiB,2 Hybrid,1.4 - 36 TB or 1.27,Triple+ Parity,20000,NA,4,4 or 8,4 to 24,700W/0.78kVA,2293
 sf300,42 - 252 TB or 38 - 229 TiB,33 - 200 TB or 30 - 182 TiB,594 - 3600 TB or 540 - 3276 TiB,2 Hybrid,2.8 - 76 TB or 2.55 - 69 TiB,Triple+ Parity,40000,NA,4,4 to 12, 4 to 24,800W/0.89kVA,2620
+cs1000h,11-1198 TB or 10-1090 TiB,7-952 TB or 6-866 TiB,13-1905 TB or 12-1733 TiB,6 Hybrid / 1 All Flash,0.5-28 TB or 0.4-25 TiB,Triple+ Parity,40000,35000,4,4,4 or 8,500W / 0.56kVA,1638
 DESC,Please input correct Nimble model :  CS1000H CS1000 CS3000 CS5000 CS7000 AF1000 AF3000 AF5000 AF7000 AF9000 SF100 SF300,,,,,,,,,,,,
