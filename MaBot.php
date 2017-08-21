@@ -214,7 +214,6 @@ function replyShowSpec($tempBot, $event, $logger) {
 		}
 		if ($isProductMatched == false) $outputText = getErrorWords() . "\nPlease select one of these valid products:" . $allProductLabel;
 		
-		$outputText = specLookUp($productLine,$model);
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	} else {
