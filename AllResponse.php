@@ -338,7 +338,6 @@ class AllResponse {
 			'It\'s now or never.'
     	)
    	);
-   	);
    
    public $instruction = "Greetings: \n
 You can say hello, good moring, bye or any kind of greeting to me.\n
