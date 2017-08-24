@@ -214,7 +214,30 @@ class AllResponse {
 			'You can ask me for help anytime.'
 		),
 		"help" => array(
-   			$instruction
+   			"Greetings: \n
+You can say hello, good moring, bye or any kind of greeting to me.\n
+Jokes:\n
+You can ask me to tell me your jokes or if you say something non sense. I will said something random back to you.\n
+Location and image:\n
+I can interact when you send your location or image to me as well.\n
+Basic conversion:\n
+You can ask me to convert something for you just say\n convert (source) to (target)\nfor example\n
+- convert 20TB to TiB\n
+- convert 100TiB to TB\n
+- convert 120TB to Storeonce\n
+- convert 100TiB to Storeonce\n
+- convert e5-2690v4 to skylake\n
+- convert e5-2680 v3 to skylake\n
+Specification Lookup:\n
+You can ask me to check the specification for hardware for example 3PAR, Storeonce, Xeon CPU etc. Just say\n
+- Show me (product) (model) spec\n
+- Spec (product) (model)\n
+For example:\n
+- Show me 3par 8200 spec\n
+- Give me Storeonce 5100 spec\n
+- Tell me xeon e5-2690v4 spec\n
+- Spec skylake 5122\n
+Many more feature will come soon so keep in touch with me."
 		),
 		"whatyourname" => array(
    			'Don\'you see my name above?',
