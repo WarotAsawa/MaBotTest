@@ -74,8 +74,6 @@ function isContain($input) {
 }
 function isContainFromArray($input, $array) {
     foreach ($array as $text) {
-    	$logger->info($input);
-    	$logger->info($text);
     	if (strpos($input, $text) === false) {
     		return false;
     	} 
@@ -272,6 +270,9 @@ function replySpeech($tempBot, $event, $logger,$allResponse) {
 		$allCriteria = $allResponse->$allResponseCriterias[$question];
 		foreach ($allCriteria as $criteria) {
 			if ($isFound) break;
+			foreach($criteria as $temp) {
+				$logger->info($temp);
+			}
 			if (isContainFromArray($messageText, $criteria)) {
 				$logger->info($criteria[0]);
 				if (isset($allResponse->$allResponseResponse[$question])) {
