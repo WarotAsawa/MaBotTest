@@ -40,7 +40,7 @@ Many more feature will come soon so keep in touch with me.";
     		"hello" => array(
     			array("hello"),
     			array("greeting"),
-    			array("what\'s up"),
+    			array("what","up"),
     			array("hey")
     		),
     		"morning" => array(
