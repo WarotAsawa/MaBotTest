@@ -196,7 +196,7 @@ Many more feature will come soon so keep in touch with me.";
 				'Why do stores that are open 24/7 have locks on their doors?',
 				'When nothing goes right, Go left.',
 				'Save water , do not shower.',
-				'A “Lion” would never cheat on his wife but a “Tiger Wood”.',
+				'A Lion would never cheat on his wife but a Tiger Wood.',
 				'Why do they put pizza in a square box?'
     		),
    			"hello" => array(
@@ -245,7 +245,7 @@ Many more feature will come soon so keep in touch with me.";
 				'You can ask me for help anytime.'
 			),
 			"help" => array(
-   				$instruction
+   				$this->$instruction
 			),
 			"whatyourname" => array(
    				'Don\'you see my name above?',

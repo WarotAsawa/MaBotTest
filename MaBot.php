@@ -267,6 +267,7 @@ function replySpeech($tempBot, $event, $logger,$allResponse) {
 	$isFound = false;
 	foreach ($allQuestion as $question) {
 		$allCriteria = $allResponse->$allResponseCriterias[$question];
+		$logger->info($question);
 		foreach ($allCriteria as $criteria) {
 			if (isContainFromArray($messageText, $criteria)) {
 				if (isset($allResponseResponse[$question])) {
