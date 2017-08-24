@@ -1,3 +1,4 @@
+<?php include("AllResponse.php"); ?>
 <?php
 
 require_once './vendor/autoload.php';
@@ -13,7 +14,7 @@ use LINE\LINEBot\Event\MessageEvent\ImageMessage;
 use LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
 use LINE\LINEBot\Exception\InvalidEventRequestException;
 use LINE\LINEBot\Exception\InvalidSignatureException;
-
+use AllResponse.php;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
@@ -29,6 +30,8 @@ $userid = 'Ua9222d61b45ff88cc7315440f4f285f3';
 $httpClient = new LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channel_secret]);
 
+$allResponse = new AllResponse();
+$allQuestion = array_key($allResponse->$allResponseCriterias);
 $signature = $_SERVER['HTTP_' . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 
 $logger = new Logger('LineBot');
@@ -58,13 +61,9 @@ foreach ($events as $event) {
 	// Spec lookup Reply
 	if (replyShowSpec($bot, $event, $logger)) continue;
 	// Greeting Reply
-	if (replyGreets($bot, $event, $logger)) continue;
-	// Question Reply
-  	if (replyQuestion($bot, $event, $logger)) continue;
-	// Jokes Event
-  	if (replyJokes($bot, $event, $logger)) continue;
+	if (replySpeech($bot, $event, $logger)) continue;
   	// Random Reply
-  	if (replyRandomQuotes($bot, $event, $logger)) continue;
+  	//if (replyRandomQuotes($bot, $event, $logger)) continue;
 }  
 
 function isContain($input) {
@@ -75,18 +74,28 @@ function isContain($input) {
     }
     return true;
 }
-
+function isContainFromArray($input, $array) {
+    for ($array as $text) {
+    	if (strpos($input, $text) === false) {
+    		return false;
+    	} 
+    }
+    return true;
+}
 function isStartWithText($input, $query) {
 	//IsStart with
 	return substr($input, 0, strlen($query)) === $query;
 }
-
 function getRandomText() {
 	$index = random_int(0, 10000000);
 	$index = $index % func_num_args();
 	return func_get_arg($index);
 }
-
+function getRandomTextFromArray($array) {
+	$index = random_int(0, 10000000);
+	$index = $index % sizeof($array);
+	return $array($index);
+}
 function postBackLog($tempBot, $event, $logger) {
 	if ($event instanceof \LINE\LINEBot\Event\PostbackEvent) {
 		$logger->info('Postback message has come');
@@ -135,6 +144,20 @@ function replyConvert($tempBot, $event, $logger) {
 			$tibValue = getFloat($messageText);
 			$tbValue = $tibValue/0.909495;
 			$outputText = generatePreanswer() . $tibValue . ' TiB is equal to ' . $tbValue . ' TB';
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		}
+		if (isContain($messageText,'gb to gib')) {
+			$tbValue = getFloat($messageText);
+			$tibValue = 0.931323 * $tbValue;
+			$outputText = generatePreanswer() . $tbValue . ' GB is equal to ' . $tibValue . ' GiB';
+			$tempBot->replyText($event->getReplyToken(), $outputText);
+			return true;
+		}
+		if (isContain($messageText,'gib to gb')) {
+			$tibValue = getFloat($messageText);
+			$tbValue = $tibValue/0.931323;
+			$outputText = generatePreanswer() . $tibValue . ' GiB is equal to ' . $tbValue . ' GB';
 			$tempBot->replyText($event->getReplyToken(), $outputText);
 			return true;
 		}
@@ -240,6 +263,23 @@ function replyShowSpec($tempBot, $event, $logger) {
 	}
 }
 
+function replySpeech($tempBot, $event, $logger) {
+	$messageText=strtolower(trim($event->getText()));
+	$outputText = "";
+	$isFound = false;
+	foreach ($allQuestion as $question) {
+		$allCriteria = $allResponse->$allResponseCriterias[$question];
+		foreach ($allCriteria as $criteria) {
+			if (isContainFromArray($messageText, $criteria)) {
+				$outputText = getRandomTextFromArray($allResponse->$allResponseResponse[$question]);
+				$isFound = true;
+			}
+		}
+	}
+	if (&isFound == false) $outputText = getRandomTextFromArray($allResponse->$allResponseResponse["random"]);
+	$tempBot->replyText($event->getReplyToken(), $outputText);
+	return true;
+}
 function replyGreets($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
 	$secondPersonName = getRandomText(' baby.', ' my master.', ' fellas.', ' ma friend.');
@@ -791,7 +831,7 @@ function specLookUp($productLine, $model) {
 	    		}
 	    		return $result;
 	    	}
-	    	if ($data[0] == 'DESC') return 'getErrorWords() . "\n" . $data[1]';
+	    	if ($data[0] == 'DESC') return getErrorWords() . "\n" . $data[1];
 	    	$count++;
 	    }
 	}
@@ -830,29 +870,5 @@ function getFloat($str) {
 }
 function getInstruction() {
 	//Get instructions
-	return 
-	"Greetings: \n
-You can say hello, good moring, bye or any kind of greeting to me.\n
-Jokes:\n
-You can ask me to tell me your jokes or if you say something non sense. I will said something random back to you.\n
-Location and image:\n
-I can interact when you send your location or image to me as well.\n
-Basic conversion:\n
-You can ask me to convert something for you just say\n convert (source) to (target)\nfor example\n
-- convert 20TB to TiB\n
-- convert 100TiB to TB\n
-- convert 120TB to Storeonce\n
-- convert 100TiB to Storeonce\n
-- convert e5-2690v4 to skylake\n
-- convert e5-2680 v3 to skylake\n
-Specification Lookup:\n
-You can ask me to check the specification for hardware for example 3PAR, Storeonce, Xeon CPU etc. Just say\n
-- Show me (product) (model) spec\n
-- Spec (product) (model)\n
-For example:\n
-- Show me 3par 8200 spec\n
-- Give me Storeonce 5100 spec\n
-- Tell me xeon e5-2690v4 spec\n
-- Spec skylake 5122\n
-Many more feature will come soon so keep in touch with me.";
+	return $allResponse->$instruction;
 }
