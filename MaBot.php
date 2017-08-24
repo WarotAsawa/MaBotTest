@@ -30,7 +30,7 @@ $httpClient = new LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channel_secret]);
 
 $allResponse = new AllResponse();
-$allQuestion = array_key($allResponse->$allResponseCriterias);
+$allQuestion = array_keys($allResponse->$allResponseCriterias);
 $signature = $_SERVER['HTTP_' . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 
 $logger = new Logger('LineBot');
