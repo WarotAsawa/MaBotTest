@@ -1,7 +1,8 @@
 <?php
 class AllResponse {
 
-	public $allResponseResponse = array($allResponseAnswer01, $allResponseAnswer02, $allResponseAnswer03); 
+	public $allResponseResponse = array($allResponseAnswer01, $allResponseAnswer02, $allResponseAnswer03);
+
     public $allResponseCriterias = array(
     	"telljoke" => array(
     		array("tell", "joke"),
@@ -113,6 +114,7 @@ class AllResponse {
     		array("may i")
     	),
     );
+
    	public $allResponseAnswer01 = array(
    		"hello" => array(
     		'Hello there,',
@@ -309,7 +311,7 @@ class AllResponse {
    			'I do not know how.',
 			'How sould I know?',
 			'No idea. Duhhh'
-		)
+		),
 		"canyou" => array(
     		'No. I can\'t do somthing like that. Here is what can I do for you.' . "\n" . $instruction,
 			'No. I don\'t have an ability to do that. But I will happy to do these for you.' . "\n" . $instruction
