@@ -276,7 +276,7 @@ function replySpeech($tempBot, $event, $logger,$allResponse) {
 				$logger->info($question);
 				$outputText = getRandomTextFromArray($allResponse->$allResponseResponse[$question]);
 				$isFound = true;
-				$logger->info($outputText);
+				$logger->info($outputText[0]);
 			}
 		}
 	}
