@@ -92,7 +92,7 @@ function getRandomText() {
 function getRandomTextFromArray($array) {
 	$index = random_int(0, 10000000);
 	$index = $index % sizeof($array);
-	return $array($index);
+	return $array[$index];
 }
 function postBackLog($tempBot, $event, $logger) {
 	if ($event instanceof \LINE\LINEBot\Event\PostbackEvent) {
