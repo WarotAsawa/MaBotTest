@@ -74,7 +74,8 @@ function isContain($input) {
 }
 function isContainFromArray($input, $array) {
     foreach ($array as $text) {
-    	$logger->info($input . ' , ' . $text);
+    	$logger->info($input);
+    	$logger->info($text);
     	if (strpos($input, $text) === false) {
     		return false;
     	} 
