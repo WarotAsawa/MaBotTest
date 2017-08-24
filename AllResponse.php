@@ -1,6 +1,7 @@
 <?php
 class AllResponse {
 
+	public $allResponseResponse = array($allResponseAnswer01, $allResponseAnswer02, $allResponseAnswer03); 
     public $allResponseCriterias = array(
     	"telljoke" => array(
     		array("tell", "joke"),
@@ -112,8 +113,59 @@ class AllResponse {
     		array("may i")
     	),
     );
-   	public $allResponseResponse = array(
-   		"errorWord" => array(
+   	public $allResponseAnswer01 = array(
+   		"hello" => array(
+    		'Hello there,',
+			'What\'s up,',
+			'Hi,',
+			'May I help you,',
+			'Greetings,',
+			'How can I help you,'
+   		),
+   		"morning" => array(
+    		'Good morning,',
+			'Ohayogozaimasu,',
+			'Mornin,',
+			'Good days,'
+   		),
+   		"afternoon" => array(
+    		'Good afternoon,',
+			'Konnichiwa,'
+   		),
+   		"evening" => array(
+    		'Good evening,',
+			'Konbanwa,',
+			'It is geeting dark,',
+			'Today is a good day,'
+   		),
+   		"night" => array(
+    		'Good night,',
+			'Oyasumi,',
+			'Sweet dream,',
+			'Dream on,'
+   		),
+   		"bye" => array(
+   			'I\'ll be back, ',
+			'Bye bye,',
+			'So longgg,',
+			'Hasta la vista,',
+			'Sayonara,',
+			'Life is too short to say goodbye,'
+		),
+		"thank" => array(
+   			'You are always welcome.',
+			'With pleasure.',
+			'I am glad to be your service.',
+			'My pleasure.',
+			'You can ask me for help anytime.'
+		),
+		"help" => array(
+   			$instruction
+		)
+   	);
+	
+	public $allResponseAnswer02 = array(
+		"errorWord" => array(
    			'Please give me a valid input.',
 			'No, I am too dumb to do that.',
 			'Please try again.',
@@ -168,78 +220,7 @@ class AllResponse {
 			'A “Lion” would never cheat on his wife but a “Tiger Wood”.',
 			'Why do they put pizza in a square box?'
     	),
-   		"hello" => array(
-    		'Hello there,',
-			'What\'s up,',
-			'Hi,',
-			'May I help you,',
-			'Greetings,',
-			'How can I help you,'
-   		),
-   		"morning" => array(
-    		'Good morning,',
-			'Ohayogozaimasu,',
-			'Mornin,',
-			'Good days,'
-   		),
-   		"afternoon" => array(
-    		'Good afternoon,',
-			'Konnichiwa,'
-   		),
-   		"evening" => array(
-    		'Good evening,',
-			'Konbanwa,',
-			'It is geeting dark,',
-			'Today is a good day,'
-   		),
-   		"night" => array(
-    		'Good night,',
-			'Oyasumi,',
-			'Sweet dream,',
-			'Dream on,'
-   		),
-   		"bye" => array(
-   			'I\'ll be back, ',
-			'Bye bye,',
-			'So longgg,',
-			'Hasta la vista,',
-			'Sayonara,',
-			'Life is too short to say goodbye,'
-		),
-		"thank" => array(
-   			'You are always welcome.',
-			'With pleasure.',
-			'I am glad to be your service.',
-			'My pleasure.',
-			'You can ask me for help anytime.'
-		),
-		"help" => array(
-   			"Greetings: \n
-You can say hello, good moring, bye or any kind of greeting to me.\n
-Jokes:\n
-You can ask me to tell me your jokes or if you say something non sense. I will said something random back to you.\n
-Location and image:\n
-I can interact when you send your location or image to me as well.\n
-Basic conversion:\n
-You can ask me to convert something for you just say\n convert (source) to (target)\nfor example\n
-- convert 20TB to TiB\n
-- convert 100TiB to TB\n
-- convert 120TB to Storeonce\n
-- convert 100TiB to Storeonce\n
-- convert e5-2690v4 to skylake\n
-- convert e5-2680 v3 to skylake\n
-Specification Lookup:\n
-You can ask me to check the specification for hardware for example 3PAR, Storeonce, Xeon CPU etc. Just say\n
-- Show me (product) (model) spec\n
-- Spec (product) (model)\n
-For example:\n
-- Show me 3par 8200 spec\n
-- Give me Storeonce 5100 spec\n
-- Tell me xeon e5-2690v4 spec\n
-- Spec skylake 5122\n
-Many more feature will come soon so keep in touch with me."
-		),
-		"whatyourname" => array(
+    	"whatyourname" => array(
    			'Don\'you see my name above?',
 			'My name is Uvuvwevwevwe Onyetenyevwe Ugwemubwem Ossas',
 			'My name is Bruce Man!' . "\n" . 'No, I mean Bat Wayne!' . "\n" . 'Orz, Damn it!',
@@ -256,7 +237,7 @@ Many more feature will come soon so keep in touch with me."
 		),
 		"whatareyou" => array(
    			'I am your worst nightmare.',
-			'I am a creature called Homosapiean',
+			'I am a human being',
 			'I am Batman!',
 			'I am your shadow.',
 			'I am you.'
@@ -287,7 +268,10 @@ Many more feature will come soon so keep in touch with me."
 			'When is what?',
 			'How do I know?',
 			'I don\' know. Duhhh!'
-		),
+		)
+	);
+   
+   public $allResponseAnswer03 = array(
 		"whyyoustupid" => array(
    			'I think I am quite smarter than you.',
    			'You are smart. Figure it out!'
@@ -325,7 +309,7 @@ Many more feature will come soon so keep in touch with me."
    			'I do not know how.',
 			'How sould I know?',
 			'No idea. Duhhh'
-		),
+		)
 		"canyou" => array(
     		'No. I can\'t do somthing like that. Here is what can I do for you.' . "\n" . $instruction,
 			'No. I don\'t have an ability to do that. But I will happy to do these for you.' . "\n" . $instruction
@@ -360,8 +344,8 @@ Many more feature will come soon so keep in touch with me."
 			'Who cares.',
 			'It\'s now or never.'
     	)
-   	);
-   
+   );
+
    public $instruction = "Greetings: \n
 You can say hello, good moring, bye or any kind of greeting to me.\n
 Jokes:\n
