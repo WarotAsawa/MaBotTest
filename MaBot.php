@@ -74,7 +74,7 @@ function isContain($input) {
     return true;
 }
 function isContainFromArray($input, $array) {
-    for ($array as $text) {
+    foreach ($array as $text) {
     	if (strpos($input, $text) === false) {
     		return false;
     	} 
