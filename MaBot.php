@@ -30,7 +30,6 @@ $httpClient = new LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channel_secret]);
 
 $allResponse = new AllResponse();
-$allQuestion = array_keys($allResponse->$allResponseCriterias);
 $signature = $_SERVER['HTTP_' . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 
 $logger = new Logger('LineBot');
@@ -60,7 +59,7 @@ foreach ($events as $event) {
 	// Spec lookup Reply
 	if (replyShowSpec($bot, $event, $logger)) continue;
 	// Greeting Reply
-	if (replySpeech($bot, $event, $logger)) continue;
+	if (replySpeech($bot, $event, $logger,$allResponse)) continue;
   	// Random Reply
   	//if (replyRandomQuotes($bot, $event, $logger)) continue;
 }  
@@ -261,9 +260,9 @@ function replyShowSpec($tempBot, $event, $logger) {
 		return false;
 	}
 }
-
-function replySpeech($tempBot, $event, $logger) {
+function replySpeech($tempBot, $event, $logger,$allResponse) {
 	$messageText=strtolower(trim($event->getText()));
+	$allQuestion = array_keys($allResponse->$allResponseCriterias);
 	$outputText = "";
 	$isFound = false;
 	foreach ($allQuestion as $question) {
