@@ -143,7 +143,7 @@ Many more feature will come soon so keep in touch with me.";
     			array("may i")
     		),
     	);
-  		$this->allResponseResponse = = array(
+  		$this->allResponseResponse = array(
    			"errorWord" => array(
    				'Please give me a valid input.',
 				'No, I am too dumb to do that.',
