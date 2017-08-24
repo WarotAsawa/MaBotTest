@@ -268,8 +268,9 @@ function replySpeech($tempBot, $event, $logger,$allResponse) {
 	foreach ($allQuestion as $question) {
 		$allCriteria = $allResponse->$allResponseCriterias[$question];
 		foreach ($allCriteria as $criteria) {
-			$logger->info($criteria[0]);
+			
 			if (isContainFromArray($messageText, $criteria)) {
+				$logger->info($criteria[0]);
 				if (isset($allResponse->$allResponseResponse[$question])) {
 					$outputText = getRandomTextFromArray($allResponse->$allResponseResponse[$question]);
 					$isFound = true;
