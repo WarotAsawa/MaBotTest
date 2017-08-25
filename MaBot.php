@@ -268,13 +268,15 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 	$allQuestion = $allCriteria->$allResponseCriterias;
 	$allQuestionType = array_keys($allQuestion);
 	$allAnswer = $allResponse->$allResponseResponse;
+	$allAnswerType = array_keys($allAnswer);
 	$outputText = "";
 	$isFound = false;
 	foreach ($allQuestionType as $question) {
 		if ($isFound) break;
 		$criteriaList = $allQuestion[$question];
-		
-		if ($allAnswer === $allQuestion) $logger->info("Yeah");
+		foreach($allAnswerType as $temp) {
+			$Logger->info($temp);
+		}
 		else $logger->info("no");
 		foreach ($criteriaList as $criteria) {
 			if ($isFound) break;
@@ -283,7 +285,7 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 				$logger->info($question);
 				$outputText = getRandomTextFromArray($allAnswer[$question]);
 				$isFound = true;
-				$logger->info($outputText[0]);
+				$logger->info($outputText);
 			}
 		}
 	}
