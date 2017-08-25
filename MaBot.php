@@ -277,7 +277,7 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 		if ($isFound) break;
 		$criteriaList = $allQuestion[$question];
 		foreach($allAnswerType as $temp) {
-			$Logger->info($temp);
+			$logger->info($temp);
 		}	
 		foreach ($criteriaList as $criteria) {
 			if ($isFound) break;
