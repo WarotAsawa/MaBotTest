@@ -255,6 +255,11 @@ Many more feature will come soon so keep in touch with me.";
 				"This need to be stop.",
 				"Who cares.",
 				"It's now or never."
+    		),
+    		"really" => array(
+    			"Indeed, it is.",
+				"Oh sure.",
+				"Yes!"
     		)
 		);
   	}
