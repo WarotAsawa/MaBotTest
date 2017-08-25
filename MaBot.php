@@ -271,6 +271,8 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 	$allAnswerType = array_keys($allAnswer);
 	$outputText = "";
 	$isFound = false;
+	logger->info(var_dump($allQuestion));
+	logger->info(var_dump($allAnswer));
 	foreach ($allQuestionType as $question) {
 		if ($isFound) break;
 		$criteriaList = $allQuestion[$question];
