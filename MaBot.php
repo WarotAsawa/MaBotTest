@@ -269,9 +269,7 @@ function replySpeech($tempBot, $event, $logger,$allResponse) {
 		if ($isFound) break;
 		$allCriteria = $allResponse->$allResponseCriterias[$question];
 		$allAnswer = $allResponse->$allResponseResponse;
-		foreach($allAnswer as $ans) {
-			$logger->info($ans[0]);
-		}
+		$logger->info($allAnswer === $allCriteria);
 		foreach ($allCriteria as $criteria) {
 			if ($isFound) break;
 			
