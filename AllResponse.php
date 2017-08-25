@@ -31,7 +31,7 @@ For example:\n
 - Spec skylake 5122\n
 Many more feature will come soon so keep in touch with me.";
 
-		$this->allResponseResponse = array(
+		$this->$allResponseResponse = array(
    			"errorWord" => array(
    				"Please give me a valid input.",
 				"No, I am too dumb to do that.",
@@ -111,9 +111,6 @@ Many more feature will come soon so keep in touch with me.";
 				"It is geeting dark,",
 				"Today is a good day,"
    			)
-   			
-   		);
-   		/*,
    			"night" => array(
     			"Good night,",
 				"Oyasumi,",
@@ -259,7 +256,7 @@ Many more feature will come soon so keep in touch with me.";
 				"Who cares.",
 				"It\"s now or never."
     		)
-			*/
+		);
   	}
 }
 
