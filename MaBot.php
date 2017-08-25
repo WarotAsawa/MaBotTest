@@ -269,10 +269,6 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 	$allQuestionType = array_keys($allQuestion);
 	$allAnswer = $allResponse->$allResponseResponse;
 	$allAnswerType = array_keys($allAnswer);
-
-	$userName = $allAnswer["secondPerson"];
-	$logger->info(getUserName($event, $tempBot));
-	array_push($userName,getUserName($event, $tempBot));
 	$outputText = "";
 	$isFound = false;
 	foreach ($allQuestionType as $question) {
@@ -285,9 +281,12 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 			if (isContainFromArray($messageText, $criteria)) {
 				//$logger->info($question);
 				$outputText = getRandomTextFromArray($allAnswer[$question]);
-
-				$responseName = getRandomTextFromArray($userName);
-				$outputText = preg_replace("/([@][P])/", $responseName, $outputText);
+				$random_int = random_int(0, 10000000);
+				if ($random_int % 3 == 0)
+					$userName = getRandomTextFromArray($allAnswer["secondPerson"]);
+				else
+					$userName = getUserName($event, $tempBot);
+				$outputText = preg_replace("/([@][P])/", $userName, $outputText);
 				$isFound = true;
 			}
 		}
