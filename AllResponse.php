@@ -110,7 +110,7 @@ Many more feature will come soon so keep in touch with me.";
 				"Konbanwa,",
 				"It is geeting dark,",
 				"Today is a good day,"
-   			)
+   			),
    			"night" => array(
     			"Good night,",
 				"Oyasumi,",
