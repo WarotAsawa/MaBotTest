@@ -268,19 +268,20 @@ function replySpeech($tempBot, $event, $logger,$allResponse) {
 	foreach ($allQuestion as $question) {
 		if ($isFound) break;
 		$allCriteria = $allResponse->$allResponseCriterias[$question];
+		$allAnswer = $allResponse->$allResponseResponse;
 		foreach ($allCriteria as $criteria) {
 			if ($isFound) break;
 			foreach($criteria as $temp) {
 			}
 			if (isContainFromArray($messageText, $criteria)) {
 				$logger->info($question);
-				$outputText = getRandomTextFromArray($allResponse->$allResponseResponse[$question]);
+				$outputText = getRandomTextFromArray($allAnswer[$question]);
 				$isFound = true;
 				$logger->info($outputText[0]);
 			}
 		}
 	}
-	if ($isFound == false) $outputText = getRandomTextFromArray($allResponse->$allResponseResponse["random"]);
+	if ($isFound == false) $outputText = getRandomTextFromArray($allAnswer["random"]);
 	$tempBot->replyText($event->getReplyToken(), $outputText);
 	return true;
 }
