@@ -22,13 +22,13 @@ You can ask me to convert something for you just say\n convert (source) to (targ
 - convert e5-2680 v3 to skylake\n
 Specification Lookup:\n
 You can ask me to check the specification for hardware for example 3PAR, Storeonce, Xeon CPU etc. Just say\n
-- Show me (product) (model) spec\n
+- (product) (model) spec\n
 - Spec (product) (model)\n
 For example:\n
-- Show me 3par 8200 spec\n
-- Give me Storeonce 5100 spec\n
-- Tell me xeon e5-2690v4 spec\n
-- Spec skylake 5122\n
+- 3par 8200 spec\n
+- Storeonce 5100 spec\n
+- spec xeon e5-2690v4 spec\n
+- spec skylake 5122\n
 Many more feature will come soon so keep in touch with me.";
 
 		$this->$allResponseResponse = array(
@@ -88,42 +88,42 @@ Many more feature will come soon so keep in touch with me.";
 				"Why do they put pizza in a square box?"
     		),
    			"hello" => array(
-    			"Hello there,",
-				"What's up,",
-				"Hi,",
-				"May I help you,",
-				"Greetings,",
-				"How can I help you,"
+    			"Hello there, @P",
+				"What's up, @P",
+				"Hi, @P",
+				"May I help you, @P",
+				"Greetings, @P",
+				"How can I help you, @P"
    			),
    			"morning" => array(
-    			"Good morning,",
-				"Ohayogozaimasu,",
-				"Mornin,",
-				"Good days,"
+    			"Good morning, @P",
+				"Ohayogozaimasu, @P",
+				"Mornin, @P",
+				"Good days, @P"
    			),
    			"afternoon" => array(
-    			"Good afternoon,",
-				"Konnichiwa,"
+    			"Good afternoon, @P",
+				"Konnichiwa, @P"
    			),
    			"evening" => array(
-    			"Good evening,",
-				"Konbanwa,",
-				"It is geeting dark,",
-				"Today is a good day,"
+    			"Good evening, @P",
+				"Konbanwa, @P",
+				"It is geeting dark, @P",
+				"Today is a good day, @P"
    			),
    			"night" => array(
-    			"Good night,",
-				"Oyasumi,",
-				"Sweet dream,",
-				"Dream on,"
+    			"Good night, @P",
+				"Oyasumi, @P",
+				"Sweet dream, @P",
+				"Dream on, @P"
    			),
    			"bye" => array(
-   				"I'll be back, ",
-				"Bye bye,",
-				"So longgg,",
-				"Hasta la vista,",
-				"Sayonara,",
-				"Life is too short to say goodbye,"
+   				"I'll be back, @P",
+				"Bye bye, @P",
+				"So longgg, @P",
+				"Hasta la vista, @P",
+				"Sayonara, @P",
+				"Life is too short to say goodbye, @P"
 			),
 			"thank" => array(
    				"You are always welcome.",
