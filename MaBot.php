@@ -1,4 +1,7 @@
-<?php include("AllResponse.php"); ?>
+<?php 
+include("AllResponse.php");
+include("AllCriteria.php");
+?>;
 <?php
 
 require_once './vendor/autoload.php';
@@ -30,6 +33,8 @@ $httpClient = new LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channel_secret]);
 
 $allResponse = new AllResponse();
+$allCriteria = new AllCriteria();
+
 $signature = $_SERVER['HTTP_' . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 
 $logger = new Logger('LineBot');
@@ -59,7 +64,7 @@ foreach ($events as $event) {
 	// Spec lookup Reply
 	if (replyShowSpec($bot, $event, $logger)) continue;
 	// Greeting Reply
-	if (replySpeech($bot, $event, $logger,$allResponse)) continue;
+	if (replySpeech($bot, $event, $logger,$allResponse,$allCriteria)) continue;
   	// Random Reply
   	//if (replyRandomQuotes($bot, $event, $logger)) continue;
 }  
@@ -260,18 +265,20 @@ function replyShowSpec($tempBot, $event, $logger) {
 		return false;
 	}
 }
-function replySpeech($tempBot, $event, $logger,$allResponse) {
+function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 	$messageText=strtolower(trim($event->getText()));
-	$allQuestion = array_keys($allResponse->$allResponseCriterias);
+	$allQuestion = $allCriteria->$allResponseCriterias;
+	$allQuestionType = array_keys($allQuestion);
+	$allAnswer = $allResponse->$allResponseResponse;
 	$outputText = "";
 	$isFound = false;
-	foreach ($allQuestion as $question) {
+	foreach ($allQuestionType as $question) {
 		if ($isFound) break;
-		$allCriteria = $allResponse->$allResponseCriterias[$question];
-		$allAnswer = $allResponse->$allResponseResponse;
+		$criteriaList = $allQuestion[$question];
+		
 		if ($allAnswer === $allQuestion) $logger->info("Yeah");
 		else $logger->info("no");
-		foreach ($allCriteria as $criteria) {
+		foreach ($criteriaList as $criteria) {
 			if ($isFound) break;
 			
 			if (isContainFromArray($messageText, $criteria)) {
