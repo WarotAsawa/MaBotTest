@@ -271,6 +271,7 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 	$allAnswerType = array_keys($allAnswer);
 
 	$userName = $allAnswer["secondPerson"];
+	$logger->info(getUserName($event, $tempBot));
 	array_push($userName,getUserName($event, $tempBot));
 	$outputText = "";
 	$isFound = false;
