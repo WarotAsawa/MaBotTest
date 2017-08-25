@@ -118,7 +118,7 @@ Many more feature will come soon so keep in touch with me.";
 				"Dream on,"
    			),
    			"bye" => array(
-   				"I\"ll be back, ",
+   				"I'll be back, ",
 				"Bye bye,",
 				"So longgg,",
 				"Hasta la vista,",
@@ -136,7 +136,7 @@ Many more feature will come soon so keep in touch with me.";
    				$this->$instruction
 			),
 			"whatyourname" => array(
-   				"Don\"you see my name above?",
+   				"Don'you see my name above?",
 				"My name is Uvuvwevwevwe Onyetenyevwe Ugwemubwem Ossas",
 				"My name is Bruce Man!" . "\n" . "No, I mean Bat Wayne!" . "\n" . "Orz, Damn it!",
 				"I am the one called YOU KNOW WHO.",
@@ -167,10 +167,10 @@ Many more feature will come soon so keep in touch with me.";
 			),
 			"where" => array(
    				"Where is a matter of place not a matter of time.",
-				"This universe is really big don\"t you think?",
-				"That\"s use to ask in or to what place or position",
+				"This universe is really big don't you think?",
+				"That's use to ask in or to what place or position",
 				"Where is what?",
-				"I don\"t know. Duhhh!"
+				"I don't know. Duhhh!"
 			),
 			"whenyoudie" => array(
    				"I am immortal. I cannot die.",
@@ -182,7 +182,7 @@ Many more feature will come soon so keep in touch with me.";
 				"At any moment now.",
 				"When is what?",
 				"How do I know?",
-				"I don\" know. Duhhh!"
+				"I don' know. Duhhh!"
 			),
 			"whyyoustupid" => array(
    				"I think I am quite smarter than you.",
@@ -208,11 +208,11 @@ Many more feature will come soon so keep in touch with me.";
 				"No body.",
 				"Just you and me my friend.",
 				"Why should I know?",
-				"I don\"t know. Duhhh!"
+				"I don't know. Duhhh!"
 			),
 			"howareyou" => array(
    				"No. Not good. NOT GOOD! ",
-				"I\"m fine thank you and you? ",
+				"I'm fine thank you and you? ",
 				"I felt terrible. ",
 				"Never been this good. ",
 				"I feel selfless. "
@@ -223,17 +223,17 @@ Many more feature will come soon so keep in touch with me.";
 				"No idea. Duhhh"
 			),
 			"canyou" => array(
-    			"No. I can\"t do somthing like that. Here is what can I do for you." . "\n" . $instruction,
-				"No. I don\"t have an ability to do that. But I will happy to do these for you." . "\n" . $instruction
+    			"No. I can't do somthing like that. Here is what can I do for you." . "\n" . $this->$instruction,
+				"No. I don't have an ability to do that. But I will happy to do these for you." . "\n" . $this->$instruction
     		),
     		"youwantto" => array(
-    			"I don\"t want that one bit.",
+    			"I don't want that one bit.",
 				"Why should I do that?",
 				"Seriously!?",
 				"Never !!"
     		),
     		"youhaveto" => array(
-    			"I don\"t take orders from you.",
+    			"I don't take orders from you.",
 				"What are you now, my master?",
 				"Stop tell me what to do.",
 				"Never !!",
@@ -243,18 +243,18 @@ Many more feature will come soon so keep in touch with me.";
 				"OK then."
     		),
     		"cani" => array(
-    			"For god\"s sake, DON\"T",
+    			"For god's sake, DON'T",
 				"Please.",
-				"Seriously, don\"t",
+				"Seriously, don't",
 				"Do it now.",
-				"Don\"t do it.",
+				"Don't do it.",
 				"Stop. STOPPPPPPP",
 				"Go on",
-				"Just don\"t.",
+				"Just don't.",
 				"Just do it",
 				"This need to be stop.",
 				"Who cares.",
-				"It\"s now or never."
+				"It's now or never."
     		)
 		);
   	}
