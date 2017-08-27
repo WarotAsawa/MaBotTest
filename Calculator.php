@@ -2,7 +2,8 @@
 class Calculator {
 
 	public static function CalculateEquation($string) {
-		$result =  Calculator::InfixToPrefix($string);
+		$postfix =  Calculator::InfixToPrefix($string);
+		$result = Calculator::CalculatePostfix($postfix);
 		return $result;
 	}
 	private static function InfixToPrefix($string) {
@@ -18,9 +19,9 @@ class Calculator {
 			if ($infixArray[$i] == '(') {
 				array_push($operatorStack, $infixArray[$i]);
 			} else if ($infixArray[$i] == ')') {
-				while(end($operatorStack) != '(') {
+				while(end($operatorStack) != '(' && sizeof($operatorStack) > 0) {
 						//Check unbalance parent
-						if (sizeof($operatorStack) ==1 && end($operatorStack) != '(') 
+						if (sizeof($operatorStack) == 1 && end($operatorStack) != '(') 
 							return array(')');
 						$temp = array_pop($operatorStack);
 						array_push($postFix, $temp);
@@ -53,6 +54,36 @@ class Calculator {
 		}
 		return $postFix;
 	}
+	private static function CalculatePostfix($input) {
+		$resultStack = array();
+		if ($input[0] == '(' || $input[0] == ')') {
+			return "ERROR: Unbalanced parenthesis";
+		}
+		for ($i = 0; $i < sizeof($input) ; $i++) {
+			if (Calculator::IsOperator($input[$i])) {
+				if (sizeof($resultStack) < 2) {
+					return "ERROR: Please input the equation correctly.";
+				}
+				$b = floatval(array_pop($resultStack));
+				$a = floatval(array_pop($resultStack));
+				if ($input[$i] == '+') {
+					array_push($resultStack, $a+$b);
+				} else if ($input[$i] == '-') {
+					array_push($resultStack, $a-$b);
+				} else if ($input[$i] == '*' || $input[$i] == 'x') {
+					array_push($resultStack, $a-$b);
+				} else if ($input[$i] == '/') {
+					array_push($resultStack, $a-$b);
+				} else if ($input[$i] == '^') {
+					array_push($resultStack, pow($a, $b));
+				}
+			} else {
+				array_push($resultStack, $input[$i]);
+			}
+		}
+		if (sizeof($resultStack)>0) return "ERROR: Please input the equation correctly.";
+		return $resultStack[0];
+	}	
 	private static function ConvertPercentToMultiply($input) {
 		$result = preg_replace("/([%])/", "*0.01", $input);
 		return $result;
