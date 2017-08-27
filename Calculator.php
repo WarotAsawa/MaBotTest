@@ -81,7 +81,7 @@ class Calculator {
 				array_push($resultStack, $input[$i]);
 			}
 		}
-		if (sizeof($resultStack)>0) return "ERROR: Please input the equation correctly.";
+		//if (sizeof($resultStack)>0) return "ERROR: Please input the equation correctly.";
 		return $resultStack[0];
 	}	
 	private static function ConvertPercentToMultiply($input) {
