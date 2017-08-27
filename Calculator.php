@@ -24,7 +24,7 @@ class Calculator {
 	private static function EquationExplode($input) {
 		$result = array();
 		$pushString = "";
-		for ($i=0; $i<sizeof($input); $i++) {
+		for ($i=0; $i<strlen($input); $i++) {
 			if (is_numeric($input[$i]) || $input[$i] == '.') {
 				$pushString = $pushString . $input[$i];
 			} else if ($input[$i] == '+' || $input[$i] == '-' || $input[$i] == '*' || $input[$i] == '/' || $input[$i] == '^' || $input[$i] == '(' || $input[$i] == ')' || $input[$i] == 'x') {
