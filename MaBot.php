@@ -3,7 +3,7 @@
 require_once './vendor/autoload.php';
 require_once './AllResponse.php';
 require_once './AllCriteria.php';
-require_once './InfixCalculator.php';
+require_once './Calculator.php';
 
 //Include library
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
@@ -33,7 +33,6 @@ $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channel_secret]);
 
 $allResponse = new AllResponse();
 $allCriteria = new AllCriteria();
-$calculator = new InfixCalculator();
 
 $signature = $_SERVER['HTTP_' . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 
@@ -64,7 +63,7 @@ foreach ($events as $event) {
 	// Spec lookup Reply
 	if (replyShowSpec($bot, $event, $logger)) continue;
 	// Calulation Reply
-	if (replyCalculator($bot, $event, $logger, $calculator)) continue;
+	if (replyCalculator($bot, $event, $logger)) continue;
 	// Greeting Reply
 	if (replySpeech($bot, $event, $logger,$allResponse,$allCriteria)) continue;
   	// Random Reply
@@ -299,14 +298,13 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 	$tempBot->replyText($event->getReplyToken(), $outputText);
 	return true;
 }
-function replyCalculator($tempBot, $event, $logger,$calculator) {
+function replyCalculator($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
 	if (isContain($messageText,"cal" == false)) {
 		return false;
-	}
 	
 	$tempText = preg_replace("/([c][a][l])/", "", $messageText);
-	$tempArray = $calculator->CalculateEquation($tempText);
+	$tempArray = Calculator::CalculateEquation($tempText);
 	foreach ($tempArray as $oper) {
 		$logger->info($oper);
 	}

@@ -1,11 +1,11 @@
 <?php
-class InfixCalulator {
+class Calculator {
 
-	public function CalculateEquation($string) {
+	public static function CalculateEquation($string) {
 		return InfixToPrefix($string);
 
 	}
-	private function InfixToPrefix($string) {
+	private static function InfixToPrefix($string) {
 		$lastCharType = "NONE";
 		$result = "ERROR";
 		$infix = strtolower(trim($string));
@@ -14,15 +14,15 @@ class InfixCalulator {
 		$result = EquationExplode($infix);
 		return $result;
 	}
-	private function ConvertPercentToMultiply($input) {
+	private static function ConvertPercentToMultiply($input) {
 		$result = preg_replace("/([%])/", "x0.01", $input);
 		return $result;
 	}
-	private function EliminateWhiteSpace($input) {
+	private static function EliminateWhiteSpace($input) {
 		$result = preg_replace("/([ ,_,\n,\t,\',\"])/", "", $input);
 		return $result;
 	}
-	private function EquationExplode($input) {
+	private static function EquationExplode($input) {
 		$result = array();
 		$pushString = "";
 		for ($i=0; $i<sizeof($input); $i++) {
@@ -41,8 +41,6 @@ class InfixCalulator {
 			array_push($result, $pushString);
 		return $result;
 	}
-	public function __construct() {
-
-	}
+	
 }
 ?> 
