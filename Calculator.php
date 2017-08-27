@@ -23,7 +23,6 @@ class Calculator {
 						array_push($postFix, $temp);
 					}
 					$temp = array_pop($operatorStack);
-					array_push($postFix, $temp);
 			} 
 			// Check if it is operator
 			else if (Calculator::IsOperator($infixArray[$i])) {
