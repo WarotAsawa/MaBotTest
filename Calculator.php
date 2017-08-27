@@ -6,7 +6,7 @@ class Calculator {
 		$result = Calculator::CalculatePostfix($postfix);
 		return $result;
 	}
-	private static function InfixToPrefix($string) {
+	public static function InfixToPrefix($string) {
 		$lastCharType = "NONE";
 		$postFix = array();
 		$operatorStack = array();
@@ -56,6 +56,7 @@ class Calculator {
 		return $postFix;
 	}
 	private static function CalculatePostfix($input) {
+		if (sizeof($input) < 1) return array("ERROR: You did not enter anything didn't you?.");
 		$resultStack = array();
 		if ($input[0] == '(' || $input[0] == ')') {
 			return array("ERROR: Unbalanced parenthesis");
@@ -71,7 +72,7 @@ class Calculator {
 					array_push($resultStack, $a+$b);
 				} else if ($input[$i] == '-') {
 					array_push($resultStack, $a-$b);
-				} else if ($input[$i] == '*' || $input[$i] == 'x') {
+				} else if ($input[$i] == '*' || $input[$i] == 'x' || $input[$i]=='×') {
 					array_push($resultStack, $a*$b);
 				} else if ($input[$i] == '/') {
 					array_push($resultStack, $a/$b);
@@ -99,7 +100,7 @@ class Calculator {
 		for ($i=0; $i<strlen($input); $i++) {
 			if (is_numeric($input[$i]) || $input[$i] == '.') {
 				$pushString = $pushString . $input[$i];
-			} else if ($input[$i] == '+' || $input[$i] == '-' || $input[$i] == '*' || $input[$i] == '/' || $input[$i] == '^' || $input[$i] == '(' || $input[$i] == ')' || $input[$i] == 'x') {
+			} else if ($input[$i] == '+' || $input[$i] == '-' || $input[$i] == '*' || $input[$i] == '/' || $input[$i] == '^' || $input[$i] == '(' || $input[$i] == ')' || $input[$i] == 'x'  || $input[$i]=='×') {
 				if ($pushString != "")
 						array_push($result, $pushString);
 				$pushString = "";
@@ -116,7 +117,7 @@ class Calculator {
 		if ($b == '(' || $b == ')') return "HIGHER";
 		if ($a == '+' || $a == '-') {
 			return "LOWER";
-		} else if ($a == '*' || $a == '/'  || $a == 'x' || $a == '^') {
+		} else if ($a == '*' || $a == '/'  || $a == 'x'  || $input[$i]=='×' || $a == '^') {
 			if ($b == '+' || $b == '-') {
 				return "HIGHER";
 			} else {
@@ -126,7 +127,7 @@ class Calculator {
 		return "LOWER";
 	}
 	private static function IsOperator($input) {
-		if ($input[$i] == '+' || $input[$i] == '-' || $input[$i] == '*' || $input[$i] == '/' || $input[$i] == '^' || $input[$i] == 'x') {
+		if ($input[$i] == '+' || $input[$i] == '-' || $input[$i] == '*' || $input[$i] == '/' || $input[$i] == '^' || $input[$i] == 'x' || $input[$i]=='×') {
 			return true;
 		} else {
 			return false;

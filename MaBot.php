@@ -305,6 +305,10 @@ function replyCalculator($tempBot, $event, $logger) {
 	
 	$tempText = preg_replace("/([c][a][l])/", "", $messageText);
 	$tempArray = Calculator::CalculateEquation($tempText);
+	$postFix = Calculator::InfixToPostfix($tempText);
+	foreach ($postFix as $key) {
+		$logger->info($key);
+	}
 	$ans = $tempArray[0];
 	$result = "";
 	if (isContain($ans,"ERROR")) {
