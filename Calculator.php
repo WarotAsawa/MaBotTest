@@ -22,7 +22,7 @@ class Calulator {
 		$result = preg_replace("/([ ,_,\n,\t,\',\"])/", "", $input);
 		return $result;
 	}
-	private static EquationExplode($input) {
+	private static function EquationExplode($input) {
 		$result = array();
 		$pushString = "";
 		for ($i=0; $i<sizeof($input); $i++) {
