@@ -31,7 +31,10 @@ class Calculator {
 			} 
 			// Check if it is operator
 			else if (Calculator::IsOperator($infixArray[$i])) {
-				if (sizeof($operatorStack) == 0) array_push($postFix, $infixArray[$i]);
+				if (sizeof($operatorStack) == 0) {
+					array_push($postFix, $infixArray[$i]);
+					continue;
+				}
 				//Check if higher class operator, push into stack
 				if (Calculator::CompareOperator($infixArray[$i], end($operatorStack) == "HIGHER")) {
 					array_push($operatorStack, $infixArray[$i]);
