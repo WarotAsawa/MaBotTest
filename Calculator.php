@@ -2,11 +2,11 @@
 class Calculator {
 
 	public static function CalculateEquation($string) {
-		$postfix =  Calculator::InfixToPrefix($string);
+		$postfix =  Calculator::InfixToPostfix($string);
 		$result = Calculator::CalculatePostfix($postfix);
 		return $result;
 	}
-	public static function InfixToPrefix($string) {
+	public static function InfixToPostfix($string) {
 		$lastCharType = "NONE";
 		$postFix = array();
 		$operatorStack = array();
@@ -31,6 +31,7 @@ class Calculator {
 			} 
 			// Check if it is operator
 			else if (Calculator::IsOperator($infixArray[$i])) {
+				if (sizeof($operatorStack) == 0) array_push($postFix, $infixArray[$i]);
 				//Check if higher class operator, push into stack
 				if (Calculator::CompareOperator($infixArray[$i], end($operatorStack) == "HIGHER")) {
 					array_push($operatorStack, $infixArray[$i]);
