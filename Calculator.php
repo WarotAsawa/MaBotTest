@@ -7,7 +7,7 @@ class Calculator {
 	}
 	private static function InfixToPrefix($string) {
 		$lastCharType = "NONE";
-		$postFix = "";
+		$postFix = array();
 		$operatorStack = array();
 		$infix = Calculator::EliminateWhiteSpace($string);
 		$infix = Calculator::ConvertPercentToMultiply($infix);
