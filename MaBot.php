@@ -33,6 +33,7 @@ $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channel_secret]);
 
 $allResponse = new AllResponse();
 $allCriteria = new AllCriteria();
+$calculator = new InfixCalculator();
 
 $signature = $_SERVER['HTTP_' . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 
@@ -63,7 +64,7 @@ foreach ($events as $event) {
 	// Spec lookup Reply
 	if (replyShowSpec($bot, $event, $logger)) continue;
 	// Calulation Reply
-	if (replyCalculator($bot, $event, $logger)) continue;
+	if (replyCalculator($bot, $event, $logger, $calculator)) continue;
 	// Greeting Reply
 	if (replySpeech($bot, $event, $logger,$allResponse,$allCriteria)) continue;
   	// Random Reply
@@ -298,14 +299,14 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 	$tempBot->replyText($event->getReplyToken(), $outputText);
 	return true;
 }
-function replyCalculator($tempBot, $event, $logger) {
+function replyCalculator($tempBot, $event, $logger,$calculator) {
 	$messageText=strtolower(trim($event->getText()));
 	if (isContain($messageText,"cal" == false)) {
 		return false;
 	}
-	$calulator = new InfixCalculator();
+	
 	$tempText = preg_replace("/([c][a][l])/", "", $messageText);
-	$tempArray = $calulator->CalculateEquation($tempText);
+	$tempArray = $calculator->CalculateEquation($tempText);
 	foreach ($tempArray as $oper) {
 		$logger->info($oper);
 	}
