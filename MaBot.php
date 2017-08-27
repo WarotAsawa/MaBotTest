@@ -303,7 +303,7 @@ function replyCalculator($tempBot, $event, $logger) {
 	if (isContain($messageText,"cal" == false))
 		return false;
 	
-	$tempText = preg_replace("/([c][a][l])/", "", $messageText);
+	$tempText = preg_replace("/([cC][aA][lL])/", "", $messageText);
 	$tempArray = Calculator::CalculateEquation($tempText);
 	foreach ($tempArray as $oper) {
 		$logger->info($oper);

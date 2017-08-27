@@ -8,7 +8,6 @@ class Calculator {
 	private static function InfixToPrefix($string) {
 		$lastCharType = "NONE";
 		$result = "ERROR";
-		$infix = strtolower(trim($string));
 		$infix = Calculator::EliminateWhiteSpace($infix);
 		$infix = Calculator::ConvertPercentToMultiply($input);
 		$result = Calculator::EquationExplode($infix);
@@ -28,7 +27,7 @@ class Calculator {
 		for ($i=0; $i<sizeof($input); $i++) {
 			if (is_numeric($input[$i]) || $input[$i] == '.') {
 				$pushString = $pushString . $input[$i];
-			} else if ($input[$i] == '+' || $input[$i] == '-' || $input[$i] == '*' || $input[$i] == '/' || $input[$i] == '^' || $input[$i] == '(' || $input[$i] == ')') {
+			} else if ($input[$i] == '+' || $input[$i] == '-' || $input[$i] == '*' || $input[$i] == '/' || $input[$i] == '^' || $input[$i] == '(' || $input[$i] == ')' || $input[$i] == 'x') {
 				if ($pushString != "")
 						array_push($result, $pushString);
 				$pushString = "";
