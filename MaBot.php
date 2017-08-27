@@ -300,15 +300,19 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 }
 function replyCalculator($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
-	if (isContain($messageText,"cal" == false))
+	if (isContain($messageText,"cal") == false)
 		return false;
 	
 	$tempText = preg_replace("/([c][a][l])/", "", $messageText);
 	$tempArray = Calculator::CalculateEquation($tempText);
-	foreach ($tempArray as $oper) {
-		$logger->info($oper);
+	$ans = $tempArray[0];
+	$result = "";
+	if (isContain($ans,"ERROR")) {
+		$result = getErrorWords() . "\n" . $ans;
+	} else {
+		$result = generatePreanswer() . "\n" . $ans;
 	}
-	return false;
+	return true;
 }
 
 function convertToStoreOnce($tbValue,$model) {
