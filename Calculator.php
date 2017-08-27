@@ -57,12 +57,12 @@ class Calculator {
 	private static function CalculatePostfix($input) {
 		$resultStack = array();
 		if ($input[0] == '(' || $input[0] == ')') {
-			return "ERROR: Unbalanced parenthesis";
+			return array("ERROR: Unbalanced parenthesis");
 		}
 		for ($i = 0; $i < sizeof($input) ; $i++) {
 			if (Calculator::IsOperator($input[$i])) {
 				if (sizeof($resultStack) < 2) {
-					return "ERROR: Please input the equation correctly.";
+					return array("ERROR: Please input the equation correctly.");
 				}
 				$b = floatval(array_pop($resultStack));
 				$a = floatval(array_pop($resultStack));
@@ -82,7 +82,7 @@ class Calculator {
 			}
 		}
 		//if (sizeof($resultStack)>0) return "ERROR: Please input the equation correctly.";
-		return $resultStack[0];
+		return $resultStack;
 	}	
 	private static function ConvertPercentToMultiply($input) {
 		$result = preg_replace("/([%])/", "*0.01", $input);
