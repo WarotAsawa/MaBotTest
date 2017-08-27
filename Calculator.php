@@ -8,8 +8,8 @@ class Calculator {
 	private static function InfixToPrefix($string) {
 		$lastCharType = "NONE";
 		$result = "ERROR";
-		$infix = Calculator::EliminateWhiteSpace($infix);
-		$infix = Calculator::ConvertPercentToMultiply($input);
+		$infix = Calculator::EliminateWhiteSpace($string);
+		$infix = Calculator::ConvertPercentToMultiply($infix);
 		$result = Calculator::EquationExplode($infix);
 		return $result;
 	}
