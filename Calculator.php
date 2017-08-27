@@ -2,16 +2,16 @@
 class Calculator {
 
 	public static function CalculateEquation($string) {
-		$result =  InfixToPrefix($string);
+		$result =  Calculator::InfixToPrefix($string);
 		return $result;
 	}
 	private static function InfixToPrefix($string) {
 		$lastCharType = "NONE";
 		$result = "ERROR";
 		$infix = strtolower(trim($string));
-		$infix = EliminateWhiteSpace($infix);
-		$infix = ConvertPercentToMultiply($input);
-		$result = EquationExplode($infix);
+		$infix = Calculator::EliminateWhiteSpace($infix);
+		$infix = Calculator::ConvertPercentToMultiply($input);
+		$result = Calculator::EquationExplode($infix);
 		return $result;
 	}
 	private static function ConvertPercentToMultiply($input) {
