@@ -14,7 +14,7 @@ class Calculator {
 		return $result;
 	}
 	private static function ConvertPercentToMultiply($input) {
-		$result = preg_replace("/([%])/", "x0.01", $input);
+		$result = preg_replace("/([%])/", "*0.01", $input);
 		return $result;
 	}
 	private static function EliminateWhiteSpace($input) {

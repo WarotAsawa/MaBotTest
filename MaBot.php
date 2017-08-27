@@ -306,8 +306,11 @@ function replyCalculator($tempBot, $event, $logger) {
 	
 	$tempText = preg_replace("/([c][a][l])/", "", $messageText);
 	$logger->info($tempText);
+	foreach ($tempText as $t) {
+		$logger->info($t);
+	}
 	$tempArray = Calculator::CalculateEquation($tempText);
-	$logger->info(sizeof($logger));
+	$logger->info(sizeof($tempArray));
 	foreach ($tempArray as $oper) {
 		$logger->info($oper);
 	}
