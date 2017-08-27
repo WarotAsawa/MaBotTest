@@ -298,7 +298,7 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 }
 function replyCalculator($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
-	if (isContain($messageText,"cal ")) {
+	if (!isContain($messageText,"cal")) {
 		return false;
 	}
 	$tempText = preg_replace("/([c][a][l])/", "", $messageText);
