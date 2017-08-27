@@ -19,6 +19,9 @@ class Calculator {
 				array_push($operatorStack, $infixArray[$i]);
 			} else if ($infixArray[$i] == ')') {
 				while(end($operatorStack) != '(') {
+						//Check unbalance parent
+						if (sizeof($operatorStack) ==1 && end($operatorStack) != '(') 
+							return array(')');
 						$temp = array_pop($operatorStack);
 						array_push($postFix, $temp);
 					}
@@ -39,11 +42,12 @@ class Calculator {
 					array_push($operatorStack, $infixArray[$i]);
 				}
 			} else {
+				//Check unbalance parent
 				array_push($postFix, $infixArray[$i]);
 			}
 		}
 		while(sizeof($operatorStack) > 0) {
-			if (end($operatorStack) == '(') break;
+			if (end($operatorStack) == '(') return array('(');
 			$temp = array_pop($operatorStack);
 			array_push($postFix, $temp);
 		}
