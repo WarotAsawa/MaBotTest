@@ -312,6 +312,7 @@ function replyCalculator($tempBot, $event, $logger) {
 	} else {
 		$result = generatePreanswer() . "\n" . $ans;
 	}
+	$tempBot->replyText($event->getReplyToken(), $result);
 	return true;
 }
 
