@@ -7,11 +7,48 @@ class Calculator {
 	}
 	private static function InfixToPrefix($string) {
 		$lastCharType = "NONE";
-		$result = "ERROR";
+		$postFix = "";
+		$operatorStack = array();
 		$infix = Calculator::EliminateWhiteSpace($string);
 		$infix = Calculator::ConvertPercentToMultiply($infix);
-		$result = Calculator::EquationExplode($infix);
-		return $result;
+		$infixArray = Calculator::EquationExplode($infix);
+
+		for($i = 0; $i < sizeof($infixArray); $i++) {
+			//If Paren
+			if ($infixArray[$i] == '(') {
+				array_push($operatorStack, $infixArray[$i]);
+			} else if ($infixArray[$i] == ')') {
+				while(end($operatorStack) != '(') {
+						$temp = array_pop($operatorStack);
+						array_push($postFix, $temp);
+					}
+					$temp = array_pop($operatorStack);
+					array_push($postFix, $temp);
+			} 
+			// Check if it is operator
+			else if (Calculator::IsOperator($infixArray[$i])) {
+				//Check if higher class operator, push into stack
+				if (Calculator::CompareOperator($infixArray[$i], end($operatorStack) == "HIGHER")) {
+					array_push($operatorStack, $infixArray[$i]);
+				} else {
+					while(sizeof($operatorStack) > 0) {
+						if (end($operatorStack) == '(') break;
+						if (Calculator::CompareOperator($infixArray[$i], end($operatorStack) == "HIGHER")) break;
+						$temp = array_pop($operatorStack);
+						array_push($postFix, $temp);
+					}
+					array_push($operatorStack, $infixArray[$i]);
+				}
+			} else {
+				array_push($postFix, $infixArray[$i]);
+			}
+		}
+		while(sizeof($operatorStack) > 0) {
+			if (end($operatorStack) == '(') break;
+			$temp = array_pop($operatorStack);
+			array_push($postFix, $temp);
+		}
+		return $postFix;
 	}
 	private static function ConvertPercentToMultiply($input) {
 		$result = preg_replace("/([%])/", "*0.01", $input);
@@ -40,6 +77,25 @@ class Calculator {
 			array_push($result, $pushString);
 		return $result;
 	}
-	
+	private static function CompareOperator($a, $b) {
+		if ($b == '(' || $b == ')') return "HIGHER";
+		if ($a == '+' || $a == '-') {
+			return "LOWER";
+		} else if ($a == '*' || $a == '/'  || $a == 'x' || $a == '^') {
+			if ($b == '+' || $b == '-') {
+				return "HIGHER";
+			} else {
+				return "LOWER";
+			}
+		}
+		return "LOWER";
+	}
+	private static function IsOperator($input) {
+		if ($input[$i] == '+' || $input[$i] == '-' || $input[$i] == '*' || $input[$i] == '/' || $input[$i] == '^' || $input[$i] == 'x') {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
 ?> 

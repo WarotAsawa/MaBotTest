@@ -14,3 +14,6 @@ warm-tundra-83481
 heroku login
 
 heroku logs -a shrouded-plains-89594 -t
+
+
+cal ((10.55shit+20*(30^3-2/4%)))
