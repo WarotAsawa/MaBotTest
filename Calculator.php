@@ -37,7 +37,7 @@ class Calculator {
 				//Check if higher class operator, push into stack
 				else if (Calculator::CompareOperator($infixArray[$i], end($operatorStack) == "HIGHER")) {
 					array_push($operatorStack, $infixArray[$i]);
-				} else {
+				} else if (Calculator::CompareOperator($infixArray[$i], end($operatorStack) == "LOWER")){
 					while(sizeof($operatorStack) > 0) {
 						if (end($operatorStack) == '(') break;
 						if (Calculator::CompareOperator($infixArray[$i], end($operatorStack) == "HIGHER")) break;
@@ -120,7 +120,7 @@ class Calculator {
 		if ($b == '(' || $b == ')') return "HIGHER";
 		if ($a == '+' || $a == '-') {
 			return "LOWER";
-		} else if ($a == '*' || $a == '/'  || $a == 'x'  || $input[$i]=='×' || $a == '^') {
+		} else if ($a == '*' || $a == '/'  || $a == 'x'  || $a=='×' || $a == '^') {
 			if ($b == '+' || $b == '-') {
 				return "HIGHER";
 			} else {
