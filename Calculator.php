@@ -19,7 +19,7 @@ class Calulator {
 		return $result;
 	}
 	private static function EliminateWhiteSpace($input) {
-		preg_replace("/([ ,_,\n,\t,\',\\"])/", "", $input);
+		$result = preg_replace("/([ ,_,\n,\t,\',\\"])/", "", $input);
 		return $result;
 	}
 	private static EquationExplode($input) {
