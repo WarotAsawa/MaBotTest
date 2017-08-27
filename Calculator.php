@@ -29,7 +29,8 @@ class Calulator {
 			if (is_numeric($input[$i]) || $input[$i] == '.') {
 				$pushString = $pushString . $input[$i];
 			} else if ($input[$i] == '+' || $input[$i] == '-' || $input[$i] == '*' || $input[$i] == '/' || $input[$i] == '^' || $input[$i] == '(' || $input[$i] == ')') {
-				array_push($result, $pushString);
+				if ($pushString != "")
+						array_push($result, $pushString);
 				$pushString = "";
 				array_push($result, $input[$i]);
 			} else {

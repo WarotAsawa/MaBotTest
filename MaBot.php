@@ -302,7 +302,7 @@ function replyCalculator($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
 	if (isContain($messageText,"cal" == false)) {
 		return false;
-	
+	}
 	$calulator = new Calculator();
 	$tempText = preg_replace("/([c][a][l])/", "", $messageText);
 	$tempArray = $calulator->CalculateEquation($tempText);
