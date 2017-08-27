@@ -62,6 +62,8 @@ foreach ($events as $event) {
 	if (replyConvert($bot, $event, $logger)) continue;
 	// Spec lookup Reply
 	if (replyShowSpec($bot, $event, $logger)) continue;
+	// Calulation Reply
+	if (replyCalculator($bot, $event, $logger)) continue;
 	// Greeting Reply
 	if (replySpeech($bot, $event, $logger,$allResponse,$allCriteria)) continue;
   	// Random Reply
@@ -298,7 +300,7 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 }
 function replyCalculator($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
-	if (!isContain($messageText,"cal")) {
+	if (isContain($messageText,"cal" == false)) {
 		return false;
 	}
 	$tempText = preg_replace("/([c][a][l])/", "", $messageText);
