@@ -71,9 +71,9 @@ class Calculator {
 				} else if ($input[$i] == '-') {
 					array_push($resultStack, $a-$b);
 				} else if ($input[$i] == '*' || $input[$i] == 'x') {
-					array_push($resultStack, $a-$b);
+					array_push($resultStack, $a*$b);
 				} else if ($input[$i] == '/') {
-					array_push($resultStack, $a-$b);
+					array_push($resultStack, $a/$b);
 				} else if ($input[$i] == '^') {
 					array_push($resultStack, pow($a, $b));
 				}
