@@ -19,6 +19,7 @@ class Calculator {
 			if ($infixArray[$i] == '(') {
 				array_push($operatorStack, $infixArray[$i]);
 			} else if ($infixArray[$i] == ')') {
+				if (sizeof($operatorStack) == 0) return array(')');
 				while(end($operatorStack) != '(' && sizeof($operatorStack) > 0) {
 						//Check unbalance parent
 						if (sizeof($operatorStack) == 1 && end($operatorStack) != '(') 
