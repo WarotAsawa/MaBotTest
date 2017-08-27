@@ -33,7 +33,7 @@ class Calculator {
 				$pushString = "";
 				array_push($result, $input[$i]);
 			} else {
-				return array("ERROR");
+				//return array("ERROR");
 			}
 		}
 		if ($pushString != "")
