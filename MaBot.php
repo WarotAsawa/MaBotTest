@@ -3,7 +3,7 @@
 require_once './vendor/autoload.php';
 require_once './AllResponse.php';
 require_once './AllCriteria.php';
-require_once './Calculator.php';
+require_once './InfixCalculator.php';
 
 //Include library
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;

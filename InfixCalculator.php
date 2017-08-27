@@ -1,5 +1,5 @@
 <?php
-class Calulator {
+class InfixCalulator {
 
 	public function CalculateEquation($string) {
 		return InfixToPrefix($string);
