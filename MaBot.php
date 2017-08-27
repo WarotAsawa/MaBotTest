@@ -304,7 +304,7 @@ function replyCalculator($tempBot, $event, $logger) {
 	$tempText = preg_replace("/([c][a][l])/", "", $messageText);
 	$tempArray = Calculator.CalculateEquation($tempText);
 	foreach ($tempArray as $oper) {
-		logger->info($oper);
+		$logger->info($oper);
 	}
 	return false;
 }
