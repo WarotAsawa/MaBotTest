@@ -3,6 +3,7 @@
 require_once './vendor/autoload.php';
 require_once './AllResponse.php';
 require_once './AllCriteria.php';
+require_once './Calculator.php';
 
 //Include library
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
@@ -295,7 +296,18 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 	$tempBot->replyText($event->getReplyToken(), $outputText);
 	return true;
 }
-
+function replyCalculator($tempBot, $event, $logger) {
+	$messageText=strtolower(trim($event->getText()));
+	if (isContain($messageText,"cal ")) {
+		return false;
+	}
+	$tempText = preg_replace("/([c][a][l])/", "", $messageText);
+	$tempArray = Calculator.CalculateEquation($tempText);
+	foreach ($tempArray as $oper) {
+		logger->info($oper);
+	}
+	return false;
+}
 
 function convertToStoreOnce($tbValue,$model) {
 	//Check if too large or too small

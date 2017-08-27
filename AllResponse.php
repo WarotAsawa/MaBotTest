@@ -25,7 +25,7 @@ For example:\n
 - spec xeon e5-2690v4 spec\n
 - spec skylake 5122\n
 ";
-    	$this->$instruction = $this->greetInstr . "\n" . $this->jokesInstr . "\n" . $this->convInstr . "\n" . $this->specInstru . "\n" . "You can ask help for each feature for shorter explanation. Many more feature will come soon so keep in touch with me.";
+    	$this->$instruction = $this->greetInstr . "\n" . $this->jokesInstr . "\n" . $this->convInstr . "\n" . $this->specInstru . "\n" . "Many more feature will come soon so keep in touch with me.";
 
 		$this->$allResponseResponse = array(
    			"errorWord" => array(
