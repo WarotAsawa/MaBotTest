@@ -43,6 +43,22 @@ class AllCriteria {
     			array("thank you"),
     			array("thankyou")
     		),
+        "helpgreet" => array(
+          array("help", "greet"),
+          array("can you", "help", "greet")
+        ),
+        "helpjoke" => array(
+          array("help", "joke"),
+          array("can you", "help", "joke")
+        ),
+        "helpconv" => array(
+          array("help", "conv"),
+          array("can you", "help", "conv")
+        ),
+        "helpspec" => array(
+          array("help", "spec"),
+          array("can you", "help", "spec")
+        ),
     		"help" => array(
     			array("help"),
     			array("can you", "help")
