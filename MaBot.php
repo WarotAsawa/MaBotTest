@@ -300,10 +300,11 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 }
 function replyCalculator($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
+	$logger->info($messageText);
 	if (isContain($messageText,"cal" == false))
 		return false;
 	
-	$tempText = preg_replace("/([cC][aA][lL])/", "", $messageText);
+	$tempText = preg_replace("/([c][a][l])/", "", $messageText);
 	$tempArray = Calculator::CalculateEquation($tempText);
 	foreach ($tempArray as $oper) {
 		$logger->info($oper);
