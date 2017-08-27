@@ -2,8 +2,8 @@
 class Calculator {
 
 	public static function CalculateEquation($string) {
-		return InfixToPrefix($string);
-
+		$result =  InfixToPrefix($string);
+		return $result;
 	}
 	private static function InfixToPrefix($string) {
 		$lastCharType = "NONE";
