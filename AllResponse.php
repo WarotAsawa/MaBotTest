@@ -30,7 +30,7 @@ For example:\n
 - spec xeon e5-2690v4 spec\n
 - spec skylake 5122\n
 ";
-    	$this->$instruction = $this->greetInstr . "\n" . $this->jokesInstr . "\n" . $this->convInstr . "\n" . $this->specInstr . "\n" . "You can select help in each feature like help greet, help cal, help size, help joke etc. Many more feature will come soon so keep in touch with me.";
+    	$this->$instruction = "Ask for help in each feature like help greet, help cal, help size, help joke etc. for more details.\n\n" . $this->greetInstr . "\n\n" . $this->jokesInstr . "\n\n" . $this->convInstr . "\n\n" . $this->specInstr . "\n\n" . " Many more feature will come soon so keep in touch with me.";
 
 		$this->$allResponseResponse = array(
    			"errorWord" => array(
