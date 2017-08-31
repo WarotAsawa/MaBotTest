@@ -575,6 +575,7 @@ function getFloat($str) {
 function size3PAR($diskNo,$diskSize,$raidType,$raidSet) {
 	$raidRatio = 1.0;
 	$raidDes = "";
+	$unit = "TB";
 	//Set raid Ratio
 	if ($raidType == "r5") {
 		if ($raidSet < 3 || $raidSet > 9)
@@ -596,11 +597,14 @@ function size3PAR($diskNo,$diskSize,$raidType,$raidSet) {
 	if ($diskNo % $raidSet != 0) {
 		return "ERROR_The input number of disk did not follow 3PAR best Practice.";
 	}
-	if ($diskSize > 16) $diskSize /= 1000;
-	$rawTiB = $diskNo * $diskSize;
+	if ($diskSize > 16) {
+		$diskSize /= 1000;
+		$unit = "GB";
+	}
+	$rawTiB = $diskNo * $diskSize * 0.909495;
 	$useTiB =  $diskNo * $diskSize * $raidRatio * 22 * 0.909495 * 1.01 / 24;
 
-	$preanswer = "Capacity of 3PAR with " . $diskNo . " x " . $diskSize . "\nUsing RAID " . $raidDes;
+	$preanswer = "Capacity of 3PAR with " . $diskNo . " x " . $diskSize . $unit . "\nUsing " . $raidDes;
 	return $preanswer . "\n" . $rawTiB . " TiB Raw Capacity.\n" . $useTiB . " TiB Usable Capacity.";
 }
 function getUserName($event, $tempBot) {
