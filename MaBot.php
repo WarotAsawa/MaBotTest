@@ -337,7 +337,7 @@ function replySize($tempBot, $event, $logger) {
 	$product = $inputArray[1];
 	if ($product == "3par") {
 		if (sizeof($inputArray) < 5) {
-			$result = "Please input correct input format:\nsize 3par [No of disk] [size of disk(TB or GB)] [Raid:r1,r5,r6] [Raidset:3,4,12]";
+			$result = "Please input correct input format:\nsize 3par [No of disk] [size of disk] [Raid] [Raidset]\n[No of disk] =  Number of required disk\n[size of disk] = Size of each HDD size in TB or GB. Do not input the unit.\n[RAID] = Type of RAID. Input using R1 R5 or R6\n[Raidset]=Number of disk in a raid group. Input 4 for 3+1 in Raid5 or Input 8 for 6+2 in Raid6. Do not input this in Raid1\n\nFor example:\n\nsize 3par 48 3.82 r5 4\nsize 3par 16 480 r1\nsize 3par 32 6 r6 16";
 			$tempBot->replyText($event->getReplyToken(), $result);
 			return true;
 		}
@@ -605,7 +605,7 @@ function size3PAR($diskNo,$diskSize,$raidType,$raidSet) {
 	$useTiB =  $diskNo * $diskSize * $raidRatio * 22 * 0.909495 * 1.01 / 24;
 
 	$preanswer = "Capacity of 3PAR with " . $diskNo . " x " . $diskSize . $unit . "\nUsing " . $raidDes;
-	return $preanswer . "\n" . $rawTiB . " TiB Raw Capacity.\n" . $useTiB . " TiB Usable Capacity.";
+	return $preanswer . "\n\n" . $rawTiB . " TiB Raw Capacity.\n" . $useTiB . " TiB Usable Capacity.";
 }
 function getUserName($event, $tempBot) {
 	$userId = $event->getUserId();
