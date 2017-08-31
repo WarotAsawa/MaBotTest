@@ -574,17 +574,21 @@ function getFloat($str) {
 }
 function size3PAR($diskNo,$diskSize,$raidType,$raidSet) {
 	$raidRatio = 1.0;
+	$raidDes = "";
 	//Set raid Ratio
 	if ($raidType == "r5") {
 		if ($raidSet < 3 || $raidSet > 9)
 			return "ERROR_Please input correct RAID set for RAID 5:\nFrom 3 to 9.";
 		$raidRatio = ($raidSet-1)/$raidSet;
+		$raidDes = "RAID 5 : " . ($raidSet-1) . " + 1";
 	} else if ($raidType == "r6") {
-		if ($raidSet != 6 || $raidSet != 8 || $raidSet != 10 || $raidSet != 12 || $raidSet != 16)
+		if ($raidSet != 6 && $raidSet != 8 && $raidSet != 10 && $raidSet != 12 && $raidSet != 16)
 			return "ERROR_Please input correct RAID set for RAID 6:\n6, 8, 12, 16.";
 		$raidRatio = ($raidSet-2)/$raidSet;
+		$raidDes = "RAID 6 : " . ($raidSet-2) . " + 2";
 	} else if ($raidType == "r1") {
 		$raidRatio = 0.5;
+		$raidDes = "RAID 1";
 	} else {
 		return "ERROR_Please input each of these following available raid type:\nR1 R5 R6.";
 	}
@@ -594,8 +598,10 @@ function size3PAR($diskNo,$diskSize,$raidType,$raidSet) {
 	}
 	if ($diskSize > 16) $diskSize /= 1000;
 	$rawTiB = $diskNo * $diskSize;
-	$useTiB =  $diskNo * $diskSize * $raidRatio * 22 * 1.01 / 24;
-	return $rawTiB . " TiB Raw Capacity.\n" . $useTiB . " TiB Usable Capacity.";
+	$useTiB =  $diskNo * $diskSize * $raidRatio * 22 * 0.909495 * 1.01 / 24;
+
+	$preanswer = "Capacity of 3PAR with " . $diskNo . " x " . $diskSize . "\nUsing RAID " . $raidDes;
+	return $preanswer . "\n" . $rawTiB . " TiB Raw Capacity.\n" . $useTiB . " TiB Usable Capacity.";
 }
 function getUserName($event, $tempBot) {
 	$userId = $event->getUserId();
