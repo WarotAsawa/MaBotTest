@@ -2,6 +2,11 @@
 class AllResponse {
 
    	public $allResponseResponse;
+   	public $greetInstr;
+   	public $jokesInstr;
+   	public $convInstr;
+   	public $specInstr;
+   	public $sizeInstru;
    	public $instruction;
     
 	public function __construct()
@@ -15,7 +20,7 @@ class AllResponse {
 - convert 100TiB to Storeonce\n
 - convert e5-2690v4 to skylake\n
 - convert e5-2680 v3 to skylake\n";
-		$this->specInstru = "Specification Lookup:\n
+		$this->specInstr = "Specification Lookup:\n
 You can ask me to check the specification for hardware for example 3PAR, Storeonce, Xeon CPU, Skylake CPU, Moonshot cartridge, Edgeline etc. Just say\n
 - (product) (model) spec\n
 - Spec (product) (model)\n
@@ -25,7 +30,7 @@ For example:\n
 - spec xeon e5-2690v4 spec\n
 - spec skylake 5122\n
 ";
-    	$this->$instruction = $this->greetInstr . "\n" . $this->jokesInstr . "\n" . $this->convInstr . "\n" . $this->specInstru . "\n" . "Many more feature will come soon so keep in touch with me.";
+    	$this->$instruction = $this->greetInstr . "\n" . $this->jokesInstr . "\n" . $this->convInstr . "\n" . $this->specInstr . "\n" . "You can select help in each feature like help greet, help cal, help size, help joke etc. Many more feature will come soon so keep in touch with me.";
 
 		$this->$allResponseResponse = array(
    			"errorWord" => array(
@@ -138,7 +143,7 @@ For example:\n
         	  	$this->$convInstr
         	),
         	"helpspec" => array(
-        	  	$this->$specInstru
+        	  	$this->$specInstr
         	),
 			"help" => array(
    				$this->$instruction
