@@ -165,6 +165,10 @@ class AllCriteria {
         "really" => array(
           array("really"),
           array("is it")
+        ),
+        "fuck" => array(
+          array("wtf"),
+          array("fuck")
         )
     	);
   }

@@ -289,7 +289,12 @@ For example:\n
     			"Indeed, it is.",
 				"Oh sure.",
 				"Yes!"
-    		)
+    		),
+    		"fuck" => array(
+          		"No F word , please.",
+				"You should said Firetruck instead.",
+				"Please be polite!"
+        	)
 		);
   	}
 }
