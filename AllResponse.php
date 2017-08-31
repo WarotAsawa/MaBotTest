@@ -6,7 +6,8 @@ class AllResponse {
    	public $jokesInstr;
    	public $convInstr;
    	public $specInstr;
-   	public $sizeInstru;
+   	public $calInstr;
+   	public $sizeInstr;
    	public $instruction;
     
 	public function __construct()
@@ -30,7 +31,16 @@ For example:\n
 - spec xeon e5-2690v4 spec\n
 - spec skylake 5122\n
 ";
-    	$this->instruction = "Ask for help in each feature like help greet, help cal, help size, help joke etc. for more details.\n\n" . $this->greetInstr . "\n\n" . $this->jokesInstr . "\n\n" . $this->convInstr . "\n\n" . $this->specInstr . "\n\n" . " Many more feature will come soon so keep in touch with me.";
+		$this->calInstr = "Calculator:\nYou can ask me to calculate the result by input the number with operator like + - * / ^ or even parenthesis () for examples:\n
+		cal 10+2\n
+		cal 10*0.2\n
+		cal 50*(1.05^5)\n
+		cal 3*(4+3/2)\n
+		cal ((10+15/3)-(7-8*2)+((3-2^2)))";
+
+		$this->sizeInstr = "Size the things:\n You can ask me to size something for you. Here is how to use:\n
+		size 3par [No of disk] [size of disk] [Raid] [Raidset]\n[No of disk] =  Number of required disk\n[size of disk] = Size of each HDD size in TB or GB. Do not input the unit.\n[RAID] = Type of RAID. Input using R1 R5 or R6\n[Raidset]=Number of disk in a raid group. Input 4 for 3+1 in Raid5 or Input 8 for 6+2 in Raid6. Do not input this in Raid1\n\nFor example:\n\nsize 3par 48 3.82 r5 4\nsize 3par 16 480 r1\nsize 3par 32 6 r6 16"; 
+    	$this->instruction = "Ask for help in each feature like help greet, help cal, help size, help joke etc. for more details.\n\n" . $this->greetInstr . "\n\n" . $this->jokesInstr . "\n\n" . $this->convInstr . "\n\n" . $this->specInstr . "\n\n" . $this->calInstr . "\n\n" . $this->sizeInstr . "\n\n" . " Many more feature will come soon so keep in touch with me.";
 
 		$this->$allResponseResponse = array(
    			"errorWord" => array(
