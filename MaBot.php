@@ -64,6 +64,8 @@ foreach ($events as $event) {
 	if (replyShowSpec($bot, $event, $logger)) continue;
 	// Calulation Reply
 	if (replyCalculator($bot, $event, $logger)) continue;
+	// Calulation Reply
+	if (replySize($bot, $event, $logger)) continue;
 	// Greeting Reply
 	if (replySpeech($bot, $event, $logger,$allResponse,$allCriteria)) continue;
   	// Random Reply
@@ -319,7 +321,47 @@ function replyCalculator($tempBot, $event, $logger) {
 	$tempBot->replyText($event->getReplyToken(), $result);
 	return true;
 }
+function replySize($tempBot, $event, $logger) {
+	$messageText=strtolower(trim($event->getText()));
+	$result = "";
+	$errorStatus = "NONE";
+	if (isContain($messageText,"size") == false)
+		return false;
+	
+	$inputArray = explode(" ", $messageText);
+	if (sizeof($inputArray) < 2) {
+		$result = "Please input correct product to size:\n- 3par";
+		$tempBot->replyText($event->getReplyToken(), $result);
+		return true;
+	}
+	$product = $inputArray[1];
+	if ($product == "3par") {
+		if (sizeof($inputArray) < 5) {
+			$result = "Please input correct input format:\nsize 3par [No of disk] [size of disk(TB or GB)] [Raid:r1,r5,r6] [Raidset:3,4,12]";
+			$tempBot->replyText($event->getReplyToken(), $result);
+			return true;
+		}
+		$diskNo = intval($inputArray[2]);
+		$diskSize = floatval($inputArray[3]);
+		$raidType = intval($inputArray[4]);
+		if ($raidType == "r1" && sizeof($inputArray) == 5) {
+			array_push($inputArray, 2);
+		} else if ($raidType == "r5" && sizeof($inputArray) == 5) {
+			array_push($inputArray, 4);
+		} else if ($raidType == "r6" && sizeof($inputArray) == 5) {
+			array_push($inputArray, 8);
+		}
+		$raidSet = intval($inputArray[5]);
 
+		$result = size3PAR($diskNo,$diskSize,$raidType,$raidSet);
+	} else {
+		$result = "Please input correct product to size:\n- 3par";
+		$tempBot->replyText($event->getReplyToken(), $result);
+		return true;
+	}
+	$tempBot->replyText($event->getReplyToken(), $result);
+	return true;
+}
 function convertToStoreOnce($tbValue,$model) {
 	//Check if too large or too small
 	$result = $tbValue . ' TB is equal to these following models :' . "\n";
@@ -523,6 +565,31 @@ function getFloat($str) {
   	} else {
     	return floatval($str); // take some last chances with floatval
   	}
+}
+function size3PAR($diskNo,$diskSize,$raidType,$raidSet) {
+	$raidRatio = 1.0;
+	//Set raid Ratio
+	if ($raidType == "r5") {
+		if ($raidSet < 3 || $raidSet > 9)
+			return "ERROR_Please input correct RAID set for RAID 5:\nFrom 3 to 9.";
+		$raidRatio = ($raidSet-1)/$raidSet;
+	} else if ($raidType == "r6") {
+		if ($raidSet != 6 || $raidSet != 8 || $raidSet != 10 || $raidSet != 12 || $raidSet != 16)
+			return "ERROR_Please input correct RAID set for RAID 6:\n6, 8, 12, 16.";
+		$raidRatio = ($raidSet-2)/$raidSet;
+	} else if ($raidSet == "r1") {
+		$raidRatio = 0.5;
+	} else {
+		return "ERROR_Please input each of these following available raid type:\nR1 R5 R6.";
+	}
+	//Check disk number
+	if ($diskNo % $raidSet != 0) {
+		return "ERROR_The input number of disk did not follow 3PAR best Practice.";
+	}
+	if ($diskSize < 16) $diskSize /= 1000;
+	$rawTiB = $diskNo * $diskSize;
+	$useTiB =  $diskNo * $diskSize * $raidRatio * 22 * 1.01 / 24;
+	return $rawTiB . " TiB Raw Capacity.\n" . $useTiB . " TiB Usable Capacity.";
 }
 function getUserName($event, $tempBot) {
 	$userId = $event->getUserId();
