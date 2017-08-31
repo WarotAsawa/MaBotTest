@@ -138,6 +138,7 @@ function replyImage($tempBot, $event, $logger) {
 }
 function replyConvert($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
+	if (isContain($messageText,'help')) return false;
 	if (isStartWithText($messageText,'convert') || isStartWithText($messageText, 'please convert')) {
 		if (isContain($messageText,'tb to tib')) {
 			$tbValue = getFloat($messageText);
@@ -214,6 +215,7 @@ function replyConvert($tempBot, $event, $logger) {
 }
 function replyShowSpec($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
+	if (isContain($messageText,'help')) return false;
 	$fileDir = "./kb/allProduct.csv";
 	$allProductLabel = "";
 	$allModelLabel = "";
@@ -302,6 +304,7 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 }
 function replyCalculator($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
+	if (isContain($messageText,'help')) return false;
 	if (isContain($messageText,"cal") == false)
 		return false;
 	
@@ -323,6 +326,7 @@ function replyCalculator($tempBot, $event, $logger) {
 }
 function replySize($tempBot, $event, $logger) {
 	$messageText=strtolower(trim($event->getText()));
+	if (isContain($messageText,'help')) return false;
 	$result = "";
 	$errorStatus = "NONE";
 	if (isContain($messageText,"size") == false)
