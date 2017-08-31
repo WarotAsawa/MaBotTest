@@ -146,7 +146,7 @@ For example:\n
         	  	$this->$specInstr
         	),
 			"help" => array(
-   				$this->$instruction
+   				$this->$greetInstr
 			),
 			"whatyourname" => array(
    				"Don'you see my name above?",
