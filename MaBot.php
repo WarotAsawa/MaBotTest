@@ -359,6 +359,12 @@ function replySize($tempBot, $event, $logger) {
 		$tempBot->replyText($event->getReplyToken(), $result);
 		return true;
 	}
+	if (isContain($result,"ERROR")) {
+		$tempArray = explode("_", $result);
+		$result = getErrorWords() . "\n" . $tempArray[1];
+	} else {
+		$result = generatePreanswer() . "\n" . $result;
+	}
 	$tempBot->replyText($event->getReplyToken(), $result);
 	return true;
 }
@@ -577,7 +583,7 @@ function size3PAR($diskNo,$diskSize,$raidType,$raidSet) {
 		if ($raidSet != 6 || $raidSet != 8 || $raidSet != 10 || $raidSet != 12 || $raidSet != 16)
 			return "ERROR_Please input correct RAID set for RAID 6:\n6, 8, 12, 16.";
 		$raidRatio = ($raidSet-2)/$raidSet;
-	} else if ($raidSet == "r1") {
+	} else if ($raidType == "r1") {
 		$raidRatio = 0.5;
 	} else {
 		return "ERROR_Please input each of these following available raid type:\nR1 R5 R6.";
