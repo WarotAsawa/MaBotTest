@@ -11,16 +11,16 @@ class AllResponse {
     
 	public function __construct()
   	{
-  		$this->$greetInstr = "Greetings:\nYou can say hello, good moring, bye or any kind of greeting to me.";
-		$this->$jokesInstr = "Jokes:\nYou can ask me to tell me your jokes or if you say something non sense. I will said something random back to you.";
-		$this->$convInstr = "Basic conversion:\nYou can ask me to convert something for you just say\n convert (source) to (target)\nFor examples :\n
+  		$this->greetInstr = "Greetings:\nYou can say hello, good moring, bye or any kind of greeting to me.";
+		$this->jokesInstr = "Jokes:\nYou can ask me to tell me your jokes or if you say something non sense. I will said something random back to you.";
+		$this->convInstr = "Basic conversion:\nYou can ask me to convert something for you just say\n convert (source) to (target)\nFor examples :\n
 - convert 20TB to TiB\n
 - convert 100TiB to TB\n
 - convert 120TB to Storeonce\n
 - convert 100TiB to Storeonce\n
 - convert e5-2690v4 to skylake\n
 - convert e5-2680 v3 to skylake\n";
-		$this->$specInstr = "Specification Lookup:\n
+		$this->specInstr = "Specification Lookup:\n
 You can ask me to check the specification for hardware for example 3PAR, Storeonce, Xeon CPU, Skylake CPU, Moonshot cartridge, Edgeline etc. Just say\n
 - (product) (model) spec\n
 - Spec (product) (model)\n
@@ -30,7 +30,7 @@ For example:\n
 - spec xeon e5-2690v4 spec\n
 - spec skylake 5122\n
 ";
-    	$this->$instruction = "Ask for help in each feature like help greet, help cal, help size, help joke etc. for more details.\n\n" . $this->$greetInstr . "\n\n" . $this->$jokesInstr . "\n\n" . $this->$convInstr . "\n\n" . $this->$specInstr . "\n\n" . " Many more feature will come soon so keep in touch with me.";
+    	$this->instruction = "Ask for help in each feature like help greet, help cal, help size, help joke etc. for more details.\n\n" . $this->greetInstr . "\n\n" . $this->jokesInstr . "\n\n" . $this->convInstr . "\n\n" . $this->specInstr . "\n\n" . " Many more feature will come soon so keep in touch with me.";
 
 		$this->$allResponseResponse = array(
    			"errorWord" => array(
@@ -134,19 +134,19 @@ For example:\n
 				"You can ask me for help anytime."
 			),
 			"helpgreet" => array(
-        	  	$this->$greetInstr
+        	  	$this->greetInstr
         	),
         	"helpjoke" => array(
-        	  	$this->$jokesInstr
+        	  	$this->jokesInstr
         	),
         	"helpconv" => array(
-        	  	$this->$convInstr
+        	  	$this->convInstr
         	),
         	"helpspec" => array(
-        	  	$this->$specInstr
+        	  	$this->specInstr
         	),
 			"help" => array(
-   				$this->$instruction
+   				$this->instruction
 			),
 			"whatyourname" => array(
    				"Don'you see my name above?",
