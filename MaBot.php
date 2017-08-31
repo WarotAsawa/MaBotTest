@@ -343,7 +343,7 @@ function replySize($tempBot, $event, $logger) {
 		}
 		$diskNo = intval($inputArray[2]);
 		$diskSize = floatval($inputArray[3]);
-		$raidType = intval($inputArray[4]);
+		$raidType = $inputArray[4];
 		if ($raidType == "r1" && sizeof($inputArray) == 5) {
 			array_push($inputArray, 2);
 		} else if ($raidType == "r5" && sizeof($inputArray) == 5) {
@@ -586,7 +586,7 @@ function size3PAR($diskNo,$diskSize,$raidType,$raidSet) {
 	if ($diskNo % $raidSet != 0) {
 		return "ERROR_The input number of disk did not follow 3PAR best Practice.";
 	}
-	if ($diskSize < 16) $diskSize /= 1000;
+	if ($diskSize > 16) $diskSize /= 1000;
 	$rawTiB = $diskNo * $diskSize;
 	$useTiB =  $diskNo * $diskSize * $raidRatio * 22 * 1.01 / 24;
 	return $rawTiB . " TiB Raw Capacity.\n" . $useTiB . " TiB Usable Capacity.";
