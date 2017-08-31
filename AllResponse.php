@@ -155,6 +155,12 @@ For example:\n
         	"helpspec" => array(
         	  	$this->specInstr
         	),
+        	"helpcal" => array(
+        	  	$this->calInstr
+        	),
+        	"helpsize" => array(
+        	  	$this->sizeInstr
+        	),
 			"help" => array(
    				$this->instruction
 			),

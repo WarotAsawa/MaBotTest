@@ -59,6 +59,12 @@ class AllCriteria {
           array("help", "spec"),
           array("can you", "help", "spec")
         ),
+        "helpcal" => array(
+          array("help", "cal"),
+        ),
+        "helpsize" => array(
+          array("help", "size"),
+        ),
     		"help" => array(
     			array("help"),
     			array("can you", "help")
