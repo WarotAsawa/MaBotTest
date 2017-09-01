@@ -164,6 +164,11 @@ For example:\n
 			"help" => array(
    				$this->instruction
 			),
+			"helphint" => array(
+   				"Ask me for 'help' to see what I can do for you",
+   				"Want to learn how to talk to me? Ask me for 'help'.",
+   				"Ask for 'help' to see how smart I am."
+			),
 			"whatyourname" => array(
    				"Don'you see my name above?",
 				"My name is Uvuvwevwevwe Onyetenyevwe Ugwemubwem Ossas",
