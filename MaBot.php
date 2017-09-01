@@ -312,7 +312,7 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 			}
 		}
 	}
-	if ($isFound == false) $outputText = getRandomTextFromArray($allAnswer["random"]) . "\n" . getRandomTextFromArray($allAnswer["helphint"]);
+	if ($isFound == false) $outputText = getRandomTextFromArray($allAnswer["random"]) . "\n\nHint:\n" . getRandomTextFromArray($allAnswer["helphint"]);
 	$tempBot->replyText($event->getReplyToken(), $outputText);
 	return true;
 }
