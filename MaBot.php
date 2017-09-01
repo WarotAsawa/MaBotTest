@@ -54,6 +54,8 @@ foreach ($events as $event) {
 	$alreadyReplied = false;
   	// Postback Event
   	if (postBackLog($bot, $event, $logger)) continue;
+  	// Sticker Event
+	if (replySticker($bot, $event, $logger)) continue;
 	// Location Event
 	if (replyLocation($bot, $event, $logger)) continue;
 	// Image Event
@@ -106,6 +108,18 @@ function postBackLog($tempBot, $event, $logger) {
 	if ($event instanceof \LINE\LINEBot\Event\PostbackEvent) {
 		$logger->info('Postback message has come');
 		return true;
+	}
+	return false;
+}
+function replySticker($tempBot, $event, $logger) {
+	if ($event instanceof \LINE\LINEBot\Event\MessageEvent\StickerMessage) {
+		$outputText =getRandomText("I can't send Sticker. I don't have arms", 
+			"Sticker is for kids. Emoji is for adults. Text is for legends.",
+			"Why do you send me your sticker? I hate sticker.",
+			"How dare you? The sticker is my eternal foes!");
+
+		$tempBot->replyText($event->getReplyToken(), $outputText);
+		$isReplied = true;
 	}
 	return false;
 }
@@ -298,7 +312,7 @@ function replySpeech($tempBot, $event, $logger,$allResponse, $allCriteria) {
 			}
 		}
 	}
-	if ($isFound == false) $outputText = getRandomTextFromArray($allAnswer["random"]);
+	if ($isFound == false) $outputText = getRandomTextFromArray($allAnswer["random"]) . "\n" . getRandomTextFromArray($allAnswer["helphint"]);
 	$tempBot->replyText($event->getReplyToken(), $outputText);
 	return true;
 }
@@ -325,44 +339,30 @@ function replyCalculator($tempBot, $event, $logger) {
 	return true;
 }
 function replySize($tempBot, $event, $logger) {
+	//Precheck input
 	$messageText=strtolower(trim($event->getText()));
 	if (isContain($messageText,'help')) return false;
 	$result = "";
 	$errorStatus = "NONE";
 	if (isContain($messageText,"size") == false)
 		return false;
-	
+	//Explode Text and check if product line is input
 	$inputArray = explode(" ", $messageText);
 	if (sizeof($inputArray) < 2) {
 		$result = "Please input correct product to size:\n- 3par";
 		$tempBot->replyText($event->getReplyToken(), $result);
 		return true;
 	}
+	//Check Product line sizer
 	$product = $inputArray[1];
 	if ($product == "3par") {
-		if (sizeof($inputArray) < 5) {
-			$result = "Please input correct input format:\nsize 3par [No of disk] [size of disk] [Raid] [Raidset]\n[No of disk] =  Number of required disk\n[size of disk] = Size of each HDD size in TB or GB. Do not input the unit.\n[RAID] = Type of RAID. Input using R1 R5 or R6\n[Raidset]=Number of disk in a raid group. Input 4 for 3+1 in Raid5 or Input 8 for 6+2 in Raid6. Do not input this in Raid1\n\nFor example:\n\nsize 3par 48 3.82 r5 4\nsize 3par 16 480 r1\nsize 3par 32 6 r6 16";
-			$tempBot->replyText($event->getReplyToken(), $result);
-			return true;
-		}
-		$diskNo = intval($inputArray[2]);
-		$diskSize = floatval($inputArray[3]);
-		$raidType = $inputArray[4];
-		if ($raidType == "r1" && sizeof($inputArray) == 5) {
-			array_push($inputArray, 2);
-		} else if ($raidType == "r5" && sizeof($inputArray) == 5) {
-			array_push($inputArray, 4);
-		} else if ($raidType == "r6" && sizeof($inputArray) == 5) {
-			array_push($inputArray, 8);
-		}
-		$raidSet = intval($inputArray[5]);
-
-		$result = size3PAR($diskNo,$diskSize,$raidType,$raidSet);
+		$result = size3PAR($inputArray);
 	} else {
 		$result = "Please input correct product to size:\n- 3par";
 		$tempBot->replyText($event->getReplyToken(), $result);
 		return true;
 	}
+	//Check if sizer result is error or not.
 	if (isContain($result,"ERROR")) {
 		$tempArray = explode("_", $result);
 		$result = getErrorWords() . "\n" . $tempArray[1];
@@ -576,7 +576,22 @@ function getFloat($str) {
     	return floatval($str); // take some last chances with floatval
   	}
 }
-function size3PAR($diskNo,$diskSize,$raidType,$raidSet) {
+function size3PAR($inputArray) {
+	if (sizeof($inputArray) < 5) {
+		$result = "ERROR_Please input correct input format:\nsize 3par [No of disk] [size of disk] [Raid] [Raidset]\n[No of disk] =  Number of required disk\n[size of disk] = Size of each HDD size in TB or GB. Do not input the unit.\n[RAID] = Type of RAID. Input using R1 R5 or R6\n[Raidset]=Number of disk in a raid group. Input 4 for 3+1 in Raid5 or Input 8 for 6+2 in Raid6. Do not input this in Raid1\n\nFor example:\n\nsize 3par 48 3.82 r5 4\nsize 3par 16 480 r1\nsize 3par 32 6 r6 16";
+		return result;
+	}
+	$diskNo = intval($inputArray[2]);
+	$diskSize = floatval($inputArray[3]);
+	$raidType = $inputArray[4];
+	if ($raidType == "r1" && sizeof($inputArray) == 5) {
+		array_push($inputArray, 2);
+	} else if ($raidType == "r5" && sizeof($inputArray) == 5) {
+		array_push($inputArray, 4);
+	} else if ($raidType == "r6" && sizeof($inputArray) == 5) {
+		array_push($inputArray, 8);
+	}
+	$raidSet = intval($inputArray[5]);
 	$raidRatio = 1.0;
 	$raidDes = "";
 	$unit = "TB";
@@ -598,7 +613,7 @@ function size3PAR($diskNo,$diskSize,$raidType,$raidSet) {
 		return "ERROR_Please input each of these following available raid type:\nR1 R5 R6.";
 	}
 	//Check disk number
-	if ($diskNo % $raidSet != 0) {
+	if ($diskNo % $raidSet != 0 || $diskNo < 6) {
 		return "ERROR_The input number of disk did not follow 3PAR best Practice.";
 	}
 	if ($diskSize > 16) {
