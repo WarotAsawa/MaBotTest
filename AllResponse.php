@@ -40,7 +40,7 @@ For example:\n
 
 		$this->sizeInstr = "Size the things:\n You can ask me to size something for you. Here is how to use:\n
  size 3par [No of disk] [size of disk] [Raid] [Raidset]\n[No of disk] =  Number of required disk\n[size of disk] = Size of each HDD size in TB or GB. Do not input the unit.\n[RAID] = Type of RAID. Input using R1 R5 or R6\n[Raidset]=Number of disk in a raid group. Input 4 for 3+1 in Raid5 or Input 8 for 6+2 in Raid6. Do not input this in Raid1\n\nFor example:\n\nsize 3par 48 3.82 r5 4\nsize 3par 16 480 r1\nsize 3par 32 6 r6 16"; 
-    	$this->instruction = "Ask for help in each feature like help greet, help cal, help size, help joke etc. for more details.\n\n" . $this->greetInstr . "\n\n" . $this->jokesInstr . "\n\n" . $this->convInstr . "\n\n" . $this->specInstr . "\n\n" . $this->calInstr . "\n\n" . $this->sizeInstr . "\n\n" . " Many more feature will come soon so keep in touch with me.";
+    	$this->instruction = "Ask for help in each feature ex: \n\n- help greet\n- help joke\n- help convert\n- help spec\n- help size\n- help cal\nFor more details for each feature.\n\n" . $this->greetInstr . "\n\n" . $this->jokesInstr . "\n\n" . $this->convInstr . "\n\n" . $this->specInstr . "\n\n" . $this->calInstr . "\n\n" . $this->sizeInstr . "\n\n" . " Many more feature will come soon so keep in touch with me.";
 
 		$this->$allResponseResponse = array(
    			"errorWord" => array(

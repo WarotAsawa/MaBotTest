@@ -221,6 +221,18 @@ function replyConvert($tempBot, $event, $logger) {
 				return true;
 			}
 		}
+		if (isContain($messageText, 'to xeon') || isContain($messageText, 'to broadwell')) {
+			$cpuModel = getSkylakeCPUModel($messageText);
+			if ($cpuModel == 'ERROR') {
+				$outputText = getErrorWords() . "\n" . 'Here is the correct example of input :' . "\n" . 'convert 5118 to xeon' . "\n" . 'convert 4110 to broadwell';
+				$tempBot->replyText($event->getReplyToken(), $outputText);
+				return true;
+			} else {
+				$cpuText = convertSkylakeToBroadwell($cpuModel);
+				$tempBot->replyText($event->getReplyToken(), $cpuText);
+				return true;
+			}
+		}
 		$outputText = getErrorWords() . " You can ask me to convert something for you for example\n convert 20TB to TiB\n convert 100TiB to TB\n convert 120TB to Storeonce\n convert 100TiB to Storeonce\n convert e5-2690v4 to skylake \n convert e5-2680 v3 to skylake\n";
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
@@ -473,7 +485,7 @@ function convertBroadwellToSkyLake($cpuModel) {
 	    	if ($targetModel == 'e0') {
 	       		if ($cpuModel ==  $data[0]) {
 					$targetModel = $data[0];
-					$result = 'Intel XEON' . $targetModel . ' ' . $data[1] . ' GHz ' . $data[2] . ' cores'. "\nis equal to these following models:";
+					$result = 'Intel XEON ' . $targetModel . ' ' . $data[1] . ' GHz ' . $data[2] . ' cores'. "\nis equal to these following models:";
 	       			$result = $result . "\n" . 'Intel ' . $data[3] . ' ' . $data[4] . ' ' . $data[5] . ' GHz ' . $data[6] . ' cores';	
 	       		}
 	       	} else {
@@ -490,6 +502,55 @@ function convertBroadwellToSkyLake($cpuModel) {
 		$result = getErrorWords() . "\n" . 'We cannot found the conversion of this model.';
 	}
 	return $result;
+}
+function convertSkylakeToBroadwell($cpuModel) {
+	$row = 1;
+	$result = '';
+	$targetModel = '5555';
+	if (($handle = fopen("./kb/SkylakeToBroadwell.csv", "r")) !== FALSE) {
+	    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+	    	//Check first match
+	    	if ($targetModel == '5555') {
+	       		if ($cpuModel ==  $data[0]) {
+					$targetModel = $data[0];
+					$result = 'Intel Skylake' . $targetModel . ' ' . $data[1] . ' ' . $data[2] . ' GHz ' . $data[3] . ' cores'. "\nis equal to these following models:";
+	       			$result = $result . "\n" . 'Intel Xeon ' . $data[4] . ' ' . $data[5] . ' GHz ' . $data[6] . ' cores';	
+	       		}
+	       	} else {
+	       		//If not equal anymore. Break the loop.
+	       		if ($data[0] != $targetModel) {
+	       			break;
+	       		}
+	       		$result = $result . "\n" . 'Intel ' . $data[3] . ' ' . $data[4] . ' ' . $data[5] . ' GHz ' . $data[6] . ' cores';	
+	       	}
+	    }
+	}
+	fclose($handle);
+	if ($targetModel == '5555') {
+		$result = getErrorWords() . "\n" . 'We cannot found the conversion of this model.';
+	}
+	return $result;
+}
+function cpuLookup($input) {
+	$inputArray = explode(" ", $input);
+	$clock = 0;
+	$cores = 0;
+	//Check clock
+	for ($i = 0; $i<sizeof($inputArray); $i++) {
+		if ($inputArray[i] == 'clock') {
+			$clock = getFloat($inputArray[i+1]);
+		}
+	}
+	//Check cores
+	for ($i = 0; $i<sizeof($inputArray); $i++) {
+		if ($inputArray[i] == 'core' || $inputArray[i] == 'cores') {
+			$cores = getFloat($inputArray[i+1]);
+		}
+	}
+	//Check invalide input
+	if ($clock == 0 && $cores == 0) {
+		
+	}
 }
 function getBroadwellCPUModel($inputString) {
 	$result = 'ERROR';
