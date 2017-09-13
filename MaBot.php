@@ -513,7 +513,7 @@ function convertSkylakeToBroadwell($cpuModel) {
 	    	if ($targetModel == '5555') {
 	       		if ($cpuModel ==  $data[0]) {
 					$targetModel = $data[0];
-					$result = 'Intel Skylake' . $targetModel . ' ' . $data[1] . ' ' . $data[2] . ' GHz ' . $data[3] . ' cores'. "\nis equal to these following models:";
+					$result = 'Intel Skylake ' . $targetModel . ' ' . $data[1] . ' ' . $data[2] . ' GHz ' . $data[3] . ' cores'. "\nis equal to these following models:";
 	       			$result = $result . "\n" . 'Intel Xeon ' . $data[4] . ' ' . $data[5] . ' GHz ' . $data[6] . ' cores';	
 	       		}
 	       	} else {
@@ -521,7 +521,7 @@ function convertSkylakeToBroadwell($cpuModel) {
 	       		if ($data[0] != $targetModel) {
 	       			break;
 	       		}
-	       		$result = $result . "\n" . 'Intel ' . $data[3] . ' ' . $data[4] . ' ' . $data[5] . ' GHz ' . $data[6] . ' cores';	
+	       		$result = $result . "\n" . 'Intel Xeon ' . $data[4] . ' ' . $data[5] . ' GHz ' . $data[6] . ' cores';	
 	       	}
 	    }
 	}
@@ -549,7 +549,7 @@ function cpuLookup($input) {
 	}
 	//Check invalide input
 	if ($clock == 0 && $cores == 0) {
-		
+
 	}
 }
 function getBroadwellCPUModel($inputString) {
