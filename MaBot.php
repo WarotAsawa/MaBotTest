@@ -393,10 +393,10 @@ function replyLookup($tempBot, $event, $logger) {
 		// Lookup CPU spec
 		$result = "";
 		if (isContain($messageText,'cpu')) {
-			$result = cpuLookup($messageText);
-			if ($result == "ERROR") {
+			$result = generatePreanswer() . cpuLookup($messageText);
+			if (isContain($result,"ERROR")) {
 				$result = getErrorWords() . "\nPlease input valid request: lookup cpu clock 1.7 core 6 etc.";
-			} else if ($result == "NOANS") {
+			} else if (isContain($result,"NOANS")) {
 				$result = getErrorWords() . "\nI cannot find the requested spec.";
 			}
 		} else {
