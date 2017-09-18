@@ -560,17 +560,17 @@ function cpuLookup($input) {
 	$result = "";
 	//Check clock
 	for ($i = 2; $i<sizeof($inputArray); $i++) {
-		if ($inputArray[i] == 'clock') {
-			$clock = getFloat($inputArray[i+1]);
+		if ($inputArray[$i] == 'clock') {
+			$clock = getFloat($inputArray[$i+1]);
 		}
 	}
 	//Check cores
 	for ($i = 2; $i<sizeof($inputArray); $i++) {
-		if ($inputArray[i] == 'core' || $inputArray[i] == 'cores') {
-			$cores = getFloat($inputArray[i+1]);
+		if ($inputArray[$i] == 'core' || $inputArray[$i] == 'cores') {
+			$cores = getFloat($inputArray[$i+1]);
 		}
 	}
-	return ($inputArray[2] . " " . $inputArray[3] . " " . $inputArray[4] . " " . $inputArray[5] . $clock . $cores);
+	//return ($inputArray[2] . " " . $inputArray[3] . " " . $inputArray[4] . " " . $inputArray[5] . $clock . $cores);
 	//Check invalid input
 	if ($clock == 0 && $cores == 0) {
 		return "ERROR";
