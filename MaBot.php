@@ -570,7 +570,6 @@ function cpuLookup($input) {
 			$cores = (string)getFloat($inputArray[$i+1]);
 		}
 	}
-	return ($inputArray[2] . " " . $inputArray[3] . " " . $inputArray[4] . " " . $inputArray[5] . $clock . $cores);
 	//Check invalid input
 	if ($clock == 0 && $cores == 0) {
 		return "ERROR";
@@ -640,7 +639,8 @@ function cpuLookup($input) {
 		}
 	}
 	if ($resultCount == 0) return "NOANS";
-	return $result;
+	return ($inputArray[2] . " " . $inputArray[3] . " " . $inputArray[4] . " " . $inputArray[5] . $clock . $cores . $result . $resultCount);
+	//return $result;
 }
 function getBroadwellCPUModel($inputString) {
 	$result = 'ERROR';
