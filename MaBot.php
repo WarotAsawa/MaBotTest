@@ -392,13 +392,15 @@ function replyLookup($tempBot, $event, $logger) {
 	if (isStartWithText($messageText,'lookup')) {
 		// Lookup CPU spec
 		$result = "";
-		if (isContain($messageText,'lookup')) {
+		if (isContain($messageText,'cpu')) {
 			$result = cpuLookup($messageText);
 			if ($result == "ERROR") {
 				$result = getErrorWords() . "\nPlease input valid request: lookup cpu clock 1.7 core 6 etc.";
 			} else if ($result == "NOANS") {
 				$result = getErrorWords() . "\nI cannot find the requested spec.";
 			}
+		} else {
+			$result = getErrorWords() . "\nPlease input valid lookup:\n lookup cpu clock 1.7 core 6 etc.";
 		}
 		$tempBot->replyText($event->getReplyToken(), $result);
 	}
@@ -568,6 +570,7 @@ function cpuLookup($input) {
 			$cores = getFloat($inputArray[i+1]);
 		}
 	}
+	$logger->info($cores . " " . $clock);
 	//Check invalid input
 	if ($clock == 0 && $cores == 0) {
 		return "ERROR";
