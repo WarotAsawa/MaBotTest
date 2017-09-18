@@ -580,7 +580,7 @@ function cpuLookup($input) {
 		if (($handle = fopen($fileDir, "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 		    	//Check Clock
-		    	if ($clock == data[1] && $core == data[2]) {
+		    	if ($clock == getFloat(data[1]) && $core == getFloat(data[2]) {
 		    		$result = $result . "\nXeon " . data[0] . " Clock: " . data[1] . " Cores: " . data[2];
 		    		$resultCount = $resultCount + 1;
 		    	}
@@ -590,7 +590,7 @@ function cpuLookup($input) {
 		if (($handle = fopen($fileDir, "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 		    	//Check Clock
-		    	if ($clock == data[2] && $core == data[3]) {
+		    	if ($clock == getFloat(data[2]) && $core == getFloat(data[3]) {
 		    		$result = $result . "\nSkylake " . data[0] . " " . data[1] . " Clock: " . data[2] . " Cores: " . data[3];
 		    		$resultCount = $resultCount + 1;
 		    	}
@@ -601,7 +601,7 @@ function cpuLookup($input) {
 		if (($handle = fopen($fileDir, "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 		    	//Check Clock
-		    	if ($core == data[2]) {
+		    	if ($core == getFloat(data[2])) {
 		    		$result = $result . "\nXeon " . data[0] . " Clock: " . data[1] . " Cores: " . data[2];
 		    		$resultCount = $resultCount + 1;
 		    	}
@@ -611,7 +611,7 @@ function cpuLookup($input) {
 		if (($handle = fopen($fileDir, "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 		    	//Check Clock
-		    	if ($core == data[3]) {
+		    	if ($core == getFloat(data[3])) {
 		    		$result = $result . "\nSkylake " . data[0] . " " . data[1] . " Clock: " . data[2] . " Cores: " . data[3];
 		    		$resultCount = $resultCount + 1;
 		    	}
@@ -622,7 +622,7 @@ function cpuLookup($input) {
 		if (($handle = fopen($fileDir, "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 		    	//Check Clock
-		    	if ($clock == data[1]) {
+		    	if ($clock == getFloat(data[1])) {
 		    		$result = $result . "\nXeon " . data[0] . " Clock: " . data[1] . " Cores: " . data[2];
 		    		$resultCount = $resultCount + 1;
 		    	}
@@ -632,7 +632,7 @@ function cpuLookup($input) {
 		if (($handle = fopen($fileDir, "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 		    	//Check Clock
-		    	if ($clock == data[2]) {
+		    	if ($clock == getFloat(data[2])) {
 		    		$result = $result . "\nSkylake " . data[0] . " " . data[1] . " Clock: " . data[2] . " Cores: " . data[3];
 		    		$resultCount = $resultCount + 1;
 		    	}
