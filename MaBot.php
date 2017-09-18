@@ -570,7 +570,7 @@ function cpuLookup($input) {
 			$cores = getFloat($inputArray[i+1]);
 		}
 	}
-	$logger->info($cores . " " . $clock);
+	return ($clock . " " . $cores);
 	//Check invalid input
 	if ($clock == 0 && $cores == 0) {
 		return "ERROR";
