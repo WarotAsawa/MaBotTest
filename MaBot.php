@@ -560,7 +560,6 @@ function cpuLookup($input) {
 	$result = "";
 	//Check clock
 	for ($i = 2; $i<sizeof($inputArray); $i++) {
-		$result = $result . $inputArray[i];
 		if ($inputArray[i] == 'clock') {
 			$clock = getFloat($inputArray[i+1]);
 		}
@@ -571,7 +570,7 @@ function cpuLookup($input) {
 			$cores = getFloat($inputArray[i+1]);
 		}
 	}
-	return $result;
+	return ($inputArray[3] . " " . $inputArray[5]);
 	//Check invalid input
 	if ($clock == 0 && $cores == 0) {
 		return "ERROR";
