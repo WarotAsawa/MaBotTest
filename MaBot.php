@@ -561,13 +561,13 @@ function cpuLookup($input) {
 	//Check clock
 	for ($i = 0; $i<sizeof($inputArray); $i++) {
 		if ($inputArray[i] == 'clock') {
-			$clock = getFloat($inputArray[i+1]);
+			$clock = $inputArray[i+1];
 		}
 	}
 	//Check cores
 	for ($i = 0; $i<sizeof($inputArray); $i++) {
 		if ($inputArray[i] == 'core' || $inputArray[i] == 'cores') {
-			$cores = getFloat($inputArray[i+1]);
+			$cores = $inputArray[i+1];
 		}
 	}
 	return ($clock . " " . $cores);
