@@ -579,8 +579,8 @@ function cpuLookup($input) {
 		if (($handle = fopen($fileDir, "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 		    	//Check Clock
-		    	if ($clock == data[1] && $core == data[2]) {
-		    		$result = $result . "\nXeon " . data[0] . " Clock: " . data[1] . " Cores: " . data[2];
+		    	if ($clock == $data[1] && $core == $data[2]) {
+		    		$result = $result . "\nXeon " . $data[0] . " Clock: " . $data[1] . " Cores: " . $data[2];
 		    		$resultCount = $resultCount + 1;
 		    	}
 		    }
@@ -589,8 +589,8 @@ function cpuLookup($input) {
 		if (($handle = fopen($fileDir, "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 		    	//Check Clock
-		    	if ($clock == data[2] && $core == data[3]) {
-		    		$result = $result . "\nSkylake " . data[0] . " " . data[1] . " Clock: " . data[2] . " Cores: " . data[3];
+		    	if ($clock == $data[2] && $core == $data[3]) {
+		    		$result = $result . "\nSkylake " . $data[0] . " " . $data[1] . " Clock: " . $data[2] . " Cores: " . $data[3];
 		    		$resultCount = $resultCount + 1;
 		    	}
 		    }
@@ -600,8 +600,8 @@ function cpuLookup($input) {
 		if (($handle = fopen($fileDir, "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 		    	//Check Clock
-		    	if ($core == data[2]) {
-		    		$result = $result . "\nXeon " . data[0] . " Clock: " . data[1] . " Cores: " . data[2];
+		    	if ($core == $data[2]) {
+		    		$result = $result . "\nXeon " . $data[0] . " Clock: " . $data[1] . " Cores: " . $data[2];
 		    		$resultCount = $resultCount + 1;
 		    	}
 		    }
@@ -610,8 +610,8 @@ function cpuLookup($input) {
 		if (($handle = fopen($fileDir, "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 		    	//Check Clock
-		    	if ($core == data[3]) {
-		    		$result = $result . "\nSkylake " . data[0] . " " . data[1] . " Clock: " . data[2] . " Cores: " . data[3];
+		    	if ($core == $data[3]) {
+		    		$result = $result . "\nSkylake " . $data[0] . " " . $data[1] . " Clock: " . $data[2] . " Cores: " . $data[3];
 		    		$resultCount = $resultCount + 1;
 		    	}
 		    }
@@ -621,8 +621,8 @@ function cpuLookup($input) {
 		if (($handle = fopen($fileDir, "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 		    	//Check Clock
-		    	if ($clock == data[1]) {
-		    		$result = $result . "\nXeon " . data[0] . " Clock: " . data[1] . " Cores: " . data[2];
+		    	if ($clock == $data[1]) {
+		    		$result = $result . "\nXeon " . $data[0] . " Clock: " . $data[1] . " Cores: " . $data[2];
 		    		$resultCount = $resultCount + 1;
 		    	}
 		    }
@@ -631,16 +631,16 @@ function cpuLookup($input) {
 		if (($handle = fopen($fileDir, "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 		    	//Check Clock
-		    	if ($clock == data[2]) {
-		    		$result = $result . "\nSkylake " . data[0] . " " . data[1] . " Clock: " . data[2] . " Cores: " . data[3];
+		    	if ($clock == $data[2]) {
+		    		$result = $result . "\nSkylake " . $data[0] . " " . $data[1] . " Clock: " . $data[2] . " Cores: " . $data[3];
 		    		$resultCount = $resultCount + 1;
 		    	}
 		    }
 		}
 	}
-	//if ($resultCount == 0) return "NOANS";
-	return ($inputArray[2] . " " . $inputArray[3] . " " . $inputArray[4] . " " . $inputArray[5] . $clock . $cores . $result . $resultCount);
-	//return $result;
+	if ($resultCount == 0) return "NOANS";
+	//return ($inputArray[2] . " " . $inputArray[3] . " " . $inputArray[4] . " " . $inputArray[5] . $clock . $cores . $result . $resultCount);
+	return $result;
 }
 function getBroadwellCPUModel($inputString) {
 	$result = 'ERROR';
