@@ -8,6 +8,7 @@ class AllResponse {
    	public $specInstr;
    	public $calInstr;
    	public $sizeInstr;
+   	public $lookupInstr;
    	public $instruction;
     
 	public function __construct()
@@ -40,7 +41,8 @@ For example:\n
 
 		$this->sizeInstr = "Size the things:\n You can ask me to size something for you. Here is how to use:\n
  size 3par [No of disk] [size of disk] [Raid] [Raidset]\n[No of disk] =  Number of required disk\n[size of disk] = Size of each HDD size in TB or GB. Do not input the unit.\n[RAID] = Type of RAID. Input using R1 R5 or R6\n[Raidset]=Number of disk in a raid group. Input 4 for 3+1 in Raid5 or Input 8 for 6+2 in Raid6. Do not input this in Raid1\n\nFor example:\n\nsize 3par 48 3.82 r5 4\nsize 3par 16 480 r1\nsize 3par 32 6 r6 16"; 
-    	$this->instruction = "Ask for help in each feature ex: \n\n- help greet\n- help joke\n- help convert\n- help spec\n- help size\n- help cal\nFor more details for each feature. Keep in touch with me for feature update.";
+ 		$this->lookupInstr = "Lookup the spec from our database by simply ask me like:\n\n- lookup cpu clock 2.2\n- lookup cpu core 8\n- lookup cpu core 22 clock 2.2\n- lookup cpu core 6 clock 1.7\netc.";
+    	$this->instruction = "Ask for help in each feature for more details for each feature ex: \n\n- help greet\n- help joke\n- help convert\n- help spec\n- help size\n- help cal\n- help lookup\n Keep in touch with me for feature update.";
 
 		$this->$allResponseResponse = array(
    			"errorWord" => array(
@@ -160,6 +162,9 @@ For example:\n
         	),
         	"helpsize" => array(
         	  	$this->sizeInstr
+        	),
+        	"helplook" => array(
+        	  	$this->lookupInstr
         	),
 			"help" => array(
    				$this->instruction

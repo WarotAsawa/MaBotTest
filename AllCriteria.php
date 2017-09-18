@@ -65,6 +65,9 @@ class AllCriteria {
         "helpsize" => array(
           array("help", "size"),
         ),
+        "helplook" => array(
+          array("help", "lookup"),
+        ),
     		"help" => array(
     			array("help"),
     			array("can you", "help")
