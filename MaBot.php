@@ -638,7 +638,7 @@ function cpuLookup($input) {
 		    }
 		}
 	}
-	if ($resultCount == 0) return "NOANS";
+	//if ($resultCount == 0) return "NOANS";
 	return ($inputArray[2] . " " . $inputArray[3] . " " . $inputArray[4] . " " . $inputArray[5] . $clock . $cores . $result . $resultCount);
 	//return $result;
 }
