@@ -66,8 +66,10 @@ foreach ($events as $event) {
 	if (replyShowSpec($bot, $event, $logger)) continue;
 	// Calulation Reply
 	if (replyCalculator($bot, $event, $logger)) continue;
-	// Calulation Reply
+	// Sizing Reply
 	if (replySize($bot, $event, $logger)) continue;
+	// Lookup Reply
+	if (replyLookup($bot, $event, $logger)) continue;
 	// Greeting Reply
 	if (replySpeech($bot, $event, $logger,$allResponse,$allCriteria)) continue;
   	// Random Reply
@@ -384,6 +386,23 @@ function replySize($tempBot, $event, $logger) {
 	$tempBot->replyText($event->getReplyToken(), $result);
 	return true;
 }
+function replyLookup($tempBot, $event, $logger) {
+	$messageText=strtolower(trim($event->getText()));
+	if (isContain($messageText,'help')) return false;
+	if (isStartWithText($messageText,'lookup')) {
+		// Lookup CPU spec
+		$result = "";
+		if (isContain($messageText,'lookup')) {
+			$result = cpuLookup($messageText);
+			if ($result == "ERROR") {
+				$result = getErrorWords() . "\nPlease input valid request: lookup cpu clock 1.7 core 6 etc.";
+			} else if ($result == "NOANS") {
+				$result = getErrorWords() . "\nI cannot find the requested spec.";
+			}
+		}
+		$tempBot->replyText($event->getReplyToken(), $result);
+	}
+}
 function convertToStoreOnce($tbValue,$model) {
 	//Check if too large or too small
 	$result = $tbValue . ' TB is equal to these following models :' . "\n";
@@ -535,6 +554,8 @@ function cpuLookup($input) {
 	$inputArray = explode(" ", $input);
 	$clock = 0;
 	$cores = 0;
+	$resultCount = 0;
+	$result = "";
 	//Check clock
 	for ($i = 0; $i<sizeof($inputArray); $i++) {
 		if ($inputArray[i] == 'clock') {
@@ -547,10 +568,76 @@ function cpuLookup($input) {
 			$cores = getFloat($inputArray[i+1]);
 		}
 	}
-	//Check invalide input
+	//Check invalid input
 	if ($clock == 0 && $cores == 0) {
-
+		return "ERROR";
 	}
+	if ($clock != 0 && $core != 0) {
+		$fileDir = "./kb/broadwell.csv";
+		if (($handle = fopen($fileDir, "r")) !== FALSE) {
+			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+		    	//Check Clock
+		    	if ($clock == data[1] && $core == data[2]) {
+		    		$result = $result . "\nXeon " . data[0] . " Clock: " . data[1] . " Cores: " . data[2];
+		    		$resultCount = $resultCount + 1;
+		    	}
+		    }
+		}
+		$fileDir = "./kb/skylake.csv";
+		if (($handle = fopen($fileDir, "r")) !== FALSE) {
+			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+		    	//Check Clock
+		    	if ($clock == data[2] && $core == data[3]) {
+		    		$result = $result . "\nSkylake " . data[0] . " " . data[1] . " Clock: " . data[2] . " Cores: " . data[3];
+		    		$resultCount = $resultCount + 1;
+		    	}
+		    }
+		}
+	} else if ($core != 0) {
+		$fileDir = "./kb/broadwell.csv";
+		if (($handle = fopen($fileDir, "r")) !== FALSE) {
+			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+		    	//Check Clock
+		    	if ($core == data[2]) {
+		    		$result = $result . "\nXeon " . data[0] . " Clock: " . data[1] . " Cores: " . data[2];
+		    		$resultCount = $resultCount + 1;
+		    	}
+		    }
+		}
+		$fileDir = "./kb/skylake.csv";
+		if (($handle = fopen($fileDir, "r")) !== FALSE) {
+			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+		    	//Check Clock
+		    	if ($core == data[3]) {
+		    		$result = $result . "\nSkylake " . data[0] . " " . data[1] . " Clock: " . data[2] . " Cores: " . data[3];
+		    		$resultCount = $resultCount + 1;
+		    	}
+		    }
+		}
+	} else if ($clock != 0) {
+		$fileDir = "./kb/broadwell.csv";
+		if (($handle = fopen($fileDir, "r")) !== FALSE) {
+			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+		    	//Check Clock
+		    	if ($clock == data[1]) {
+		    		$result = $result . "\nXeon " . data[0] . " Clock: " . data[1] . " Cores: " . data[2];
+		    		$resultCount = $resultCount + 1;
+		    	}
+		    }
+		}
+		$fileDir = "./kb/skylake.csv";
+		if (($handle = fopen($fileDir, "r")) !== FALSE) {
+			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+		    	//Check Clock
+		    	if ($clock == data[2]) {
+		    		$result = $result . "\nSkylake " . data[0] . " " . data[1] . " Clock: " . data[2] . " Cores: " . data[3];
+		    		$resultCount = $resultCount + 1;
+		    	}
+		    }
+		}
+	}
+	if ($resultCount == 0) return "NOANS";
+	return $result;
 }
 function getBroadwellCPUModel($inputString) {
 	$result = 'ERROR';
