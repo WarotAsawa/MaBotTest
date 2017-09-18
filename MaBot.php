@@ -555,7 +555,7 @@ function convertSkylakeToBroadwell($cpuModel) {
 function cpuLookup($input) {
 	$inputArray = explode(" ", $input);
 	$clock = 0;
-	$cores = 0;
+	$core = 0;
 	$resultCount = 0;
 	$result = "";
 	//Check clock
@@ -564,14 +564,14 @@ function cpuLookup($input) {
 			$clock = (string)getFloat($inputArray[$i+1]);
 		}
 	}
-	//Check cores
+	//Check core
 	for ($i = 2; $i<sizeof($inputArray); $i++) {
 		if ($inputArray[$i] == 'core' || $inputArray[$i] == 'cores') {
-			$cores = (string)getFloat($inputArray[$i+1]);
+			$core = (string)getFloat($inputArray[$i+1]);
 		}
 	}
 	//Check invalid input
-	if ($clock == 0 && $cores == 0) {
+	if ($clock == 0 && $core == 0) {
 		return "ERROR";
 	}
 	if ($clock != 0 && $core != 0) {
