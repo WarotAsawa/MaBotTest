@@ -214,7 +214,7 @@ function replyConvert($tempBot, $event, $logger) {
 		if (isContain($messageText, 'to skylake')) {
 			$cpuModel = getBroadwellCPUModel($messageText);
 			if ($cpuModel == 'ERROR') {
-				$outputText = getErrorWords() . "\n" . 'Here is the correct example of input :' . "\n" . 'convert E5-2697v2 to Skylake' . "\n" . 'convert E5-2690 v4 to Skylake';
+				$outputText = generateErrorWords() . "\n" . 'Here is the correct example of input :' . "\n" . 'convert E5-2697v2 to Skylake' . "\n" . 'convert E5-2690 v4 to Skylake';
 				$tempBot->replyText($event->getReplyToken(), $outputText);
 				return true;
 			} else {
@@ -226,7 +226,7 @@ function replyConvert($tempBot, $event, $logger) {
 		if (isContain($messageText, 'to xeon') || isContain($messageText, 'to broadwell')) {
 			$cpuModel = getSkylakeCPUModel($messageText);
 			if ($cpuModel == 'ERROR') {
-				$outputText = getErrorWords() . "\n" . 'Here is the correct example of input :' . "\n" . 'convert 5118 to xeon' . "\n" . 'convert 4110 to broadwell';
+				$outputText = generateErrorWords() . "\n" . 'Here is the correct example of input :' . "\n" . 'convert 5118 to xeon' . "\n" . 'convert 4110 to broadwell';
 				$tempBot->replyText($event->getReplyToken(), $outputText);
 				return true;
 			} else {
@@ -235,7 +235,7 @@ function replyConvert($tempBot, $event, $logger) {
 				return true;
 			}
 		}
-		$outputText = getErrorWords() . " You can ask me to convert something for you for example\n convert 20TB to TiB\n convert 100TiB to TB\n convert 120TB to Storeonce\n convert 100TiB to Storeonce\n convert e5-2690v4 to skylake \n convert e5-2680 v3 to skylake\n";
+		$outputText = generateErrorWords() . " You can ask me to convert something for you for example\n convert 20TB to TiB\n convert 100TiB to TB\n convert 120TB to Storeonce\n convert 100TiB to Storeonce\n convert e5-2690v4 to skylake \n convert e5-2680 v3 to skylake\n";
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
 	}
@@ -286,11 +286,11 @@ function replyShowSpec($tempBot, $event, $logger) {
 							}
 						}
 					}
-					if ($isModelMatched == false) $outputText = getErrorWords() . "\nPlease select one of these " . $productLine . " model:" . $allModelLabel;
+					if ($isModelMatched == false) $outputText = generateErrorWords() . "\nPlease select one of these " . $productLine . " model:" . $allModelLabel;
 				}
 			}
 		}
-		if ($isProductMatched == false) $outputText = getErrorWords() . "\nPlease select one of these valid products:" . $allProductLabel;
+		if ($isProductMatched == false) $outputText = generateErrorWords() . "\nPlease select one of these valid products:" . $allProductLabel;
 		
 		$tempBot->replyText($event->getReplyToken(), $outputText);
 		return true;
@@ -345,7 +345,7 @@ function replyCalculator($tempBot, $event, $logger) {
 	$ans = $tempArray[0];
 	$result = "";
 	if (isContain($ans,"ERROR")) {
-		$result = getErrorWords() . "\n" . $ans;
+		$result = generateErrorWords() . "\n" . $ans;
 	} else {
 		$result = generatePreanswer() . "\n" . $ans;
 	}
@@ -379,7 +379,7 @@ function replySize($tempBot, $event, $logger) {
 	//Check if sizer result is error or not.
 	if (isContain($result,"ERROR")) {
 		$tempArray = explode("_", $result);
-		$result = getErrorWords() . "\n" . $tempArray[1];
+		$result = generateErrorWords() . "\n" . $tempArray[1];
 	} else {
 		$result = generatePreanswer() . "\n" . $result;
 	}
@@ -395,12 +395,12 @@ function replyLookup($tempBot, $event, $logger) {
 		if (isContain($messageText,'cpu')) {
 			$result = generatePreanswer() . cpuLookup($messageText);
 			if (isContain($result,"ERROR")) {
-				$result = getErrorWords() . "\nPlease input valid request:\n- lookup cpu clock 1.7 core 6 etc.";
+				$result = generateErrorWords() . "\nPlease input valid request:\n- lookup cpu clock 1.7 core 6 etc.";
 			} else if (isContain($result,"NOANS")) {
-				$result = getErrorWords() . "\nI cannot find the requested spec.";
+				$result = generateErrorWords() . "\nI cannot find the requested spec.";
 			}
 		} else {
-			$result = getErrorWords() . "\nPlease input valid lookup:\n- lookup cpu clock 1.7 core 6 etc.";
+			$result = generateErrorWords() . "\nPlease input valid lookup:\n- lookup cpu clock 1.7 core 6 etc.";
 		}
 		$tempBot->replyText($event->getReplyToken(), $result);
 	}
@@ -492,7 +492,7 @@ function convertToStoreOnce($tbValue,$model) {
 		}
 	}
 	if ($tbValue <= 0 || $tbValue > 1382 || $isFound == false) {
-		return getErrorWords() . ' Your number is less than zero or too big.';
+		return generateErrorWords() . ' Your number is less than zero or too big.';
 	}
 	return $result;
 }
@@ -520,7 +520,7 @@ function convertBroadwellToSkyLake($cpuModel) {
 	}
 	fclose($handle);
 	if ($targetModel == 'e0') {
-		$result = getErrorWords() . "\n" . 'We cannot found the conversion of this model.';
+		$result = generateErrorWords() . "\n" . 'We cannot found the conversion of this model.';
 	}
 	return $result;
 }
@@ -548,7 +548,7 @@ function convertSkylakeToBroadwell($cpuModel) {
 	}
 	fclose($handle);
 	if ($targetModel == '5555') {
-		$result = getErrorWords() . "\n" . 'We cannot found the conversion of this model.';
+		$result = generateErrorWords() . "\n" . 'We cannot found the conversion of this model.';
 	}
 	return $result;
 }
@@ -667,6 +667,7 @@ function specLookUp($productLine, $model) {
 	$count = 0;
 	$header;
 	$unit;
+
 	/*
 	if ($productLine == 'xeon' || $productLine == 'broadwell') {
 		$productLine = 'broadwell';
@@ -678,25 +679,27 @@ function specLookUp($productLine, $model) {
 	$fileDir = "./kb/" . $productLine . ".csv";
 	if (($handle = fopen($fileDir, "r")) !== FALSE) {
 		while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+			$tempModel=strtolower(trim($data[0]));
 	    	//Get Head
 	    	if ($count == 0) $header = $data;
 	    	//Get unit
 	    	else if ($count == 1) $unit = $data;
 	    	//Get Spec
-	    	else if ($data[0] == $model) {
+
+	    	else if ($tempModel == $model) {
 	    		for($i = 0 ; $i < sizeof($header); $i++){
-	    			if ($data[i] == 'NA') continue;
+	    			if ($data[i] == 'NA' || $data[i] == 'N/A') continue;
 	    			$result = $result . $header[$i] . " : " . $data[$i] . " " . $unit[$i] . "\n"; 
 	    		}
 	    		return $result;
 	    	}
-	    	if ($data[0] == 'DESC') return getErrorWords() . "\n" . $data[1];
+	    	if ($data[0] == 'DESC') return generateErrorWords() . "\n" . $data[1];
 	    	$count++;
 	    }
 	}
 	return 'ERROR';
 }
-function getErrorWords() {
+function generateErrorWords() {
 	return getRandomText(
 		'Please give me a valid input.',
 		'No, I am too dumb to do that.',
