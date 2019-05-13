@@ -254,6 +254,7 @@ function replyShowSpec($tempBot, $event, $logger) {
 		if (($handle = fopen($fileDir, "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 				$productLine = $data[0];
+				$productLine = strtolower($productLine);
 				$allProductLabel = $allProductLabel . "\n" . $productLine;
 				$modelList = $data;
 				if (isContain($messageText, $productLine)) {
