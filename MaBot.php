@@ -279,7 +279,7 @@ function replyShowSpec($tempBot, $event, $logger) {
 						//Other product other than xeon and skylake
 						foreach ($modelList as $model) {
 							if ($model == NA) break;
-							if ($model == $productLine) continue;
+							if (strtolower($model) == $productLine) continue;
 							$allModelLabel = $allModelLabel . "\n" . $model;
 							if (isContain($messageText,$model)) {
 								$isModelMatched = true;
